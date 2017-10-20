@@ -1,1 +1,1 @@
-web: node scripts/build.js && node server/server.js
+web: yarn && yarn production
