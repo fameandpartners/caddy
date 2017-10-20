@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="113px" height="113px" viewBox="0 0 113 113" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Key</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M49,60 L49,54 L46,54 C44.8954305,54 44,53.1045695 44,52 L44,43 C44,41.8954305 44.8954305,41 46,41 L46,41 L49,41 L49,38 L49,38 C49,33.581722 52.581722,30 57,30 L57,30 L60,30 L60,30 C64.418278,30 68,33.581722 68,38 L68,73 C68,77.418278 64.418278,81 60,81 L57,81 L57,81 C52.581722,81 49,77.418278 49,73 L46,73 C44.8954305,73 44,72.1045695 44,71 L44,62 C44,60.8954305 44.8954305,60 46,60 L46,60 L49,60 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.999150815">
+        <g id="Entrance-Copy" transform="translate(-664.000000, -522.000000)">
+            <g id="Key" transform="translate(665.000000, 523.000000)">
+                <circle id="Oval" stroke="#161616" cx="55.5" cy="55.5" r="55.5"></circle>
+                <g id="Keyhole">
+                    <use fill="#222222" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <path stroke="#161616" stroke-width="1" d="M49.5,53.5 L49.5,60.5 L46,60.5 C45.1715729,60.5 44.5,61.1715729 44.5,62 L44.5,71 C44.5,71.8284271 45.1715729,72.5 46,72.5 L49.5,72.5 L49.5,73 C49.5,77.1421356 52.8578644,80.5 57,80.5 L60,80.5 C64.1421356,80.5 67.5,77.1421356 67.5,73 L67.5,38 C67.5,33.8578644 64.1421356,30.5 60,30.5 L57,30.5 C52.8578644,30.5 49.5,33.8578644 49.5,38 L49.5,41.5 L46,41.5 C45.1715729,41.5 44.5,42.1715729 44.5,43 L44.5,52 C44.5,52.8284271 45.1715729,53.5 46,53.5 L49.5,53.5 Z"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
