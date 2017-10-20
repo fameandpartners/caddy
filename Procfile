@@ -1,1 +1,1 @@
-web: node --debug=5858 scripts/start.js
+web: node scripts/build.js && node server/server.js
