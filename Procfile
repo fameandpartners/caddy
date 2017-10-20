@@ -1,1 +1,1 @@
-web: yarn && yarn production
+web: node scripts/start.js
