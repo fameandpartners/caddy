@@ -149,8 +149,6 @@ module.exports = {
               },
             },
           ],
-                // use style-loader in development
-          fallback: 'style-loader',
         }),
       },
       // "babel" loader needed to parse Icon.js file
