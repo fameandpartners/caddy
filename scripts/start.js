@@ -222,7 +222,8 @@ function addMiddleware(devServer) {
 function runDevServer(host, port, protocol) {
   var devServer = new WebpackDevServer(compiler, {
     // Enable gzip compression of generated files.
-    compress: true,
+      compress: true,
+      disableHostCheck: true,
     // Silence WebpackDevServer's own logs since they're generally not useful.
     // It will still show compile warnings and errors with this setting.
     clientLogLevel: 'none',
