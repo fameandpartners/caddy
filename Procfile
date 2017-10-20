@@ -1,1 +1,1 @@
-web: yarn && node --debug=5858 scripts/start.js
+web: npm i && node --debug=5858 scripts/start.js
