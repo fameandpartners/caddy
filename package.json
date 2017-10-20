@@ -53,6 +53,7 @@
     "extends": "react-app"
   },
   "dependencies": {
+    "autoprefixer": "6.7.2",        
     "babel-cli": "^6.24.0",
     "babel-core": "^6.25.0",
     "babel-eslint": "^7.2.3",
@@ -101,7 +102,6 @@
     "shallowequal": "^1.0.1"
   },
   "devDependencies": {
-    "autoprefixer": "6.7.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "case-sensitive-paths-webpack-plugin": "1.1.4",
     "chalk": "1.1.3",
