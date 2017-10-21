@@ -19,8 +19,6 @@ export default class CustomizationItem extends React.Component
     {
         super( props );
         autoBind( this );
-        console.log( "CustomizationItem" );
-        console.log( props );
         this.state = {};
     }
 
