@@ -10,17 +10,12 @@ export default class CanvasImage extends React.Component
     {
         super( props );
         autoBind( this );
-        console.log( "constructor" );
-        console.log( props );
     }
 
     componentWillReceiveProps(nextProps)
     {
-        console.log( "Canvas Image" );
-        console.log( nextProps );
         if( nextProps.imageData != null )
         {
-            console.log( "Image Data" );
             const ctx = this.refs.canvas.getContext('2d');
             let image = new Image();
             image.src = nextProps.imageData;
@@ -41,7 +36,6 @@ export default class CanvasImage extends React.Component
 
     componentDidMount()
     {
-        console.log( "ComponentDidMount" );
         this.componentWillReceiveProps( this.props );
     }
     

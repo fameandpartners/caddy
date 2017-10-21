@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/31</span>
+        <span class='fraction'>0/34</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/14</span>
+        <span class='fraction'>0/15</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>0/24</span>
+        <span class='fraction'>0/27</span>
       </div>
     </div>
   </div>
@@ -126,7 +126,21 @@
 81
 82
 83
-84</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -148,16 +162,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -168,8 +172,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -230,7 +258,12 @@ export default class CustomizationItem extends React.Component
     {
 <span class="cstat-no" title="statement not covered" >        super( props )</span>;
 <span class="cstat-no" title="statement not covered" >        autoBind( this );</span>
-<span class="cstat-no" title="statement not covered" >        this.state = {};</span>
+<span class="cstat-no" title="statement not covered" >        console.log( "CustomizationItem" )</span>;
+<span class="cstat-no" title="statement not covered" >        console.log( props )</span>;
+<span class="cstat-no" title="statement not covered" >        this.state =</span>
+            {
+                defaultBase: props.defaultBase
+            };
     }
 &nbsp;
 <span class="fstat-no" title="function not covered" >    up</span>dateValue()
@@ -258,6 +291,15 @@ export default class CustomizationItem extends React.Component
         });
     };
     
+<span class="fstat-no" title="function not covered" >    co</span>mponentWillReceiveProps(nextProps)
+    {
+<span class="cstat-no" title="statement not covered" >        this.setState(</span>
+            {
+                defaultBase: nextProps.defaultBase
+            }
+        );
+    }
+    
     
 <span class="fstat-no" title="function not covered" >    re</span>nder()
     {
@@ -281,7 +323,7 @@ export default class CustomizationItem extends React.Component
                 &lt;/div&gt;
                 &lt;div className="row"&gt;
                   &lt;div className="col-md-4 col-md-push-4"&gt;
-                    &lt;CanvasImage imageData={this.state.baseImage} defaultImageData={this.props.defaultBase} width={236} height={200}/&gt;
+                    &lt;CanvasImage imageData={this.state.baseImage} defaultImageData={this.state.defaultBase} width={236} height={200}/&gt;
                   &lt;/div&gt;
                   &lt;div className="col-md-4 col-md-push-4"&gt;
                     &lt;CanvasImage imageData={this.state.cadImage} width={236} height={200}/&gt;
@@ -298,7 +340,7 @@ export default class CustomizationItem extends React.Component
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Oct 20 2017 00:09:16 GMT-0700 (PDT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Oct 20 2017 22:32:15 GMT-0700 (PDT)
 </div>
 </div>
 <script src="../prettify.js"></script>

@@ -21,10 +21,7 @@ export default class CustomizationItem extends React.Component
         autoBind( this );
         console.log( "CustomizationItem" );
         console.log( props );
-        this.state =
-            {
-                defaultBase: props.defaultBase
-            };
+        this.state = {};
     }
 
     updateValue()
@@ -54,13 +51,18 @@ export default class CustomizationItem extends React.Component
     
     componentWillReceiveProps(nextProps)
     {
+        console.log( 'CustomizationItem: nextProps' );
         this.setState(
             {
                 defaultBase: nextProps.defaultBase
             }
         );
     }
-    
+
+    componentDidMount()
+    {
+        this.componentWillReceiveProps( this.props );
+    }
     
     render()
     {
