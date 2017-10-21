@@ -19,7 +19,12 @@ export default class CustomizationItem extends React.Component
     {
         super( props );
         autoBind( this );
-        this.state = {};
+        console.log( "CustomizationItem" );
+        console.log( props );
+        this.state =
+            {
+                defaultBase: props.defaultBase
+            };
     }
 
     updateValue()
@@ -47,6 +52,15 @@ export default class CustomizationItem extends React.Component
         });
     };
     
+    componentWillReceiveProps(nextProps)
+    {
+        this.setState(
+            {
+                defaultBase: nextProps.defaultBase
+            }
+        );
+    }
+    
     
     render()
     {
@@ -70,7 +84,7 @@ export default class CustomizationItem extends React.Component
                 </div>
                 <div className="row">
                   <div className="col-md-4 col-md-push-4">
-                    <CanvasImage imageData={this.state.baseImage} defaultImageData={this.props.defaultBase} width={236} height={200}/>
+                    <CanvasImage imageData={this.state.baseImage} defaultImageData={this.state.defaultBase} width={236} height={200}/>
                   </div>
                   <div className="col-md-4 col-md-push-4">
                     <CanvasImage imageData={this.state.cadImage} width={236} height={200}/>

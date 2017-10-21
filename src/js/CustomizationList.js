@@ -133,9 +133,10 @@ export default class CustomizationList extends React.Component
 
     imageUploadDefaultBase(e)
     {
+        let context = this;
         const file = e.target.files[0];
         getBase64(file).then(base64 => {
-            this.setState( {
+            context.setState( {
                 baseImage: base64
             } );
         });
