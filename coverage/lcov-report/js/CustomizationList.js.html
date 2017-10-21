@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/54</span>
+        <span class='fraction'>0/56</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/16</span>
+        <span class='fraction'>0/17</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>0/46</span>
+        <span class='fraction'>0/48</span>
       </div>
     </div>
   </div>
@@ -217,11 +217,7 @@
 172
 173
 174
-175
-176
-177
-178
-179</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+175</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -244,15 +240,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -287,7 +275,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -363,6 +350,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -421,18 +413,10 @@ export default class CustomizationList extends React.Component
 &nbsp;
 <span class="fstat-no" title="function not covered" >    ad</span>dCustomization()
     {
+<span class="cstat-no" title="statement not covered" >        this.state.customizationList = this.state.customizationList.concat([ parseInt(this.state.customizationList[this.state.customizationList.length - 1].key ) + 1 ]</span> );
 <span class="cstat-no" title="statement not covered" >        this.setState( </span>
             {
-                customizationList: this.state.customizationList.concat(
-                    [
-                            &lt;CustomizationItem
-                        key={parseInt(this.state.customizationList[this.state.customizationList.length - 1].key ) + 1}
-                        customizationKey={parseInt(this.state.customizationList[this.state.customizationList.length - 1].key ) + 1}
-                        defaultBase={this.state.baseImage}
-                        deleteCustomization={this.deleteCustomization}
-                        update={this.updateCustomizationValue}/&gt;
-                    ]
-                )
+                customizationList: this.state.customizationList
             }
         );
     }
@@ -466,16 +450,15 @@ export default class CustomizationList extends React.Component
         {
 <span class="cstat-no" title="statement not covered" >            this.state =</span>
                 {
-                    customizationList: [&lt;CustomizationItem key="0" customizationKey="0" deleteCustomization={this.deleteCustomization} update={this.updateCustomizationValue} defaultBase={this.state.baseImage}/&gt;],
+                    customizationList: [0],
                     customizationValues: []
-                    
                 };
             
         } else
         {
 <span class="cstat-no" title="statement not covered" >            this.setState(</span>
                 {
-                    customizationList: [&lt;CustomizationItem key="0" customizationKey="0" deleteCustomization={this.deleteCustomization} update={this.updateCustomizationValue} defaultBase={this.state.baseImage}/&gt;]
+                    customizationList: [0]
                 }
             );
         }
@@ -542,6 +525,11 @@ export default class CustomizationList extends React.Component
             } );
         });
     };
+&nbsp;
+<span class="fstat-no" title="function not covered" >    re</span>nderCustomizationItem( number )
+    {
+<span class="cstat-no" title="statement not covered" >        return &lt;CustomizationItem key={number} customizationKey={number} deleteCustomization={this.deleteCustomization} update={this.updateCustomizationValue} defaultBase={this.state.baseImage}/&gt;;</span>
+    }
     
 <span class="fstat-no" title="function not covered" >    re</span>nder()
     {
@@ -549,7 +537,7 @@ export default class CustomizationList extends React.Component
             &lt;div className="container customization-item"&gt;
               &lt;div className="row"&gt;
                 &lt;ol&gt;
-                  {this.state.customizationList}
+                  {this.state.customizationList.map( this.renderCustomizationItem ) }
                 &lt;/ol&gt;
               &lt;/div&gt;
               &lt;div className="row"&gt;
@@ -583,7 +571,7 @@ const getBase64 = <span class="cstat-no" title="statement not covered" ><span cl
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Oct 20 2017 22:32:15 GMT-0700 (PDT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Oct 20 2017 23:22:38 GMT-0700 (PDT)
 </div>
 </div>
 <script src="../prettify.js"></script>
