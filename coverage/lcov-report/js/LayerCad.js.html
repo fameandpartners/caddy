@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for js/CanvasImage.js</title>
+    <title>Code coverage report for js/LayerCad.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -16,18 +16,18 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../index.html">All files</a> / <a href="index.html">js</a> CanvasImage.js
+      <a href="../index.html">All files</a> / <a href="index.html">js</a> LayerCad.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/24</span>
+        <span class='fraction'>0/23</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/12</span>
+        <span class='fraction'>0/8</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -87,7 +87,15 @@
 42
 43
 44
-45</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+45
+46
+47
+48
+49
+50
+51
+52
+53</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -104,15 +112,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -120,6 +119,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -127,9 +129,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* eslint-dis<span class="cstat-no" title="statement not covered" >able */<span class="cstat-no" title="statement not covered" ></span></span>
 &nbsp;
@@ -137,44 +153,52 @@ import React <span class="cstat-no" title="statement not covered" >from 'react';
 import autoBind from <span class="cstat-no" title="statement not covered" >'react-autobind';<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span>
 &nbsp;
 &nbsp;
-export default class CanvasImage extends React.Component
+export default class LayerCad extends React.Component
 {
 <span class="fstat-no" title="function not covered" >    co</span>nstructor( props )
     {
 <span class="cstat-no" title="statement not covered" >        super( props )</span>;
-<span class="cstat-no" title="statement not covered" >        autoBind( this );</span>
+<span class="cstat-no" title="statement not covered" >        autoBind(this);</span>
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    co</span>mponentWillReceiveProps(nextProps)
+<span class="fstat-no" title="function not covered" >    ad</span>dImage( ctx, data )
     {
-<span class="cstat-no" title="statement not covered" >        if( nextProps.imageData != null )</span>
-        {
-            const ctx = <span class="cstat-no" title="statement not covered" >this.refs.canvas.getContext('2d');</span>
-            let image = <span class="cstat-no" title="statement not covered" >new Image();</span>
-<span class="cstat-no" title="statement not covered" >            image.src = nextProps.imageData;</span>
-<span class="cstat-no" title="statement not covered" >            image.onload = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >ctx.drawImage(image,0,0, this.props.width, (image.height * this.props.width) / image.width )</span> </span>;
-        } else <span class="cstat-no" title="statement not covered" >if( nextProps.defaultImageData != null)</span>
-        {
-            const ctx = <span class="cstat-no" title="statement not covered" >this.refs.canvas.getContext('2d');</span>
-            let image = <span class="cstat-no" title="statement not covered" >new Image();</span>
-<span class="cstat-no" title="statement not covered" >            image.src = nextProps.defaultImageData;</span>
-<span class="cstat-no" title="statement not covered" >            image.onload = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >ctx.drawImage(image,0,0, this.props.width, (image.height * this.props.width) / image.width )</span> </span>;
-            
-        }
-            
+        let image = <span class="cstat-no" title="statement not covered" >new Image();</span>
+<span class="cstat-no" title="statement not covered" >        image.src = data;</span>
+<span class="cstat-no" title="statement not covered" >        image.onload = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >ctx.drawImage(image,0,0, this.props.width, (image.height * this.props.width) / image.width )</span> </span>;
+        
     }
 &nbsp;
+<span class="fstat-no" title="function not covered" >    dr</span>awBase( ctx, value )
+    {
+<span class="cstat-no" title="statement not covered" >        if( value.specificBase != null )</span>
+        {
+<span class="cstat-no" title="statement not covered" >            this.addImage( ctx, value.specificBase )</span>;
+        } else
+        {
+<span class="cstat-no" title="statement not covered" >            this.addImage( ctx, value.defaultBase )</span>;
+        }
+    }
+    
 <span class="fstat-no" title="function not covered" >    co</span>mponentDidMount()
     {
-<span class="cstat-no" title="statement not covered" >        this.componentWillReceiveProps( this.props )</span>;
+        const ctx = <span class="cstat-no" title="statement not covered" >this.refs.canvas.getContext('2d');</span>
+<span class="cstat-no" title="statement not covered" >        this.drawBase( ctx, this.props.values[0] )</span>;
+<span class="cstat-no" title="statement not covered" >        for( let i = 0; i &lt; this.props.values.length; i++ )</span>
+        {
+<span class="cstat-no" title="statement not covered" >            if( this.props.values[i].cad != null )</span>
+            {
+<span class="cstat-no" title="statement not covered" >                this.addImage( ctx, this.props.values[i].cad )</span>;
+            }
+        }
     }
     
 <span class="fstat-no" title="function not covered" >    re</span>nder()
     {
-<span class="cstat-no" title="statement not covered" >        return( &lt;canvas className={ this.props.imageData || this.props.defaultImageData ? "" : 'hidden'} width={this.props.width} height={this.props.height} ref="canvas" /&gt; );</span>
+<span class="cstat-no" title="statement not covered" >        return( &lt;canvas width={this.props.width} height={this.props.height} ref="canvas" /&gt; );</span>
+&nbsp;
     }<span class="cstat-no" title="statement not covered" ></span>
 }
-&nbsp;
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->

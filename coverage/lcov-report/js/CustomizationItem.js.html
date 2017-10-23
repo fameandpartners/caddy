@@ -22,12 +22,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/34</span>
+        <span class='fraction'>0/39</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/4</span>
+        <span class='fraction'>0/6</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -37,7 +37,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>0/27</span>
+        <span class='fraction'>0/32</span>
       </div>
     </div>
   </div>
@@ -140,7 +140,17 @@
 95
 96
 97
-98</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -176,6 +186,18 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -189,11 +211,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -263,7 +283,7 @@ export default class CustomizationItem extends React.Component
 &nbsp;
 <span class="fstat-no" title="function not covered" >    up</span>dateValue()
     {
-<span class="cstat-no" title="statement not covered" >        this.props.update( parseInt(this.props.customizationKey), this.textInput.value )</span>;
+<span class="cstat-no" title="statement not covered" >        this.props.update( parseInt(this.props.customizationKey), this.textInput.value, this.state.defaultBase, this.state.baseImage, this.state.cadImage )</span>;
     }
 &nbsp;
 <span class="fstat-no" title="function not covered" >    im</span>ageUploadBase(e)
@@ -273,6 +293,7 @@ export default class CustomizationItem extends React.Component
 <span class="cstat-no" title="statement not covered" >            this.setState( {</span>
                 baseImage: base64
             } );
+<span class="cstat-no" title="statement not covered" >            this.updateValue();</span>
         });
     };
 &nbsp;
@@ -283,17 +304,26 @@ export default class CustomizationItem extends React.Component
 <span class="cstat-no" title="statement not covered" >            this.setState( {</span>
                 cadImage: base64
             } );
+<span class="cstat-no" title="statement not covered" >            this.updateValue();</span>
         });
     };
     
 <span class="fstat-no" title="function not covered" >    co</span>mponentWillReceiveProps(nextProps)
     {
 <span class="cstat-no" title="statement not covered" >        console.log( 'CustomizationItem: nextProps' )</span>;
+        let needsToUpdate = <span class="cstat-no" title="statement not covered" >nextProps.defaultBase != this.state.defaultBase;</span>
 <span class="cstat-no" title="statement not covered" >        this.setState(</span>
             {
                 defaultBase: nextProps.defaultBase
             }
         );
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if( needsToUpdate )</span>
+        {
+<span class="cstat-no" title="statement not covered" >            this.updateValue();</span>
+        }
+&nbsp;
+&nbsp;
     }
 &nbsp;
 <span class="fstat-no" title="function not covered" >    co</span>mponentDidMount()
@@ -340,7 +370,7 @@ export default class CustomizationItem extends React.Component
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Oct 20 2017 23:26:35 GMT-0700 (PDT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 22 2017 22:18:58 GMT-0700 (PDT)
 </div>
 </div>
 <script src="../prettify.js"></script>

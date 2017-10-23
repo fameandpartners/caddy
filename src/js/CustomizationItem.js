@@ -51,7 +51,6 @@ export default class CustomizationItem extends React.Component
     
     componentWillReceiveProps(nextProps)
     {
-        console.log( 'CustomizationItem: nextProps' );
         let needsToUpdate = nextProps.defaultBase != this.state.defaultBase;
         this.setState(
             {
