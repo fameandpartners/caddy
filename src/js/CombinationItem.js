@@ -11,8 +11,20 @@ export default class CombinationItem extends React.Component
     {
         super( props );
         autoBind(this);
+        this.state = {
+            invalid: false
+        };
     }
 
+    markInvalid()
+    {
+        this.setState(
+            {
+                invalid: true
+            }
+        );
+    }
+    
     renderedValue()
     {
         let toReturn = "";
@@ -29,10 +41,14 @@ export default class CombinationItem extends React.Component
     }
     render()
     {
-        return ( <div>
-                 <div>{this.renderedValue()}</div>
-                 <div><LayerCad width={236} height={200} values={this.props.values}/></div>
-                 </div>
+        return (
+            <div className="container">
+              <div className="row">
+                <div className={ this.state.invalid ? "invalid col-md-2" : "col-md-2" }>{this.renderedValue()}</div>
+                <span><button onClick={this.markInvalid}>Mark Invalid</button></span>
+              </div>
+              <div className={this.state.invalid ? "col-md-2 hidden" : "col-md-2" }><LayerCad width={236} height={200} values={this.props.values}/></div>
+            </div>
                );
     }
 }
