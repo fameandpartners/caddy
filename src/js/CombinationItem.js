@@ -2,6 +2,7 @@
 
 import React from 'react';
 import autoBind from 'react-autobind';
+import LayerCad from './LayerCad';
 
 
 export default class CombinationItem extends React.Component
@@ -24,6 +25,10 @@ export default class CombinationItem extends React.Component
     }
     render()
     {
-        return ( <div>{this.renderedValue()}</div> );
+        return ( <div>
+                 <div>{this.renderedValue()}</div>
+                 <div><LayerCad width={236} height={200} values={this.props.values}/></div>
+                 </div>
+               );
     }
 }

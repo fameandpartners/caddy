@@ -67,7 +67,7 @@ export default class CustomizationItem extends React.Component
 
     }
 
-    componentDidMount()
+o    componentDidMount()
     {
         this.componentWillReceiveProps( this.props );
     }

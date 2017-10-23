@@ -33,7 +33,10 @@ export default class CombinationList extends React.Component
                     temp = temp.concat( [list[j]] );
                 }
             }
-            result.push(<CombinationItem key={i} values={temp}/>);
+            if( temp.length > 0 )
+            {
+                result.push(<CombinationItem key={i} values={temp}/>);
+            }
         }
 
         this.setState( {

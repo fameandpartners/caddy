@@ -20,7 +20,7 @@ export default class CustomizationList extends React.Component
 
     addCustomization()
     {
-        this.state.customizationList = this.state.customizationList.concat([ parseInt(this.state.customizationList[this.state.customizationList.length - 1].key ) + 1 ] );
+        this.state.customizationList = this.state.customizationList.concat([ this.state.customizationList.length ] );
         this.setState( 
             {
                 customizationList: this.state.customizationList
@@ -28,7 +28,7 @@ export default class CustomizationList extends React.Component
         );
     }
 
-    updateCustomizationValue( key, value )
+    updateCustomizationValue( key, value, defaultBase, specificBase, cad )
     {
         let updated = false;
         for( let i = 0; i < this.state.customizationValues.length && !updated; i++ )
@@ -37,6 +37,9 @@ export default class CustomizationList extends React.Component
             {
                 updated = true;
                 this.state.customizationValues[i].value = value;
+                this.state.customizationValues[i].defaultBase = defaultBase;
+                this.state.customizationValues[i].specificBase = specificBase;
+                this.state.customizationValues[i].cad = cad;
             }
         }
 
@@ -135,6 +138,7 @@ export default class CustomizationList extends React.Component
 
     renderCustomizationItem( number )
     {
+        console.log( number );
         return <CustomizationItem key={number} customizationKey={number} deleteCustomization={this.deleteCustomization} update={this.updateCustomizationValue} defaultBase={this.state.baseImage}/>;
     }
     
