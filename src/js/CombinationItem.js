@@ -18,7 +18,11 @@ export default class CombinationItem extends React.Component
         let toReturn = "";
         for( let i = 0; i < this.props.values.length; i++ )
         {
-            toReturn += this.props.values[i].value + ",";
+            toReturn += this.props.values[i].value;
+            if( i + 1 < this.props.values.length )
+            {
+                toReturn += ",";
+            }
         }
 
         return toReturn;
