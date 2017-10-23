@@ -138,7 +138,6 @@ export default class CustomizationList extends React.Component
 
     renderCustomizationItem( number )
     {
-        console.log( number );
         return <CustomizationItem key={number} customizationKey={number} deleteCustomization={this.deleteCustomization} update={this.updateCustomizationValue} defaultBase={this.state.baseImage}/>;
     }
     

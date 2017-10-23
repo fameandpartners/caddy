@@ -20,21 +20,28 @@ export default class LayerCad extends React.Component
         
     }
 
-    drawBase( ctx, value )
+    drawBase( ctx, values )
     {
-        if( value.specificBase != null )
+        let drewBase = false ;
+        for( let i = values.length - 1; !drewBase && i >= 0; i-- )
         {
-            this.addImage( ctx, value.specificBase );
-        } else
+            if( values[i].specificBase != null )
+            {
+                this.addImage( ctx, values[i].specificBase );
+                drewBase = true;
+            }
+        }
+
+        if( !drewBase )
         {
-            this.addImage( ctx, value.defaultBase );
+            this.addImage( ctx, values[0].defaultBase );
         }
     }
     
     componentDidMount()
     {
         const ctx = this.refs.canvas.getContext('2d');
-        this.drawBase( ctx, this.props.values[0] );
+        this.drawBase( ctx, this.props.values );
         for( let i = 0; i < this.props.values.length; i++ )
         {
             if( this.props.values[i].cad != null )
