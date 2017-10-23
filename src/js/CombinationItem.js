@@ -45,9 +45,9 @@ export default class CombinationItem extends React.Component
             <div className="container">
               <div className="row">
                 <div className={ this.state.invalid ? "invalid col-md-2" : "col-md-2" }>{this.renderedValue()}</div>
-                <span><button onClick={this.markInvalid}>Mark Invalid</button></span>
+                <div className={this.state.invalid ? "hidden" : ""}><button onClick={this.markInvalid}>Mark Invalid</button></div>
               </div>
-              <div className={this.state.invalid ? "col-md-2 hidden" : "col-md-2" }><LayerCad width={236} height={200} values={this.props.values}/></div>
+              <div className={this.state.invalid ? "hidden" : "" }><LayerCad width={236} height={200} values={this.props.values}/></div>
             </div>
                );
     }
