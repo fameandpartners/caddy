@@ -35,7 +35,7 @@ export default class CombinationList extends React.Component
             }
             if( temp.length > 0 )
             {
-                result.push(<CombinationItem key={i} values={temp}/>);
+                result.push(<CombinationItem key={i} itemKey={i} values={temp}/>);
             }
         }
 
