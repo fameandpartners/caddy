@@ -19,34 +19,17 @@ export default class LayerCad extends React.Component
         image.onload = () => ctx.drawImage(image,0,0, this.props.width, (image.height * this.props.width) / image.width ) ;
         
     }
-
-    drawBase( ctx, values )
-    {
-        let drewBase = false ;
-        for( let i = values.length - 1; !drewBase && i >= 0; i-- )
-        {
-            if( values[i].specificBase != null )
-            {
-                this.addImage( ctx, values[i].specificBase );
-                drewBase = true;
-            }
-        }
-
-        if( !drewBase )
-        {
-            this.addImage( ctx, values[0].defaultBase );
-        }
-    }
     
-    componentDidMount()
+    componentWillReceiveProps(nextProps)
     {
         const ctx = this.refs.canvas.getContext('2d');
-        this.drawBase( ctx, this.props.values );
-        for( let i = 0; i < this.props.values.length; i++ )
+        ctx.clearRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
+        this.addImage( ctx, nextProps.base );
+        for( let i = 0; i < nextProps.values.length; i++ )
         {
-            if( this.props.values[i].cad != null )
+            if( nextProps.values[i].cad != null )
             {
-                this.addImage( ctx, this.props.values[i].cad );
+                this.addImage( ctx, nextProps.values[i].cad );
             }
         }
     }

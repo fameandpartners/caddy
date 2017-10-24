@@ -146,7 +146,7 @@ export default class CombinationItem extends React.Component
                 {this.renderCurrentBase( this.state.currentBase )}
                 {this.state.values.map( this.renderLayer )}
               </div>
-              <div className={this.state.invalid ? "hidden" : "" }><LayerCad width={236} height={200} values={this.state.values}/></div>
+              <div className={this.state.invalid ? "hidden" : "" }><LayerCad width={236} height={200} base={this.state.currentBase} values={this.state.values}/></div>
             </div>
                );
     }
