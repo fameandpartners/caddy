@@ -15,7 +15,8 @@ export default class CombinationItem extends React.Component
         this.state = {
             invalid: false,
             values: this.props.values,
-            updatingLayers: false
+            updatingLayers: false,
+            currentBase: null
         };
     }
 
@@ -52,7 +53,7 @@ export default class CombinationItem extends React.Component
         );
     }
 
-    renderCurrentBase()
+    componentDidMount()
     {
         let base = null;
         
@@ -68,6 +69,17 @@ export default class CombinationItem extends React.Component
         {
             base = this.state.values[0].defaultBase;
         }
+
+        this.setState(
+            {
+                currentBase: base
+            }
+        );
+        
+    }
+    
+    renderCurrentBase( base )
+    {
         
         return(
             <div key={"edit-base-" + this.props.itemKey} className="col-md-2">
@@ -92,6 +104,19 @@ export default class CombinationItem extends React.Component
         let propName = "edit-layer-name-" + this.props.itemKey + "-" + number;
         return ( <div className="col-md-2 text-center" key={propName}>Layer {number}</div> );
     }
+
+    updateBase(e)
+    {
+        let context = this;
+        const file = e.target.files[0];
+        getBase64(file).then(base64 => {
+            context.setState( {
+                currentBase: base64
+            } );
+        });
+        
+    }
+    
     render()
     {
         return (
@@ -110,9 +135,15 @@ export default class CombinationItem extends React.Component
                 <div className="col-md-2 text-center">Base</div>
                 {Array( this.state.values.length).fill().map((e,i)=>i+1).map( this.renderLayerNames )}
               </div>
+              <div className={this.state.updatingLayers ? "row" : "row hidden"}>
+                <div className="col-md-2">
+                  <input type="file" id={"baseLayeUpdate" + this.props.itemKey} name={'baseLayerUpload' + this.props.itemKey} onChange={this.updateBase} />
+                </div>
+                {Array( this.state.values.length).fill().map((e,i)=>i+1)}
+              </div>
 
               <div className={this.state.updatingLayers ? "row" : "row hidden"}>
-                {this.renderCurrentBase()}
+                {this.renderCurrentBase( this.state.currentBase )}
                 {this.state.values.map( this.renderLayer )}
               </div>
               <div className={this.state.invalid ? "hidden" : "" }><LayerCad width={236} height={200} values={this.state.values}/></div>
@@ -120,3 +151,12 @@ export default class CombinationItem extends React.Component
                );
     }
 }
+
+const getBase64 = (file) => {
+    return new Promise((resolve,reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+        reader.readAsDataURL(file);
+    });
+};

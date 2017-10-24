@@ -14,9 +14,12 @@ export default class CanvasImage extends React.Component
 
     componentWillReceiveProps(nextProps)
     {
+        
+        const ctx = this.refs.canvas.getContext('2d');
+        ctx.clearRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
         if( nextProps.imageData != null )
         {
-            const ctx = this.refs.canvas.getContext('2d');
+
             let image = new Image();
             image.src = nextProps.imageData;
             image.onload = () => ctx.drawImage(image,0,0, this.props.width, (image.height * this.props.width) / image.width ) ;
