@@ -2,7 +2,8 @@
 node_modules
 npm-debug.log
 coverage
-        
+build/static
+                
 # Local development
 *.env
 *.dev
