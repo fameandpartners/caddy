@@ -7,7 +7,7 @@
     "build": "node scripts/build.js",
     "server_test": "NODE_ENV='production' mocha --compilers js:babel-register --require ./src/lib/testNullCompiler.js && jest --coverage",
     "production": "node scripts/build.js && node server/server.js",
-    "local_production": "node scripts/build.js && nodemon server/server.js",
+    "local_production": "node scripts/build.js && nodemon server/server.js"
   },
   "keywords": [
     "react",
