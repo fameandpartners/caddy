@@ -11,7 +11,9 @@ export default class CombinationGrid extends React.Component
     {
         super( props );
         autoBind( this );
-        this.state = { combinations: [] };
+        this.state = { combinations: [],
+                       invalidCombinations: {}
+                     };
     }
 
     generateCombinations( list )
@@ -44,9 +46,45 @@ export default class CombinationGrid extends React.Component
 
     }        
 
+    isValidCombination( first, second )
+    {
+        let combinations = [first.toString(),second.toString()].sort();
+        let ic = this.state.invalidCombinations;
+
+        if( first === second )
+        {
+            return false;
+        }
+        
+        if( !ic[combinations[0]] )
+        {
+            return true;
+        }
+
+        if( ic[combinations[0]][combinations[1]] == null )
+        {
+            return true;
+        }
+        return ic[combinations[0]][combinations[1]];
+        
+    }
+    
     updateValidCombination( first, second, valid )
     {
-        console.log( first + "/" + second + "=" + valid );
+        let combinations = [first.toString(),second.toString()].sort();
+        
+        let ic = this.state.invalidCombinations;
+        if( !ic[combinations[0]] )
+        {
+            ic[combinations[0]] = {};
+        }
+
+        ic[combinations[0]][combinations[1]] = valid;
+        this.setState(
+            {
+                invalidCombinations: ic 
+            }
+        );
     }
     
     generateTableHead()
@@ -80,7 +118,14 @@ export default class CombinationGrid extends React.Component
         toReturn.push( <td key={number + "--1" }>{this.props.customizationList[number].value}</td> );
         for( let i = 0; i < this.props.customizationList.length; i++ )
         {
-            toReturn.push( <CombinationGridBox key={number + "-" + i} first={this.props.customizationList[number]} second={this.props.customizationList[i]} updateValidCombination={this.updateValidCombination}>{this.props.customizationList[i].value} </CombinationGridBox> );        }
+            toReturn.push( <CombinationGridBox
+                           key={number + "-" + i}
+                           first={this.props.customizationList[number]}
+                           second={this.props.customizationList[i]}
+                           updateValidCombination={this.updateValidCombination}
+                           isValidCombination={this.isValidCombination}
+                           invalidCombinations={this.state.invalidCombinations}>
+                           </CombinationGridBox> );        }
         
         return toReturn;
     }
@@ -90,6 +135,7 @@ export default class CombinationGrid extends React.Component
     {
         this.generateCombinations( nextProps.customizationList );
     }
+    
     render()
     {
         return(

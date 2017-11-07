@@ -24,6 +24,16 @@ export default class CombinationGridBox extends React.Component
       );
     }
   }
+  componentWillReceiveProps(nextProps)
+  {
+    this.setState(
+      {
+        valid: this.props.isValidCombination( this.props.first.value, this.props.second.value )
+      }
+    );
+                   
+  }
+  
   componentDidMount()
   {
     if( this.props.first.value === this.props.second.value )
@@ -35,6 +45,8 @@ export default class CombinationGridBox extends React.Component
       );
     }
   }
+
+  
   
   render()
   {
