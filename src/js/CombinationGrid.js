@@ -32,20 +32,40 @@ export default class CombinationGrid extends React.Component
             {
                 if ((i & power(2, j)))
                 {
-                    temp = temp.concat( [list[j]] );
+                    temp = temp.concat( [list[j].value] );
                 }
             }
+            
             if( temp.length > 0 )
             {
+                if( !this.containsInvalidCombinations( temp ) )
+                {
+                    console.log( temp.join( "," ) );
+                }
             }
         }
-
+ 
         this.setState( {
             combinations: result
         } );
 
     }        
 
+    containsInvalidCombinations( toCheck )
+    {
+        for( let i = 0; i < toCheck.length; i++ )
+        {
+            for( let j = i + 1; j < toCheck.length; j++ )
+            {
+                if( !this.isValidCombination( toCheck[i], toCheck[j] ) )
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
     isValidCombination( first, second )
     {
         let combinations = [first.toString(),second.toString()].sort();
@@ -85,6 +105,8 @@ export default class CombinationGrid extends React.Component
                 invalidCombinations: ic 
             }
         );
+
+        this.generateCombinations(this.props.customizationList);
     }
     
     generateTableHead()
