@@ -40,11 +40,11 @@ export default class CombinationGrid extends React.Component
             {
                 if( !this.containsInvalidCombinations( temp ) )
                 {
-                    console.log( temp.join( "," ) );
+                    result.push( <li key={temp.join("-")}>{temp.join( "," )}</li> );
                 }
             }
         }
- 
+        
         this.setState( {
             combinations: result
         } );
@@ -161,13 +161,22 @@ export default class CombinationGrid extends React.Component
     render()
     {
         return(
-            <table className="combination-grid">
-              <tr>
-                {this.generateTableHead()}
-              </tr>
-              {this.generateTableRows()}
-            </table>
+            <div>
+              <table className="combination-grid">
+                <tr>
+                  {this.generateTableHead()}
+                </tr>
+                {this.generateTableRows()}
+              </table>
+
+              <div>
+                <h2>Valid Customizations</h2>
+                <ol>
+                  {this.state.combinations}
+                </ol>
+              </div>
+            </div>            
         );
     }
 }
-    
+
