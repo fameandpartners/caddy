@@ -6,6 +6,7 @@ import autoBind from 'react-autobind';
 import CustomizationList from './CustomizationList';
 import CombinationList from './CombinationList';
 import ProductsList from './ProductsList';
+import CombinationGrid from './CombinationGrid';
 
 class Home extends React.Component
 {
@@ -54,7 +55,7 @@ class Home extends React.Component
                     <a onClick={() => this.swapToTab(2)} href="#2">Combinations</a>
 		  </li>
 		  <li className={this.state.activeTab == 3  ? 'active' : ''}>
-                    <a onClick={() => this.swapToTab(3)} href="#3">Cads</a>
+                    <a onClick={() => this.swapToTab(3)} href="#3">Combination Grid</a>
 		  </li>
 		</ul>
 
@@ -70,7 +71,7 @@ class Home extends React.Component
                     <CombinationList customizationList={this.state.customizationList}/>
 		  </div>
                   <div className={this.state.activeTab == 3 ? "tab-pane active" : "tab-pane"} id="3">
-                    <h3>add clearfix to tab-content (see the css)</h3>
+                    <CombinationGrid customizationList={this.state.customizationList}/>
 		  </div>
 		</div>
               </div>
