@@ -7,6 +7,7 @@ import CustomizationList from './CustomizationList';
 import CombinationList from './CombinationList';
 import ProductsList from './ProductsList';
 import CombinationGrid from './CombinationGrid';
+import RenderLayers from './RenderLayers';
 
 class Home extends React.Component
 {
@@ -56,7 +57,11 @@ class Home extends React.Component
 		  </li>
 		  <li className={this.state.activeTab == 3  ? 'active' : ''}>
                     <a onClick={() => this.swapToTab(3)} href="#3">Combination Grid</a>
-		  </li>
+	          </li>
+		  <li className={this.state.activeTab == 4  ? 'active' : ''}>
+                    <a onClick={() => this.swapToTab(4)} href="#3">Render Test</a>
+	    </li>
+                  
 		</ul>
 
 		<div className="tab-content ">
@@ -68,11 +73,14 @@ class Home extends React.Component
                     <CustomizationList updateCustomizations={this.updateCustomizationList} customizationList={this.state.customizationList} />
 		  </div>
 		  <div className={this.state.activeTab == 2 ? "tab-pane active" : "tab-pane"} id="2">
-                    <CombinationList customizationList={this.state.customizationList}/>
 		  </div>
                   <div className={this.state.activeTab == 3 ? "tab-pane active" : "tab-pane"} id="3">
                     <CombinationGrid customizationList={this.state.customizationList}/>
 		  </div>
+                  <div className={this.state.activeTab == 4 ? "tab-pane active" : "tab-pane"} id="4">
+                    <RenderLayers/>
+		  </div>
+                  
 		</div>
               </div>
               
