@@ -19,25 +19,6 @@ class ProductsList extends React.Component
         };
     }
 
-    componentDidMount()
-    {
-        let products = localStorage.getItem( 'caddy.products.json' );
-        if( !products )
-        {
-            products = { products: [] };
-            localStorage.setItem( 'caddy.products.json', JSON.stringify( products ) );
-        } else
-        {
-            products = JSON.parse( products );
-        }
-        
-        this.setState(
-            {
-                productsJSON: products
-            }
-        );
-    }
-
     save()
     {
         this.props.save( {
@@ -56,7 +37,6 @@ class ProductsList extends React.Component
               <div>
                 Product Name: <input type="text" ref={(input) => { this.productName = input;  }}/>
               </div>
-              
               <div>
                   <button onClick={this.save}>Save</button>
               </div>
@@ -70,7 +50,6 @@ class ProductsList extends React.Component
 
 function stateToProps(state)
 {
-    console.log( state.product );
     return { product: state.product };
 }
 
