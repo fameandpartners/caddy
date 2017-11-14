@@ -27,6 +27,37 @@ class ProductDetails extends React.Component
         } );
     }
 
+    clean( value )
+    {
+        if( value )
+        {
+            return value;
+        }
+        else
+        {
+            return '';
+        }
+                
+    }
+    updateWithLatestState( props )
+    {
+        this.productId.value = this.clean(props.product.details.id);
+        this.productName.value = this.clean(props.product.details.name);
+    }
+
+    componentDidMount()
+    {
+        this.updateWithLatestState( this.props );
+    }
+    
+    componentWillReceiveProps( nextProps )
+    {
+        this.setState( {
+            product: nextProps.product
+        } );
+
+        this.updateWithLatestState( nextProps );
+    }
 
     render()
     {
@@ -37,7 +68,7 @@ class ProductDetails extends React.Component
                   Style Number:
                 </div>
                 <div className="col-md-2">
-                  <input type="text" defaultValue={this.props.product.details.id} ref={(input) => { this.productId = input;  }}/>
+                  <input type="text" ref={(input) => { this.productId = input;  }}/>
                 </div>
               </div>              
               <div className="row">
@@ -45,7 +76,7 @@ class ProductDetails extends React.Component
                   Product Name:
                 </div>
                 <div className="col-md-2">
-                  <input type="text" defaultValue={this.props.product.details.name} ref={(input) => { this.productName = input;  }}/>
+                  <input type="text" ref={(input) => { this.productName = input;  }}/>
                 </div>
               </div>
               <div>
@@ -58,6 +89,7 @@ class ProductDetails extends React.Component
 
 function stateToProps(state)
 {
+    console.log( state );
     return { product: state.product };
 }
 

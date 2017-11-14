@@ -21,6 +21,7 @@ export default function AppReducer($$state = { details: {} }, action = null)
       }
       case 'NEW_PRODUCT':
       {
+        console.log( 'new product' );
         return {
           details: {},
           version: 0
