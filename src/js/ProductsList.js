@@ -12,10 +12,6 @@ class ProductsList extends React.Component
     {
         super( props );
         autoBind( this );
-        
-        this.state = {
-            productsJSON: null
-        };
     }
 
     componentDidMount()
@@ -41,6 +37,7 @@ class ProductsList extends React.Component
     {
         this.props.save( this.textInput.value );
     }
+    
     render()
     {
         return (
@@ -51,26 +48,26 @@ class ProductsList extends React.Component
                   <button onClick={this.save}>Save</button>
               </div>
               <div>
-                Product Name: {this.props.productName}
+                Product Name: {this.props.product.name}
               </div>
-            </div>);
+            </div>
+        );
     }
 }
 
 function stateToProps(state)
 {
-    return { productName: state.product.name };
+    return { product: state.product };
 }
 
 function dispatchToProps(dispatch)
 {
-  return
-  {
-    save: ( value ) =>
-      {
-        dispatch(AppActions.updateProductName( value ));
-      }
-  };
+    return {
+        save: ( value ) =>
+            {
+                dispatch(AppActions.updateProductName( value ));
+            }
+    };
 }
 
 
