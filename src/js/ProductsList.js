@@ -66,9 +66,8 @@ class ProductsList extends React.Component
               Products To Load
               <ol>
                 {this.renderProducts( this.state.products )}
-
               </ol>
-              <button>New Product</button>
+              <button onClick={() => this.props.newProduct()}>New Product</button>
             </div>
         );
     }
@@ -87,6 +86,11 @@ function dispatchToProps(dispatch)
         load: ( styleNumber, versionNumber ) =>
             {
                 dispatch( AppActions.loadProduct( styleNumber, versionNumber ) );
+            },
+        newProduct: () =>
+            {
+                console.log( 'new called' );
+                dispatch(AppActions.newProduct());
             }
     };
 }

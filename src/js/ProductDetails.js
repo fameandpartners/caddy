@@ -26,22 +26,30 @@ class ProductDetails extends React.Component
             name: this.productName.value
         } );
     }
-    
+
+
     render()
     {
         return (
-            <div>
-              <div>
-                Product id: <input type="text" ref={(input) => { this.productId = input;  }}/>
+            <div className="container">
+              <div className="row">
+                <div className="col-md-2">
+                  Style Number:
+                </div>
+                <div className="col-md-2">
+                  <input type="text" defaultValue={this.props.product.details.id} ref={(input) => { this.productId = input;  }}/>
+                </div>
+              </div>              
+              <div className="row">
+                <div className="col-md-2">
+                  Product Name:
+                </div>
+                <div className="col-md-2">
+                  <input type="text" defaultValue={this.props.product.details.name} ref={(input) => { this.productName = input;  }}/>
+                </div>
               </div>
               <div>
-                Product Name: <input type="text" ref={(input) => { this.productName = input;  }}/>
-              </div>
-              <div>
-                  <button onClick={this.save}>Save</button>
-              </div>
-              <div>
-                Product Name: {this.props.product.details.name}
+                <button>Save</button>
               </div>
             </div>
         );

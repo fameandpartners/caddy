@@ -9,6 +9,12 @@ export function updateProductDetails( details )
 }
 
 
+export function newProduct()
+{
+    return {
+        type: 'NEW_PRODUCT'
+    };
+}
 export function loadProduct( styleNumber, versionNumber )
 {
   return function( dispatch )

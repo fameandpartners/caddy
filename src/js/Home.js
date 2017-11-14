@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import autoBind from 'react-autobind';
+import { connect } from 'react-redux';
 
 import CustomizationList from './CustomizationList';
 import CombinationList from './CombinationList';
@@ -50,11 +51,18 @@ class Home extends React.Component
     {
         let toReturn = [];
         toReturn.push( this.generateTab( 0, "Load Product" )  );
-        toReturn.push( this.generateTab( 1, "Product Details" )  );
-        toReturn.push( this.generateTab( 2, "Customization List" )  );
-        toReturn.push( this.generateTab( 3, "Combinations" )  );
-        toReturn.push( this.generateTab( 4, "Combination Grid" )  );
-        toReturn.push( this.generateTab( 5, "Render Test" )  );
+        if( this.props.showProductDetails )
+        {
+            toReturn.push( this.generateTab( 1, "Product Details" )  );
+        }
+
+        if( this.props.showCustomizations )
+        {
+            toReturn.push( this.generateTab( 2, "Customization List" )  );
+            toReturn.push( this.generateTab( 3, "Combinations" )  );
+            toReturn.push( this.generateTab( 4, "Combination Grid" )  );
+            toReturn.push( this.generateTab( 5, "Render Test" )  );
+        }
 
         return toReturn;
     }
@@ -68,11 +76,18 @@ class Home extends React.Component
     {
         let toReturn = [];
         toReturn.push( this.generateSingleTabContent( 0, <ProductsList /> ) );
-        toReturn.push( this.generateSingleTabContent( 1, <ProductDetails /> ) );
-        toReturn.push( this.generateSingleTabContent( 2, <CustomizationList updateCustomizations={this.updateCustomizationList} customizationList={this.state.customizationList} />) );
-        toReturn.push( this.generateSingleTabContent( 3, "" ) );
-        toReturn.push( this.generateSingleTabContent( 4, <CombinationGrid customizationList={this.state.customizationList}/> ) );
-        toReturn.push( this.generateSingleTabContent( 5, <RenderLayers/> ) );
+        if( this.props.showProductDetails )
+        {
+            toReturn.push( this.generateSingleTabContent( 1, <ProductDetails /> ) );
+        }
+
+        if( this.props.showCustomizations )
+        {
+            toReturn.push( this.generateSingleTabContent( 2, <CustomizationList updateCustomizations={this.updateCustomizationList} customizationList={this.state.customizationList} />) );
+            toReturn.push( this.generateSingleTabContent( 3, "" ) );
+            toReturn.push( this.generateSingleTabContent( 4, <CombinationGrid customizationList={this.state.customizationList}/> ) );
+            toReturn.push( this.generateSingleTabContent( 5, <RenderLayers/> ) );
+        }
         
         return toReturn;
     }
@@ -82,7 +97,7 @@ class Home extends React.Component
             <div>
               <div id="exTab2" className="container">	
                 <ul className="nav nav-tabs">
-                  {this.generateTabs()};
+                  {this.generateTabs()}
 		</ul>
 
 		<div className="tab-content ">
@@ -95,4 +110,18 @@ class Home extends React.Component
     }
 }
 
-export default Home;
+function stateToProps(state)
+{
+    return { 
+        showProductDetails: state.product && state.product.version != null,
+        showCustomizations: false
+    };
+}
+
+function dispatchToProps(dispatch)
+{
+    return {
+    };
+}
+
+export default connect(stateToProps, dispatchToProps)(Home);
