@@ -1,9 +1,11 @@
-import AppReducer, { $$initialState as $$appState } from './AppReducer';
+import AppReducer, { $$initialState as product } from './AppReducer';
 
-export default {
-  $$appState: AppReducer,
+export default
+{
+  product: AppReducer
 };
 
-export const initialStates = {
-  $$appState,
-};
+export const initialStates =
+  {
+    product
+  };

@@ -1,20 +1,24 @@
 import Immutable from 'immutable';
-import AppConstants from '../constants/AppConstants';
 
 export const $$initialState = Immutable.fromJS({
-  defaultValue: [],
-  sideMenuOpen: false,
+    productName: null
 });
 
-export default function AppReducer($$state = $$initialState, action = null) {
-  switch (action.type) {
-    case AppConstants.ACTIVATE_SIDE_MENU: {
-      return $$state.merge({
-        sideMenuOpen: action.sideMenuOpen,
-      });
+export default function AppReducer($$state = {}, action = null)
+{
+    console.log( 'App Reducer Called' );
+    switch (action.type)
+    {
+    case 'UPDATE_PRODUCT_NAME':
+        {
+            return {
+                name: action.productName
+            };
+        }
+    default:
+        {
+            return $$state;
+        }
     }
-    default: {
-      return $$state;
-    }
-  }
 }
+

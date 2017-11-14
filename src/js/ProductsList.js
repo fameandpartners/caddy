@@ -2,14 +2,17 @@
 
 import React from 'react';
 import autoBind from 'react-autobind';
+import * as AppActions from './actions/AppActions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-
-export default class ProductsList extends React.Component
+class ProductsList extends React.Component
 {
     constructor( props )
     {
         super( props );
         autoBind( this );
+        
         this.state = {
             productsJSON: null
         };
@@ -32,13 +35,43 @@ export default class ProductsList extends React.Component
                 productsJSON: products
             }
         );
-        console.log( products );
-    }
-    
-    render()
-    {
-        return (<div>Products</div>);
     }
 
-    
+    save()
+    {
+        this.props.save( this.textInput.value );
+    }
+    render()
+    {
+        return (
+            <div>
+              <div>Products</div>
+              <div>
+                <input type="text" ref={(input) => { this.textInput = input;  }}/>
+                  <button onClick={this.save}>Save</button>
+              </div>
+              <div>
+                Product Name: {this.props.productName}
+              </div>
+            </div>);
+    }
 }
+
+function stateToProps(state)
+{
+    return { productName: state.product.name };
+}
+
+function dispatchToProps(dispatch)
+{
+  return
+  {
+    save: ( value ) =>
+      {
+        dispatch(AppActions.updateProductName( value ));
+      }
+  };
+}
+
+
+export default connect(stateToProps, dispatchToProps)(ProductsList);

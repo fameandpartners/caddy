@@ -1,12 +1,8 @@
-import AppConstants from '../constants/AppConstants';
-
-export function activateSideMenu({ sideMenuOpen }) {
+export function updateProductName( productName )
+{
   return {
-    type: AppConstants.ACTIVATE_SIDE_MENU,
-    sideMenuOpen,
-  };
+    type: 'UPDATE_PRODUCT_NAME',
+    productName
+  }
 }
 
-export default {
-  activateSideMenu,
-};

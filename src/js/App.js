@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 
 // App Components
 import AppMain from './components/nocom/AppMain';
-
 import '../css/components/App.scss';
+
 class App extends Component {
     constructor(props) {
         super(props);
