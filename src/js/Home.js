@@ -40,55 +40,53 @@ class Home extends React.Component
             }
         );
     }
+
+    generateTab( index, text )
+    {
+        return( <li key={"tab-" + index} className={this.state.activeTab == index ? 'active' : ''}><a onClick={() => this.swapToTab(index)} href={"#" + index}>{text}</a></li>);
+    }
+    
+    generateTabs()
+    {
+        let toReturn = [];
+        toReturn.push( this.generateTab( 0, "Load Product" )  );
+        toReturn.push( this.generateTab( 1, "Product Details" )  );
+        toReturn.push( this.generateTab( 2, "Customization List" )  );
+        toReturn.push( this.generateTab( 3, "Combinations" )  );
+        toReturn.push( this.generateTab( 4, "Combination Grid" )  );
+        toReturn.push( this.generateTab( 5, "Render Test" )  );
+
+        return toReturn;
+    }
+
+    generateSingleTabContent( index, object )
+    {
+        return( <div key={"tab-content-" + index} className={this.state.activeTab == index ? "tab-pane active" : "tab-pane"} id={index}>{object}</div> );
+        
+    }
+    generateAllTabContent()
+    {
+        let toReturn = [];
+        toReturn.push( this.generateSingleTabContent( 0, <ProductsList /> ) );
+        toReturn.push( this.generateSingleTabContent( 1, <ProductDetails /> ) );
+        toReturn.push( this.generateSingleTabContent( 2, <CustomizationList updateCustomizations={this.updateCustomizationList} customizationList={this.state.customizationList} />) );
+        toReturn.push( this.generateSingleTabContent( 3, "" ) );
+        toReturn.push( this.generateSingleTabContent( 4, <CombinationGrid customizationList={this.state.customizationList}/> ) );
+        toReturn.push( this.generateSingleTabContent( 5, <RenderLayers/> ) );
+        
+        return toReturn;
+    }
     
     render() {
         return (
             <div>
               <div id="exTab2" className="container">	
                 <ul className="nav nav-tabs">
-		  <li className={this.state.activeTab == 0  ? 'active' : ''}>
-                    <a onClick={() => this.swapToTab(0)} href="#1">Load Products</a>
-		  </li>
-		  <li className={this.state.activeTab == 1  ? 'active' : ''}>
-                    <a onClick={() => this.swapToTab(1)} href="#1">Product Details</a>
-		  </li>
-                  
-		  <li className={this.state.activeTab == 2  ? 'active' : ''}>
-                    <a onClick={() => this.swapToTab(2)} href="#1">Customization List</a>
-		  </li>
-		  <li className={this.state.activeTab == 3  ? 'active' : ''}>
-                    <a onClick={() => this.swapToTab(3)} href="#2">Combinations</a>
-		  </li>
-		  <li className={this.state.activeTab == 4  ? 'active' : ''}>
-                    <a onClick={() => this.swapToTab(4)} href="#3">Combination Grid</a>
-	          </li>
-		  <li className={this.state.activeTab == 5  ? 'active' : ''}>
-                    <a onClick={() => this.swapToTab(5)} href="#3">Render Test</a>
-	    </li>
-                  
+                  {this.generateTabs()};
 		</ul>
 
 		<div className="tab-content ">
-		  <div className={this.state.activeTab == 0 ? "tab-pane active" : "tab-pane"} id="1">
-                    <ProductsList />
-		  </div>
-
-		  <div className={this.state.activeTab == 1 ? "tab-pane active" : "tab-pane"} id="1">
-                    <ProductDetails />
-		  </div>
-          
-		  <div className={this.state.activeTab == 2 ? "tab-pane active" : "tab-pane"} id="1">
-                    <CustomizationList updateCustomizations={this.updateCustomizationList} customizationList={this.state.customizationList} />
-		  </div>
-		  <div className={this.state.activeTab == 3 ? "tab-pane active" : "tab-pane"} id="2">
-		  </div>
-                  <div className={this.state.activeTab == 4 ? "tab-pane active" : "tab-pane"} id="3">
-                    <CombinationGrid customizationList={this.state.customizationList}/>
-		  </div>
-                  <div className={this.state.activeTab == 5 ? "tab-pane active" : "tab-pane"} id="4">
-                    <RenderLayers/>
-		  </div>
-                  
+                  {this.generateAllTabContent()}
 		</div>
               </div>
               
