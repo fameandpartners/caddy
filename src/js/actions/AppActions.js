@@ -1,8 +1,8 @@
-export function updateProductName( productName )
+export function updateProductDetails( details )
 {
   return {
-    type: 'UPDATE_PRODUCT_NAME',
-    productName
+    type: 'UPDATE_PRODUCT_DETAILS',
+    details
   }
 }
 
