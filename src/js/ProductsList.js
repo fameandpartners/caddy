@@ -11,7 +11,7 @@ export default class ProductsList extends React.Component
         super( props );
         autoBind( this );
         this.state = {
-            product: {
+            products: {
             }
         };
     }
@@ -19,16 +19,33 @@ export default class ProductsList extends React.Component
     {
         let url = 'https://product-management-dev.firebaseio.com/products.json';
         request.get( url ).end((error, response) => {
-            console.log( 'done with  get' );
-            console.log( response.text );
+            this.setState(
+                {
+                    products:  JSON.parse( response.text )
+                }
+            );
         } );
 
+    }
+    renderProducts( productsJSON )
+    {
+        let toReturn = [];
+        
+        Object.keys(productsJSON).map(function(styleNumber, keyIndex) {
+            toReturn.push( <li key={styleNumber}>{styleNumber}</li> );
+        });
+
+        return toReturn;
     }
     render()
     {
         return (
             <div>
               Products To Load
+              <ol>
+                {this.renderProducts( this.state.products )}
+              </ol>
+              <button>New Product</button>
             </div>
         );
     }
