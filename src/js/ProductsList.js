@@ -3,8 +3,10 @@
 import React from 'react';
 import autoBind from 'react-autobind';
 import request from 'superagent';
+import { connect } from 'react-redux';
+import * as AppActions from './actions/AppActions';
 
-export default class ProductsList extends React.Component
+class ProductsList extends React.Component
 {
     constructor( props )
     {
@@ -14,8 +16,10 @@ export default class ProductsList extends React.Component
             products: {
             }
         };
+
     }
-    componentDidMount()
+    
+    componentWillMount()
     {
         let url = 'https://product-management-dev.firebaseio.com/products.json';
         request.get( url ).end((error, response) => {
@@ -25,18 +29,36 @@ export default class ProductsList extends React.Component
                 }
             );
         } );
-
     }
+    
+    loadProduct( styleNumber, versionNumber )
+    {
+        console.log( 'load product called' );
+        this.props.load( styleNumber, versionNumber );
+    }
+    
     renderProducts( productsJSON )
     {
         let toReturn = [];
-        
+        let context = this;
         Object.keys(productsJSON).map(function(styleNumber, keyIndex) {
-            toReturn.push( <li key={styleNumber}>{styleNumber}</li> );
+            toReturn.push(
+                <li key={styleNumber}>
+                  <div className="row">
+                    <div className="col-md-2">
+                      <span>{styleNumber}</span>
+                    </div>
+                    <div className="col-md-2">
+                      <span>
+                        <button onClick={() => context.loadProduct( styleNumber, productsJSON[styleNumber].version )}>Load Product</button>
+                      </span>
+                    </div>
+                  </div>
+                </li> );
         });
-
         return toReturn;
     }
+    
     render()
     {
         return (
@@ -44,6 +66,7 @@ export default class ProductsList extends React.Component
               Products To Load
               <ol>
                 {this.renderProducts( this.state.products )}
+
               </ol>
               <button>New Product</button>
             </div>
@@ -51,3 +74,21 @@ export default class ProductsList extends React.Component
     }
 }
 
+
+
+function stateToProps(state)
+{
+    return { };
+}
+
+function dispatchToProps(dispatch)
+{
+    return {
+        load: ( styleNumber, versionNumber ) =>
+            {
+                dispatch( AppActions.loadProduct( styleNumber, versionNumber ) );
+            }
+    };
+}
+
+export default connect(stateToProps, dispatchToProps)(ProductsList);

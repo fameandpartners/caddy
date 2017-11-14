@@ -12,6 +12,12 @@ export default function AppReducer($$state = { details: {} }, action = null)
                 details: action.details
             };
         }
+      case 'LOAD_PRODUCT':
+      {
+        return {
+          details: action.details
+        };
+      }
     default:
         {
             return $$state;
