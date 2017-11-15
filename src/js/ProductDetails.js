@@ -21,10 +21,15 @@ class ProductDetails extends React.Component
 
     save()
     {
-        this.props.save( {
-            id: this.productId.value,
-            name: this.productName.value
-        } );
+        let product = this.state.product;
+        product.details.id = this.productId.value;
+        product.details.name = this.productName.value;
+        this.setState(
+            {
+                product
+            }
+        );
+        this.props.save( product );
     }
 
     clean( value )
@@ -41,20 +46,22 @@ class ProductDetails extends React.Component
     }
     updateWithLatestState( props )
     {
+        this.setState( {
+            product: props.product
+        } );
+        
         this.productId.value = this.clean(props.product.details.id);
         this.productName.value = this.clean(props.product.details.name);
     }
 
     componentDidMount()
     {
+
         this.updateWithLatestState( this.props );
     }
     
     componentWillReceiveProps( nextProps )
     {
-        this.setState( {
-            product: nextProps.product
-        } );
 
         this.updateWithLatestState( nextProps );
     }
@@ -80,7 +87,7 @@ class ProductDetails extends React.Component
                 </div>
               </div>
               <div>
-                <button>Save</button>
+                <button onClick={this.save}>Save</button>
               </div>
             </div>
         );

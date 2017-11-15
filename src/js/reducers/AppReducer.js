@@ -7,11 +7,10 @@ export default function AppReducer($$state = { details: {} }, action = null)
     switch (action.type)
     {
     case 'UPDATE_PRODUCT_DETAILS':
-        {
-            return {
-                details: action.details
-            };
-        }
+      {
+        $$state.details = action.details;
+        return $$state;
+      }
       case 'LOAD_PRODUCT':
       {
         return {
@@ -21,7 +20,6 @@ export default function AppReducer($$state = { details: {} }, action = null)
       }
       case 'NEW_PRODUCT':
       {
-        console.log( 'new product' );
         return {
           details: {},
           version: 0

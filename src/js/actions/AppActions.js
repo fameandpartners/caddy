@@ -1,11 +1,35 @@
 import request from 'superagent';
 
-export function updateProductDetails( details )
+export function updateProductDetails( product )
 {
-  return {
-    type: 'UPDATE_PRODUCT_DETAILS',
-    details
-  };
+    return function( dispatch )
+    {
+        product.version += 1;
+        let url = 'https://product-management-dev.firebaseio.com/product/' + product.details.id + "/versions/" + product.version + ".json";
+
+        request.put( url )
+            .type( 'application/json' )
+            .send( product )
+            .end((error, response) =>
+                 {
+                     let productListURL = 'https://product-management-dev.firebaseio.com/products/' + product.details.id + ".json";
+                     
+                     request.put( productListURL )
+                         .type( 'application/json' )
+                         .send( {version: product.version} )
+                         .end( (error, response) =>
+                               {
+                                   dispatch(
+                                       {
+                                           type: 'UPDATE_PRODUCT_DETAILS',
+                                           details: product.details,
+                                           version: product.version
+                                       } );
+                                   
+                               } );
+                 } );
+        
+    };
 }
 
 
@@ -17,18 +41,18 @@ export function newProduct()
 }
 export function loadProduct( styleNumber, versionNumber )
 {
-  return function( dispatch )
-  {
-    let url = 'https://product-management-dev.firebaseio.com/product/' + styleNumber + "/versions/" + versionNumber + ".json";
-      request.get( url ).end((error, response) => {
-          let productJson = JSON.parse( response.text );
-          dispatch(
-              {
-                  type: 'LOAD_PRODUCT',
-                  details: productJson.details,
-                  version: versionNumber
-              } );
-      } );
-  };
+    return function( dispatch )
+    {
+        let url = 'https://product-management-dev.firebaseio.com/product/' + styleNumber + "/versions/" + versionNumber + ".json";
+        request.get( url ).end((error, response) => {
+            let productJson = JSON.parse( response.text );
+            dispatch(
+                {
+                    type: 'LOAD_PRODUCT',
+                    details: productJson.details,
+                    version: versionNumber
+                } );
+        } );
+    };
 }
 
