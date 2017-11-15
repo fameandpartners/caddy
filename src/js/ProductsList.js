@@ -89,7 +89,6 @@ function dispatchToProps(dispatch)
             },
         newProduct: () =>
             {
-                console.log( 'new called' );
                 dispatch(AppActions.newProduct());
             }
     };
