@@ -155,8 +155,8 @@ class ProductDetails extends React.Component
                 <div className="col-md-6">
                   <div className="container">
                     <div className="row">
-                      <div className="col-md-12">
-                        Product Ref Image
+                      <div className="col-md-3">
+                        <center>Product Ref Image</center>
                       </div>
                       
                       <div className="col-md-12">
