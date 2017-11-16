@@ -199,6 +199,8 @@ class CombinationGrid extends React.Component
 
 function stateToProps(state)
 {
+    console.log( 'updating combination grid' );
+    console.log( state.product );
     let product = state.product;
     if( product.customizations == null )
     {

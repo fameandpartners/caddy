@@ -9,8 +9,11 @@ export default function AppReducer($$state = { details: {}, customizations: [] }
     {
     case 'UPDATE_PRODUCT_DETAILS':
       {
-        $$state.details = action.details;
-        return $$state;
+        return {
+          details: action.details,
+          customizations: action.customizations,
+          version: action.version
+        };
       }
       case 'LOAD_PRODUCT':
       {

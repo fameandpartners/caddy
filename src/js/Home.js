@@ -112,7 +112,7 @@ function stateToProps(state)
 {
     return { 
         showProductDetails: state.product && state.product.version != null,
-        showCustomizations: state.product && state.product.version != null && state.product.version > 1
+        showCustomizations: state.product && state.product.version != null && state.product.version > 0
     };
 }
 
