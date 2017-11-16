@@ -20,7 +20,10 @@ class CustomizationList extends React.Component
             }
         };
 
-        this.customizationTextBoxes = [];
+        this.customizationTextBoxes = {};
+        this.priceAUDTextBoxes = {};
+        this.priceUSDTextBoxes = {};
+        
     }
 
     addCustomization()
@@ -56,7 +59,6 @@ class CustomizationList extends React.Component
 
     updateWithLatestState( props )
     {
-        console.log( props.product );
         this.setState( {
             product: props.product
         } );
@@ -78,7 +80,19 @@ class CustomizationList extends React.Component
     {
         let product = this.state.product;
 
-        this.state.product.customizations[0].name = this.customizationTextBoxes[number].value;
+        this.state.product.customizations[number].name = this.customizationTextBoxes[number].value;
+        this.setState(
+            {
+                product: product
+            }
+        );
+    }
+    
+    updateAUDPrice( number )
+    {
+        let product = this.state.product;
+
+        this.state.product.customizations[number].priceAUD = this.priceAUDTextBoxes[number].value;
         this.setState(
             {
                 product: product
@@ -86,7 +100,18 @@ class CustomizationList extends React.Component
         );
     }
 
+    updateUSDPrice( number )
+    {
+        let product = this.state.product;
 
+        this.state.product.customizations[number].priceUSD = this.priceUSDTextBoxes[number].value;
+        this.setState(
+            {
+                product: product
+            }
+        );
+    }
+    
     renderCustomizationItem( customization, number )
     {
         return (
@@ -97,19 +122,30 @@ class CustomizationList extends React.Component
                     Customization Name:
                   </div>
                   <div className="col-md-2">
-                    <input type="text" defaultValue={customization.name} onKeyUp={() => this.updateCustomizatioName( number ) } ref={(input) => { this.customizationTextBoxes.push( input );  }} />
+                    <input type="text"
+                           defaultValue={customization.name}
+                           onKeyUp={() => this.updateCustomizatioName( number ) }
+                           ref={(input) => { this.customizationTextBoxes[number] = input; }} />
                   </div>
                   <div className="col-md-2 text-right">
                     AUD Price:
                   </div>
                   <div className="col-md-1">
-                    <input type="text"  />
+                    <input type="text"
+                           defaultValue={customization.priceAUD}
+                           onKeyUp={() => this.updateAUDPrice( number ) }                           
+                           ref={(input) => { this.priceAUDTextBoxes[number] =  input; }} />
+
                   </div>
                   <div className="col-md-2 text-right">
                     USD Price:
                   </div>
                   <div className="col-md-1">
-                    <input type="text"  />
+                    <input type="text"
+                           defaultValue={customization.priceUSD}
+                           onKeyUp={() => this.updateUSDPrice( number ) }                                                      
+                           ref={(input) => { this.priceUSDTextBoxes[number] = input; }} />
+                           
                   </div>
                 </div>
               </div>
@@ -134,14 +170,6 @@ class CustomizationList extends React.Component
                   <button onClick={() => this.props.save(this.state.product) }>Save</button>
                 </div>
               </div>
-              <div className="row">
-                <div className="col-md-6">
-                  <b>Upload Default Base Image:</b> <input type="file" id="baseLayerUpload" name='baseLayerUpload' onChange={this.imageUploadDefaultBase} />
-                </div>                  
-              </div>
-              <div className="row">
-                <CanvasImage imageData={this.state.baseImage} width={236} height={200}/>
-              </div>
             </div>
         );
     }
@@ -150,7 +178,6 @@ class CustomizationList extends React.Component
 function stateToProps(state)
 {
     let product = state.product;
-    console.log( product );
     if( product.customizations == null )
     {
         product.customizations = [];
