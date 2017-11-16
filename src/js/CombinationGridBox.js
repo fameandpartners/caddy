@@ -14,9 +14,9 @@ export default class CombinationGridBox extends React.Component
 
   flipValid()
   {
-    if( this.props.first.name !== this.props.second.name )
+    if( this.props.first.id !== this.props.second.id )
     {
-      this.props.updateValidCombination( this.props.first.name, this.props.second.name, !this.state.valid );      
+      this.props.updateValidCombination( this.props.first.id, this.props.second.id, !this.state.valid );      
       this.setState(
         {
           valid: !this.state.valid
@@ -28,7 +28,7 @@ export default class CombinationGridBox extends React.Component
   {
     this.setState(
       {
-        valid: this.props.isValidCombination( this.props.first.name, this.props.second.name )
+        valid: this.props.isValidCombination( this.props.first.id, this.props.second.id )
       }
     );
                    
@@ -36,7 +36,7 @@ export default class CombinationGridBox extends React.Component
   
   componentDidMount()
   {
-    if( this.props.first.name === this.props.second.name )
+    if( this.props.first.id === this.props.second.id )
     {
       this.setState(
         {

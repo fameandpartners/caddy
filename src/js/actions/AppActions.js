@@ -24,6 +24,7 @@ export function updateProductDetails( product )
                                            type: 'UPDATE_PRODUCT_DETAILS',
                                            details: product.details,
                                            customizations: product.customizations,
+                                           validCombinations: product.validCombinations,
                                            version: product.version
                                        } );
                                    
@@ -52,6 +53,7 @@ export function loadProduct( styleNumber, versionNumber )
                     type: 'LOAD_PRODUCT',
                     details: productJson.details,
                     customizations: productJson.customizations,
+                    validCombinations: productJson.validCombinations,
                     version: versionNumber
                 } );
         } );

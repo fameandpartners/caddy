@@ -13,9 +13,6 @@ class CombinationGrid extends React.Component
     {
         super( props );
         autoBind( this );
-        this.state = { combinations: [],
-                       invalidCombinations: {}
-                     };
     }
 
     generateCombinations( list )
@@ -68,10 +65,11 @@ class CombinationGrid extends React.Component
 
         return false;
     }
+    
     isValidCombination( first, second )
     {
         let combinations = [first.toString(),second.toString()].sort();
-        let ic = this.state.invalidCombinations;
+        let ic = this.state.product.validCombinations;
 
         if( first === second )
         {
@@ -94,21 +92,22 @@ class CombinationGrid extends React.Component
     updateValidCombination( first, second, valid )
     {
         let combinations = [first.toString(),second.toString()].sort();
-        
-        let ic = this.state.invalidCombinations;
-        if( !ic[combinations[0]] )
+
+        let product = this.state.product;
+
+        if( !product.validCombinations[combinations[0]] )
         {
-            ic[combinations[0]] = {};
+            product.validCombinations[combinations[0]] = {};
         }
 
-        ic[combinations[0]][combinations[1]] = valid;
+        product.validCombinations[combinations[0]][combinations[1]] = valid;
+
         this.setState(
             {
-                invalidCombinations: ic 
+                product: product
             }
         );
 
-        this.generateCombinations(this.props.customizationList);
     }
     
     generateTableHead()
@@ -147,8 +146,7 @@ class CombinationGrid extends React.Component
                            first={this.props.product.customizations[number]}
                            second={this.props.product.customizations[i]}
                            updateValidCombination={this.updateValidCombination}
-                           isValidCombination={this.isValidCombination}
-                           invalidCombinations={this.state.invalidCombinations}>
+                           isValidCombination={this.isValidCombination}>
                            </CombinationGridBox> );
         }
         
@@ -185,13 +183,7 @@ class CombinationGrid extends React.Component
                 </tr>
                 {this.generateTableRows()}
               </table>
-
-              <div>
-                <h2>Valid Customizations</h2>
-                <ol>
-                  {this.state.combinations}
-                </ol>
-              </div>
+              <button onClick={()=>this.props.save( this.state.product)}>Save</button>
             </div>            
         );
     }
@@ -205,6 +197,11 @@ function stateToProps(state)
     if( product.customizations == null )
     {
         product.customizations = [];
+    }
+
+    if( product.validCombinations == null )
+    {
+        product.validCombinations = {};
     }
     return { product: product };
 }
