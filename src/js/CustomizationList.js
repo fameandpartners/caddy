@@ -2,105 +2,50 @@
 
 import React from 'react';
 import autoBind from 'react-autobind';
-
+import { connect } from 'react-redux';
 import CustomizationItem from './CustomizationItem';
 import CanvasImage from './CanvasImage';
+import * as AppActions from './actions/AppActions';
+import {getBase64} from './Utils';
 
-export default class CustomizationList extends React.Component
+class CustomizationList extends React.Component
 {
     constructor( props )
     {
         super( props );
         autoBind( this );
         this.state = {
-            baseImage: null
-        };        
-        this.addDefaultItem( true );
+            product: {
+                customizations: []
+            }
+        };
+
+        this.customizationTextBoxes = [];
     }
 
     addCustomization()
     {
-        this.state.customizationList = this.state.customizationList.concat([ this.state.customizationList.length ] );
+        let product = this.state.product;
+        product.customizations = product.customizations.concat([ {
+            name: null,
+            priceAUD: null,
+            priceUSD: null,
+            frontTopRenderImage: null,
+            frontBottomRenderImage: null,
+            backTopRenderImage: null,
+            backBottomRenderImage: null
+        } ] );
         this.setState( 
             {
-                customizationList: this.state.customizationList
+                product: product
             }
         );
     }
 
-    updateCustomizationValue( key, value, defaultBase, specificBase, cad )
-    {
-        let updated = false;
-        for( let i = 0; i < this.state.customizationValues.length && !updated; i++ )
-        {
-            if( this.state.customizationValues[i].key == key )
-            {
-                updated = true;
-                this.state.customizationValues[i].value = value;
-                this.state.customizationValues[i].defaultBase = defaultBase;
-                this.state.customizationValues[i].specificBase = specificBase;
-                this.state.customizationValues[i].cad = cad;
-            }
-        }
-
-        if( !updated )
-        {
-            this.state.customizationValues = this.state.customizationValues.concat( [ {key: key, value: value} ] );
-        }
-
-        this.setState( {
-            customizationValues: this.state.customizationValues
-        } );
-    }
-    
-    addDefaultItem( initializing )
-    {
-
-        if( initializing )
-        {
-            this.state =
-                {
-                    customizationList: [0],
-                    customizationValues: []
-                };
-            
-        } else
-        {
-            this.setState(
-                {
-                    customizationList: [0]
-                }
-            );
-        }
-    }
-    
-    update()
-    {
-        this.props.updateCustomizations( this.state.customizationValues );
-    }
-    
-    deleteCustomization( id )
-    {
-        for( let i = 0; i < this.state.customizationList.length; i++ )
-        {
-            if( this.state.customizationList[ i ].props.customizationKey === id )
-            {
-                this.removeFromCustomizationList( i );
-            };
-        }
-
-        for( let j = 0; j < this.state.customizationValues.length; j++ )
-        {
-            if( this.state.customizationValues[ j ].key === parseInt( id ) )
-            {
-                this.removeFromCustomizationValues( j );
-            }
-            
-        }
-    }
 
     removeFromCustomizationValues ( index )
     {
+        
         this.state.customizationValues.splice( index, 1 );
         this.setState(
             {
@@ -108,37 +53,68 @@ export default class CustomizationList extends React.Component
             }
         );
     }
-    removeFromCustomizationList( index )
+
+    updateWithLatestState( props )
     {
-        this.state.customizationList.splice( index, 1 );
+        console.log( props.product );
+        this.setState( {
+            product: props.product
+        } );
+    }
+    
+    componentDidMount()
+    {
 
-        this.setState(
-            {
-                customizationList: this.state.customizationList
-            }
-        );
+        this.updateWithLatestState( this.props );
+    }
+    
+    componentWillReceiveProps( nextProps )
+    {
 
-        if( this.state.customizationList.length == 0 )
-        {
-            this.addDefaultItem();
-        }
-        
+        this.updateWithLatestState( nextProps );
     }
 
-    imageUploadDefaultBase(e)
+    updateCustomizatioName( number )
     {
-        let context = this;
-        const file = e.target.files[0];
-        getBase64(file).then(base64 => {
-            context.setState( {
-                baseImage: base64
-            } );
-        });
-    };
+        let product = this.state.product;
 
-    renderCustomizationItem( number )
+        this.state.product.customizations[0].name = this.customizationTextBoxes[number].value;
+        this.setState(
+            {
+                product: product
+            }
+        );
+    }
+
+
+    renderCustomizationItem( customization, number )
     {
-        return <CustomizationItem key={number} customizationKey={number} deleteCustomization={this.deleteCustomization} update={this.updateCustomizationValue} defaultBase={this.state.baseImage}/>;
+        return (
+            <li key={"customization-" + number }>
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-2">
+                    Customization Name:
+                  </div>
+                  <div className="col-md-2">
+                    <input type="text" defaultValue={customization.name} onKeyUp={() => this.updateCustomizatioName( number ) } ref={(input) => { this.customizationTextBoxes.push( input );  }} />
+                  </div>
+                  <div className="col-md-2 text-right">
+                    AUD Price:
+                  </div>
+                  <div className="col-md-1">
+                    <input type="text"  />
+                  </div>
+                  <div className="col-md-2 text-right">
+                    USD Price:
+                  </div>
+                  <div className="col-md-1">
+                    <input type="text"  />
+                  </div>
+                </div>
+              </div>
+            </li>
+        );
     }
     
     render()
@@ -147,31 +123,50 @@ export default class CustomizationList extends React.Component
             <div className="container customization-item">
               <div className="row">
                 <ol>
-                  {this.state.customizationList.map( this.renderCustomizationItem ) }
+                  {this.state.product.customizations.map( this.renderCustomizationItem ) }
                 </ol>
               </div>
               <div className="row">
-                <button onClick={this.addCustomization}>Add Customization</button>
-                <button onClick={this.update}>Save</button>
-                
+                <div className="col-md-2">
+                  <button onClick={this.addCustomization}>Add Customization</button>
+                </div>
+                <div className="col-md-2">
+                  <button onClick={() => this.props.save(this.state.product) }>Save</button>
+                </div>
               </div>
               <div className="row">
-                <b>Upload Default Base Image:</b> <input type="file" id="baseLayerUpload" name='baseLayerUpload' onChange={this.imageUploadDefaultBase} />                    
+                <div className="col-md-6">
+                  <b>Upload Default Base Image:</b> <input type="file" id="baseLayerUpload" name='baseLayerUpload' onChange={this.imageUploadDefaultBase} />
+                </div>                  
               </div>
               <div className="row">
                 <CanvasImage imageData={this.state.baseImage} width={236} height={200}/>
               </div>
-              
             </div>
         );
     }
 }
 
-const getBase64 = (file) => {
-    return new Promise((resolve,reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-        reader.readAsDataURL(file);
-    });
-};
+function stateToProps(state)
+{
+    let product = state.product;
+    console.log( product );
+    if( product.customizations == null )
+    {
+        product.customizations = [];
+    }
+    return { product: product };
+}
+
+function dispatchToProps(dispatch)
+{
+    return {
+        save: ( value ) =>
+            {
+                dispatch(AppActions.updateProductDetails( value ));
+            }
+    };
+}
+
+
+export default connect(stateToProps, dispatchToProps)(CustomizationList);

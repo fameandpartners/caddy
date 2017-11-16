@@ -1,8 +1,9 @@
 export const $$initialState = {
-  details: {}
+  details: {},
+  customizations: []
 };
 
-export default function AppReducer($$state = { details: {} }, action = null)
+export default function AppReducer($$state = { details: {}, customizations: [] }, action = null)
 {
     switch (action.type)
     {
@@ -15,6 +16,7 @@ export default function AppReducer($$state = { details: {} }, action = null)
       {
         return {
           details: action.details,
+          customizations: action.customizations,
           version: action.version
         };
       }
@@ -22,6 +24,7 @@ export default function AppReducer($$state = { details: {} }, action = null)
       {
         return {
           details: {},
+          customizations: [],
           version: 0
         }
       }

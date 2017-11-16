@@ -58,8 +58,7 @@ class Home extends React.Component
 
         if( this.props.showCustomizations )
         {
-            toReturn.push( this.generateTab( 2, "Customization List" )  );
-            toReturn.push( this.generateTab( 3, "Combinations" )  );
+            toReturn.push( this.generateTab( 2, "Customizations" )  );
             toReturn.push( this.generateTab( 4, "Combination Grid" )  );
             toReturn.push( this.generateTab( 5, "Render Test" )  );
         }
@@ -84,7 +83,6 @@ class Home extends React.Component
         if( this.props.showCustomizations )
         {
             toReturn.push( this.generateSingleTabContent( 2, <CustomizationList updateCustomizations={this.updateCustomizationList} customizationList={this.state.customizationList} />) );
-            toReturn.push( this.generateSingleTabContent( 3, "" ) );
             toReturn.push( this.generateSingleTabContent( 4, <CombinationGrid customizationList={this.state.customizationList}/> ) );
             toReturn.push( this.generateSingleTabContent( 5, <RenderLayers/> ) );
         }
@@ -114,7 +112,7 @@ function stateToProps(state)
 {
     return { 
         showProductDetails: state.product && state.product.version != null,
-        showCustomizations: false
+        showCustomizations: state.product && state.product.version != null && state.product.version > 1
     };
 }
 
