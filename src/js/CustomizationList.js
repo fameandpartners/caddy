@@ -7,6 +7,7 @@ import CustomizationItem from './CustomizationItem';
 import CanvasImage from './CanvasImage';
 import * as AppActions from './actions/AppActions';
 import {getBase64} from './Utils';
+import uuidv4 from 'uuid/v4';
 
 class CustomizationList extends React.Component
 {
@@ -30,6 +31,7 @@ class CustomizationList extends React.Component
     {
         let product = this.state.product;
         product.customizations = product.customizations.concat([ {
+            id: uuidv4(),
             name: null,
             priceAUD: null,
             priceUSD: null,
