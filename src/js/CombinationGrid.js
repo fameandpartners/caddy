@@ -2,10 +2,12 @@
 
 import React from 'react';
 import autoBind from 'react-autobind';
+import { connect } from 'react-redux';
 
 import CombinationGridBox from './CombinationGridBox';
+import * as AppActions from './actions/AppActions';
 
-export default class CombinationGrid extends React.Component
+class CombinationGrid extends React.Component
 {
     constructor( props )
     {
@@ -114,9 +116,9 @@ export default class CombinationGrid extends React.Component
         let toReturn = [];
 
         toReturn.push( <th key='-1'></th> );
-        for( let i = 0; i < this.props.customizationList.length; i++ )
+        for( let i = 0; i < this.props.product.customizations.length; i++ )
         {
-            toReturn.push( <th key={i}>{this.props.customizationList[i].value}</th> );
+            toReturn.push( <th key={i}>{this.props.product.customizations[i].name}</th> );
         }
 
         return toReturn;
@@ -125,7 +127,7 @@ export default class CombinationGrid extends React.Component
     generateTableRows()
     {
         let toReturn = [];
-        for( let i = 0; i < this.props.customizationList.length; i++ )
+        for( let i = 0; i < this.props.product.customizations.length; i++ )
         {
             toReturn.push( <tr key={"row-" + i}>{this.generateTableRow( i )}</tr> );
         }
@@ -137,25 +139,40 @@ export default class CombinationGrid extends React.Component
     {
         let toReturn = [];
 
-        toReturn.push( <td key={number + "--1" }>{this.props.customizationList[number].value}</td> );
-        for( let i = 0; i < this.props.customizationList.length; i++ )
+        toReturn.push( <td key={number + "--1" }>{this.props.product.customizations[number].name}</td> );
+        for( let i = 0; i < this.props.product.customizations.length; i++ )
         {
             toReturn.push( <CombinationGridBox
                            key={number + "-" + i}
-                           first={this.props.customizationList[number]}
-                           second={this.props.customizationList[i]}
+                           first={this.props.product.customizations[number]}
+                           second={this.props.product.customizations[i]}
                            updateValidCombination={this.updateValidCombination}
                            isValidCombination={this.isValidCombination}
                            invalidCombinations={this.state.invalidCombinations}>
-                           </CombinationGridBox> );        }
+                           </CombinationGridBox> );
+        }
         
         return toReturn;
     }
 
+    updateWithLatestState( props )
+    {
+        this.setState( {
+            product: props.product
+        } );
+    }
+  
+    componentDidMount()
+    {
+
+        this.updateWithLatestState( this.props );
+    }
     
     componentWillReceiveProps(nextProps)
     {
-        this.generateCombinations( nextProps.customizationList );
+      //        this.generateCombinations( nextProps.customizationList );
+        this.updateWithLatestState( nextProps );
+      
     }
     
     render()
@@ -180,3 +197,25 @@ export default class CombinationGrid extends React.Component
     }
 }
 
+function stateToProps(state)
+{
+    let product = state.product;
+    if( product.customizations == null )
+    {
+        product.customizations = [];
+    }
+    return { product: product };
+}
+
+function dispatchToProps(dispatch)
+{
+    return {
+        save: ( value ) =>
+            {
+                dispatch(AppActions.updateProductDetails( value ));
+            }
+    };
+}
+
+
+export default connect(stateToProps, dispatchToProps)(CombinationGrid);
