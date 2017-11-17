@@ -186,9 +186,10 @@ class CombinationGrid extends React.Component
     {
         let product = this.state.product;
         let copyFrom = {};
+        
         if( product.validCombinations )
         {
-            let copyFrom = product.validCombinations[ this.lengthCopy.value];
+            copyFrom = product.validCombinations[ this.lengthCopy.value];
         } else
         {
             product.validCombinations = {};
@@ -200,6 +201,7 @@ class CombinationGrid extends React.Component
         }
 
         product.validCombinations[this.props.forLength] = copyFrom;
+        console.log( product );
         this.setState(
             {
                 product: product
