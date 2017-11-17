@@ -213,19 +213,16 @@ class CombinationGrid extends React.Component
     {
         return(
             <div>
-              <table className="combination-grid">
-                <tr>
-                  {this.generateTableHead()}
-                </tr>
-                {this.generateTableRows()}
-              </table>
               <div className="container">
                 <div className="row">
-                  <div className="col-md-4">
-                    <button onClick={()=>this.props.save( this.state.product)}>Save</button>
-                  </div>
+                  <table className="combination-grid">
+                    <tr>
+                      {this.generateTableHead()}
+                    </tr>
+                    {this.generateTableRows()}
+                  </table>
                 </div>
-                <div className="row">
+                <div className="row help-block">
                   <div className="col-md-4">
                     Copy From
                   </div>
@@ -238,6 +235,12 @@ class CombinationGrid extends React.Component
                   </div>
                   <div className="col-md-2">
                     <button onClick={this.copy}>Copy</button>                
+                  </div>
+                </div>
+                
+                <div className="row help-block">
+                  <div className="col-md-4">
+                    <button onClick={()=>this.props.save( this.state.product)}>Save</button>
                   </div>
                 </div>
              </div>
