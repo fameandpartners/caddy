@@ -60,13 +60,14 @@ class Home extends React.Component
         if( this.props.showCustomizations )
         {
             toReturn.push( this.generateTab( 2, "Customizations" )  );
-            toReturn.push( this.generateTab( 4, "Combination Grid" )  );
-            toReturn.push( this.generateTab( 5, "Render Test" )  );
 
-            for( let i = 0; this.props.product && i < this.props.product.details.lengths.length; i++ )
+            let i = 0;
+            for(; this.props.product && i < this.props.product.details.lengths.length; i++ )
             {
-                toReturn.push( this.generateTab( 6 + i, this.props.product.details.lengths[i] ) );
+                toReturn.push( this.generateTab( 3 + i, this.props.product.details.lengths[i] ) );
             }
+            toReturn.push( this.generateTab( 3 + i, "Render Test" )  );
+            
         }
         return toReturn;
     }
@@ -88,8 +89,15 @@ class Home extends React.Component
         if( this.props.showCustomizations )
         {
             toReturn.push( this.generateSingleTabContent( 2, <CustomizationList updateCustomizations={this.updateCustomizationList} customizationList={this.state.customizationList} />) );
-            toReturn.push( this.generateSingleTabContent( 4, <CombinationGrid customizationList={this.state.customizationList}/> ) );
-            toReturn.push( this.generateSingleTabContent( 5, <RenderLayers/> ) );
+
+            let i = 0;
+            for( ; this.props.product && i < this.props.product.details.lengths.length; i++ )
+            {
+                toReturn.push( this.generateSingleTabContent( 3 + i, <CombinationGrid customizationList={this.state.customizationList}/> ) );
+            }
+
+            toReturn.push( this.generateSingleTabContent( 3 + i, <RenderLayers/> ) );
+            
         }
         
         return toReturn;
