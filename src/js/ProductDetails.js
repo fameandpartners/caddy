@@ -19,6 +19,7 @@ class ProductDetails extends React.Component
                 details: {}
             }
         };
+
     }
 
     save()
@@ -98,6 +99,28 @@ class ProductDetails extends React.Component
                         
         
     }
+    addOrRemove( lengthName )
+    {
+        let product = this.state.product;
+        if( product.details.lengths.indexOf( lengthName ) > -1 )
+        {
+            product.details.lengths.splice( product.details.lengths.indexOf( lengthName ), 1 );
+        } else
+        {
+            product.details.lengths.push( lengthName );
+        }
+
+        this.setState(
+            {
+                product: product
+            }
+        );
+    }
+
+    lengthExists( lengthName )
+    {
+        return this.state.product.details.lengths && this.state.product.details.lengths.indexOf( lengthName ) > -1;
+    }
     render()
     {
         return (
@@ -145,7 +168,44 @@ class ProductDetails extends React.Component
                       </div>
                       
                     </div>
-                    
+                    <div className="row">
+                      <div className="col-md-12">
+                        Available Lengths
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-1 text-right">
+                        Mini: </div>
+                      <div className="col-md-1">
+                        <input defaultChecked={this.lengthExists( 'Mini' )} onClick={ () => this.addOrRemove( 'Mini' ) }type="checkbox"/>                        
+                      </div>
+                      <div className="col-md-1 text-right">
+                        Knee: 
+                      </div>
+                      <div className="col-md-1">
+                        <input defaultChecked={this.lengthExists( 'Knee' )} onClick={ () => this.addOrRemove( 'Knee' ) }type="checkbox"/>                        
+                      </div>
+                      <div className="col-md-1 text-right">
+                        Midi: 
+                      </div>
+                      <div className="col-md-1">
+                        <input defaultChecked={this.lengthExists( 'Midi' )} onClick={ () => this.addOrRemove( 'Midi' ) }type="checkbox"/>                        
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-1 text-right">
+                        Ankle: 
+                      </div>
+                      <div className="col-md-1">
+                        <input defaultChecked={this.lengthExists( 'Ankle' )} onClick={ () => this.addOrRemove( 'Ankle' ) }type="checkbox"/>
+                      </div>                      
+                      <div className="col-md-1 text-right">
+                        Maxi: 
+                      </div>
+                      <div className="col-md-1">
+                        <input defaultChecked={this.lengthExists( 'Maxi' )} onClick={ () => this.addOrRemove( 'Maxi' ) }type="checkbox"/>
+                      </div>
+                    </div>
                     <div>
                       <button onClick={this.save}>Save</button>
                     </div>
@@ -165,7 +225,6 @@ class ProductDetails extends React.Component
                       </div>
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -175,6 +234,10 @@ class ProductDetails extends React.Component
 
 function stateToProps(state)
 {
+    if( state.product.details.lengths == null )
+    {
+        state.product.details.lengths = [];
+    }
     return { product: state.product };
 }
 
