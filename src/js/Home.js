@@ -20,7 +20,8 @@ class Home extends React.Component
         this.state =
             {
                 activeTab: 0,
-                customizationList: []
+                customizationList: [],
+                product: null
             };
     }
 
@@ -61,8 +62,12 @@ class Home extends React.Component
             toReturn.push( this.generateTab( 2, "Customizations" )  );
             toReturn.push( this.generateTab( 4, "Combination Grid" )  );
             toReturn.push( this.generateTab( 5, "Render Test" )  );
-        }
 
+            for( let i = 0; this.props.product && i < this.props.product.details.lengths.length; i++ )
+            {
+                toReturn.push( this.generateTab( 6 + i, this.props.product.details.lengths[i] ) );
+            }
+        }
         return toReturn;
     }
 
@@ -110,9 +115,11 @@ class Home extends React.Component
 
 function stateToProps(state)
 {
+
     return { 
         showProductDetails: state.product && state.product.version != null,
-        showCustomizations: state.product && state.product.version != null && state.product.version > 0
+        showCustomizations: state.product && state.product.version != null && state.product.version > 0,
+        product: state.product
     };
 }
 
