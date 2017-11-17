@@ -13,6 +13,7 @@ class CombinationGrid extends React.Component
     {
         super( props );
         autoBind( this );
+        this.state = {};
     }
 
     generateCombinations( list )
@@ -144,18 +145,21 @@ class CombinationGrid extends React.Component
     {
         let toReturn = [];
 
-        toReturn.push( <td key={number + "--1" }>{this.props.product.customizations[number].name}</td> );
-        for( let i = 0; i < this.props.product.customizations.length; i++ )
+        if( this.state.product != null )
         {
-            toReturn.push( <CombinationGridBox
-                           key={number + "-" + i}
-                           first={this.props.product.customizations[number]}
-                           second={this.props.product.customizations[i]}
-                           updateValidCombination={this.updateValidCombination}
-                           isValidCombination={this.isValidCombination}>
-                           </CombinationGridBox> );
+            toReturn.push( <td key={number + "--1" }>{this.state.product.customizations[number].name}</td> );
+            for( let i = 0; i < this.state.product.customizations.length; i++ )
+            {
+                toReturn.push( <CombinationGridBox
+                               key={this.props.forLength + "-" + number + "-" + i}
+                               first={this.state.product.customizations[number]}
+                               second={this.state.product.customizations[i]}
+                               updateValidCombination={this.updateValidCombination}
+                               isValidCombination={this.isValidCombination}>
+                               </CombinationGridBox> );
+            }
+
         }
-        
         return toReturn;
     }
 
@@ -178,6 +182,30 @@ class CombinationGrid extends React.Component
         this.updateWithLatestState( nextProps );
       
     }
+    copy()
+    {
+        let product = this.state.product;
+        let copyFrom = {};
+        if( product.validCombinations )
+        {
+            let copyFrom = product.validCombinations[ this.lengthCopy.value];
+        } else
+        {
+            product.validCombinations = {};
+        }
+        
+        if( copyFrom == null )
+        {
+            copyFrom = {};
+        }
+
+        product.validCombinations[this.props.forLength] = copyFrom;
+        this.setState(
+            {
+                product: product
+            }
+        );
+    }
     
     render()
     {
@@ -189,7 +217,28 @@ class CombinationGrid extends React.Component
                 </tr>
                 {this.generateTableRows()}
               </table>
-              <button onClick={()=>this.props.save( this.state.product)}>Save</button>
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-4">
+                    <button onClick={()=>this.props.save( this.state.product)}>Save</button>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-4">
+                    Copy From
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-2">
+                    <select ref={ (ref) => this.lengthCopy = ref} id="length-set">
+                            {this.props.product.details.lengths.map( (length) => ( <option key={length} value={length}>{length}</option>) )}
+                    </select>
+                  </div>
+                  <div className="col-md-2">
+                    <button onClick={this.copy}>Copy</button>                
+                  </div>
+                </div>
+             </div>
             </div>            
         );
     }
@@ -197,8 +246,6 @@ class CombinationGrid extends React.Component
 
 function stateToProps(state)
 {
-    console.log( 'updating combination grid' );
-    console.log( state.product );
     let product = state.product;
     if( product.customizations == null )
     {

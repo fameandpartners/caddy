@@ -8,8 +8,9 @@ export default class CombinationGridBox extends React.Component
     super( props );
     autoBind( this );
     this.state = {
-      valid: true
+      valid: props.isValidCombination( props.first.id, props.second.id )
     };
+
   }
 
   flipValid()
@@ -24,11 +25,12 @@ export default class CombinationGridBox extends React.Component
       );
     }
   }
+    
   componentWillReceiveProps(nextProps)
   {
     this.setState(
       {
-        valid: this.props.isValidCombination( this.props.first.id, this.props.second.id )
+        valid: nextProps.isValidCombination( nextProps.first.id, nextProps.second.id )
       }
     );
                    
@@ -43,7 +45,7 @@ export default class CombinationGridBox extends React.Component
           valid: false
         }
       );
-    }
+    } 
   }
 
   
