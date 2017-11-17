@@ -69,7 +69,7 @@ class CombinationGrid extends React.Component
     isValidCombination( first, second )
     {
         let combinations = [first.toString(),second.toString()].sort();
-        let ic = this.state.product.validCombinations;
+        let ic = this.state.product.validCombinations[this.props.forLength] || {};
 
         if( first === second )
         {
@@ -94,14 +94,20 @@ class CombinationGrid extends React.Component
         let combinations = [first.toString(),second.toString()].sort();
 
         let product = this.state.product;
-
-        if( !product.validCombinations[combinations[0]] )
+        let validSet = product.validCombinations[this.props.forLength];
+        
+        if( validSet == null )
         {
-            product.validCombinations[combinations[0]] = {};
+            validSet = {};
+        }
+        if( validSet[combinations[0]] == null)
+        {
+            validSet[combinations[0]] = {};
         }
 
-        product.validCombinations[combinations[0]][combinations[1]] = valid;
-
+        validSet[combinations[0]][combinations[1]] = valid;
+        product.validCombinations[this.props.forLength] = validSet;
+        
         this.setState(
             {
                 product: product

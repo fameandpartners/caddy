@@ -93,7 +93,7 @@ class Home extends React.Component
             let i = 0;
             for( ; this.props.product && i < this.props.product.details.lengths.length; i++ )
             {
-                toReturn.push( this.generateSingleTabContent( 3 + i, <CombinationGrid customizationList={this.state.customizationList}/> ) );
+                toReturn.push( this.generateSingleTabContent( 3 + i, <CombinationGrid customizationList={this.state.customizationList} forLength={this.props.product.details.lengths[i]}/> ) );
             }
 
             toReturn.push( this.generateSingleTabContent( 3 + i, <RenderLayers/> ) );
