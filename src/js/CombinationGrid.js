@@ -222,7 +222,7 @@ class CombinationGrid extends React.Component
                     {this.generateTableRows()}
                   </table>
                 </div>
-                <div className="row help-block">
+                <div className="row top-margin">
                   <div className="col-md-4">
                     Copy From
                   </div>
@@ -238,7 +238,7 @@ class CombinationGrid extends React.Component
                   </div>
                 </div>
                 
-                <div className="row help-block">
+                <div className="row top-margin">
                   <div className="col-md-4">
                     <button onClick={()=>this.props.save( this.state.product)}>Save</button>
                   </div>
