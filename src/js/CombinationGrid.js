@@ -15,57 +15,6 @@ class CombinationGrid extends React.Component
         autoBind( this );
         this.state = {};
     }
-
-    generateCombinations( list )
-    {
-        let i, j, temp;
-        let result = [];
-        let arrLen = list.length;
-        let power = Math.pow;
-        let combinations = power(2, arrLen);
-        
-        for (i = 0; i < combinations;  i++)
-        {
-            temp = [];
-            
-            for (j = 0; j < arrLen; j++)
-            {
-                if ((i & power(2, j)))
-                {
-                    temp = temp.concat( [list[j].value] );
-                }
-            }
-            
-            if( temp.length > 0 )
-            {
-                if( !this.containsInvalidCombinations( temp ) )
-                {
-                    result.push( <li key={temp.join("-")}>{temp.join( "," )}</li> );
-                }
-            }
-        }
-        
-        this.setState( {
-            combinations: result
-        } );
-
-    }        
-
-    containsInvalidCombinations( toCheck )
-    {
-        for( let i = 0; i < toCheck.length; i++ )
-        {
-            for( let j = i + 1; j < toCheck.length; j++ )
-            {
-                if( !this.isValidCombination( toCheck[i], toCheck[j] ) )
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
     
     isValidCombination( first, second )
     {

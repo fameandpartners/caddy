@@ -66,7 +66,8 @@ class Home extends React.Component
             {
                 toReturn.push( this.generateTab( 3 + i, this.props.product.details.lengths[i] ) );
             }
-            toReturn.push( this.generateTab( 3 + i, "Render Test" )  );
+            toReturn.push( this.generateTab( 3 + i, "Combinations Test" )  );          
+            toReturn.push( this.generateTab( 4 + i, "Render Test" )  );
             
         }
         return toReturn;
@@ -96,7 +97,8 @@ class Home extends React.Component
                 toReturn.push( this.generateSingleTabContent( 3 + i, <CombinationGrid customizationList={this.state.customizationList} forLength={this.props.product.details.lengths[i]}/> ) );
             }
 
-            toReturn.push( this.generateSingleTabContent( 3 + i, <RenderLayers/> ) );
+            toReturn.push( this.generateSingleTabContent( 3 + i, <CombinationList/> ) );
+            toReturn.push( this.generateSingleTabContent( 4 + i, <RenderLayers/> ) );
             
         }
         
