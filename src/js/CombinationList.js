@@ -12,7 +12,7 @@ class CombinationList extends React.Component
   {
     super( props );
     autoBind( this );
-    this.state = { combinations: [] };
+    this.state = { combinations: [], csvCombinations: [] };
   }
 
 
@@ -23,6 +23,7 @@ class CombinationList extends React.Component
     let arrLen = list.length;
     let power = Math.pow;
     let combinations = power(2, arrLen);
+    let csvCombinations = [];
     
     for (i = 0; i < combinations;  i++)
     {
@@ -40,13 +41,15 @@ class CombinationList extends React.Component
       {
         if( !this.containsInvalidCombinations( temp ) )
         {
+          csvCombinations.push( temp );
           result.push( <li key={temp.join("-")}>{temp.join( "," )}</li> );
         }
       }
     }
     
     this.setState( {
-      combinations: result
+      combinations: result,
+      csvCombinations: csvCombinations
     } );
 
   }        
@@ -116,7 +119,17 @@ class CombinationList extends React.Component
   {
     this.updateWithLatestState( nextProps );
   }
-  
+
+  exportCSV()
+  {
+    let csvString = this.state.csvCombinations.reduce( ( wholeString , element ) =>  ( wholeString + element.reduce( ( rowString = "", rowElement ) =>  rowString += "\"" + rowElement + "\"," ) + "\n" ) );
+    var blobdata = new Blob([csvString],{type : 'text/csv'});
+    let link = document.createElement("a");
+    link.setAttribute("href",  window.URL.createObjectURL(blobdata));
+    link.setAttribute("download", "combinations.csv");
+    link.click();
+
+  }
   render()
   {
     return(
@@ -132,6 +145,9 @@ class CombinationList extends React.Component
         </div>
         <div className="col-md-2">
         <button onClick={this.generate}>Generate</button>
+        </div>
+        <div className="col-md-2">
+        <button onClick={this.exportCSV}>Export CSV</button>
         </div>
         </div>
         
