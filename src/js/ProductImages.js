@@ -1,26 +1,27 @@
 import React from 'react';
 import autoBind from 'react-autobind';
+import * as AppActions from './actions/AppActions';
+import { connect } from 'react-redux';
 
 import CanvasImage from './CanvasImage';
 import {getBase64} from './Utils';
 
-export default class ProductImages extends React.Component
+class ProductImages extends React.Component
 {
   constructor( props )
   {
     super( props );
     autoBind( this );
     this.state = {
-      primaryImage: null,
-      secondaryImages: []
+      product: {details: {secondaryImages: []}}
     };
   }
 
   renderPrimaryImage()
   {
-    if( this.state.primaryImage )
+    if( this.state.product.details.primaryImage )
     {
-      return( <CanvasImage imageData={this.state.primaryImage} width={768} height={653}/> );
+      return( <CanvasImage imageData={this.state.product.details.primaryImage} width={768} height={653}/> );
 
     } else
     {
@@ -39,10 +40,10 @@ export default class ProductImages extends React.Component
     let context = this;
     const file = e.target.files[0];
     getBase64(file).then(base64 => {
-      let secondaryImages = this.state.secondaryImages;
-      secondaryImages = secondaryImages.concat( [base64] );
+      let product = this.state.product;
+      product.details.secondaryImages = product.details.secondaryImages.concat( [base64] );
       context.setState( {
-        secondaryImages: secondaryImages
+        product: product
       } );
     });
   }
@@ -52,12 +53,34 @@ export default class ProductImages extends React.Component
     let context = this;
     const file = e.target.files[0];
     getBase64(file).then(base64 => {
+      let product = this.state.product;
+      product.details.primaryImage = base64;
       context.setState( {
-        primaryImage: base64
+        product: product
       } );
     });
   }
 
+
+  updateWithLatestState( props )
+  {
+    this.setState( {
+      product: props.product
+    } );
+    
+  }
+
+  componentDidMount()
+  {
+
+    this.updateWithLatestState( this.props );
+  }
+  
+  componentWillReceiveProps( nextProps )
+  {
+
+    this.updateWithLatestState( nextProps );
+  }
   
   render()
   {
@@ -81,7 +104,7 @@ export default class ProductImages extends React.Component
         </div>
         <div className="row">
           <div className="col-md-6">
-            {this.state.secondaryImages.map( this.renderSecondaryItem ) }
+            {this.state.product.details.secondaryImages.map( this.renderSecondaryItem ) }
           </div>
         </div>
         <div className="row">
@@ -89,11 +112,39 @@ export default class ProductImages extends React.Component
             <span>
               <input type="file" id="productImage" name='productImage' onChange={this.uploadSecondaryImage} />
             </span>
+          </div>
         </div>
-      </div>
+        <div className="row top-margin">
+          <div className="col-md-4">
+            <button onClick={()=>this.props.save( this.state.product)}>Save</button>
+          </div>
+        </div>
         
-      </div> );
+      </div>
+    );
   }
   
   
 }
+
+function stateToProps(state)
+{
+  if( state.product.details.secondaryImages == null )
+  {
+    state.product.details.secondaryImages = [];
+  }
+  return { product: state.product };
+}
+
+function dispatchToProps(dispatch)
+{
+  return {
+    save: ( value ) =>
+      {
+        dispatch(AppActions.updateProductDetails( value ));
+      }
+  };
+}
+
+
+export default connect(stateToProps, dispatchToProps)(ProductImages);
