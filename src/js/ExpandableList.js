@@ -25,6 +25,7 @@ export default class ExpandableList extends React.Component
     );
     this.props.contentUpdate( contents );
   }
+  
   renderItem( item, number )
   {
     return (

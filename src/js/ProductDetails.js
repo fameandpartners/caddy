@@ -117,7 +117,7 @@ class ProductDetails extends React.Component
       }
     );
   }
-p
+
   lengthExists( lengthName )
   {
     return this.state.product.details.lengths && this.state.product.details.lengths.indexOf( lengthName ) > -1;
