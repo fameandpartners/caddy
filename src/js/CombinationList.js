@@ -27,19 +27,21 @@ class CombinationList extends React.Component
     
     for (i = 0; i < combinations;  i++)
     {
-      temp = [];
+      let temp = [];
+      let tempIds = [];
       
       for (j = 0; j < arrLen; j++)
       {
         if ((i & power(2, j)))
         {
           temp = temp.concat( [list[j].name] );
+          tempIds = tempIds.concat( [list[j].id] );
         }
       }
       
       if( temp.length > 0 )
       {
-        if( !this.containsInvalidCombinations( temp ) )
+        if( !this.containsInvalidCombinations( tempIds ) )
         {
           csvCombinations.push( temp );
           result.push( <li key={temp.join("-")}>{temp.join( "," )}</li> );
@@ -73,7 +75,7 @@ class CombinationList extends React.Component
   isValidCombination( first, second )
   {
     let combinations = [first.toString(),second.toString()].sort();
-    let ic = this.state.product.validCombinations[this.props.forLength] || {};
+    let ic = this.state.product.validCombinations[this.lengthCopy.value] || {};
 
     if( first === second )
     {
