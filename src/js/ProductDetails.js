@@ -117,16 +117,16 @@ class ProductDetails extends React.Component
       }
     );
   }
-
+p
   lengthExists( lengthName )
   {
     return this.state.product.details.lengths && this.state.product.details.lengths.indexOf( lengthName ) > -1;
   }
 
-  updateColors( colors )
+  updateDetail( detailName, value )
   {
     let product = this.state.product;
-    product.details.colors = colors;
+    product.details[detailName] = value;
 
     this.setState(
       {
@@ -229,12 +229,17 @@ class ProductDetails extends React.Component
             </div>
             <div className="row">
               <div className="col-md-12">
-                <ExpandableList addType="Color" contentUpdate={this.updateColors} startingValue={this.state.product.details.colors}/>
+                <ExpandableList addType="Color" contentUpdate={( value ) => this.updateDetail( 'colors', value )} startingValue={this.state.product.details.colors}/>
               </div>
             </div>
             <div className="row top-margin">
               <div className="col-md-12">
                 Taxons
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-12">
+                <ExpandableList addType="Taxon" contentUpdate={( value ) => this.updateDetail( 'taxons', value )} startingValue={this.state.product.details.taxons}/>
               </div>
             </div>
 
