@@ -17,22 +17,70 @@ class ProductImages extends React.Component
     };
   }
 
+  deletePrimaryImage()
+  {
+    let product = this.state.product;
+    product.details.primaryImage = null;
+    this.setState(
+      {
+        product: product
+      }
+    );
+  }
+  
   renderPrimaryImage()
   {
     if( this.state.product.details.primaryImage )
     {
-      return( <CanvasImage imageData={this.state.product.details.primaryImage} width={768} height={653}/> );
+      return(
+        <div className="row">
+          <div className="col-md-6">
+            <CanvasImage imageData={this.state.product.details.primaryImage} width={768} height={653}/>
+          </div>
+          <div className="col-md-1">
+            <button onClick={this.deletePrimaryImage}>Delete</button>
+          </div>
+        </div>
+        
+         );
 
     } else
     {
-      return( <span><input type="file" id="productImage" name='productImage' onChange={this.uploadProductImage} /></span> );
+      return(
+        <div className="row">
+          <div className="col-md-6">
+            <span><input type="file" id="productImage" name='productImage' onChange={this.uploadProductImage} /></span>
+          </div>
+        </div>
+     );
     }
   }
 
+  deleteSecondaryImage( number )
+  {
+    let product = this.state.product;
+
+    this.state.product.details.secondaryImages.splice( number, 1 );
+    this.setState(
+      {
+        product: product
+      }
+    );
+
+  }
   renderSecondaryItem( item, number )
   {
-    return( <CanvasImage key={"secondary-image" + number} imageData={item} width={768} height={653}/> );
-    
+    return(
+        <div className="row" key={"secondary-image" + number}>
+          <div className="col-md-6">
+            <CanvasImage  imageData={item} width={768} height={653}/>
+          </div>
+          <div className="col-md-1">
+            <button onClick={() => this.deleteSecondaryImage( number )}>Delete</button>
+          </div>
+          
+        </div>
+       );
   }
   
   uploadSecondaryImage( e )
@@ -91,22 +139,13 @@ class ProductImages extends React.Component
             Primary Image
           </div>
         </div>
-        <div className="row">
-          <div className="col-md-6">
-            {this.renderPrimaryImage()}
-          </div>
-        </div>
-
+        {this.renderPrimaryImage()}        
         <div className="row top-margin">
           <div className="col-md-6">
             Secondary Images
           </div>
         </div>
-        <div className="row">
-          <div className="col-md-6">
-            {this.state.product.details.secondaryImages.map( this.renderSecondaryItem ) }
-          </div>
-        </div>
+        {this.state.product.details.secondaryImages.map( this.renderSecondaryItem ) }        
         <div className="row">
           <div className="col-md-12">
             <span>
