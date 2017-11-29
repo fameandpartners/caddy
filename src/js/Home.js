@@ -17,7 +17,6 @@ class Home extends React.Component
   constructor(props)
   {
     super(props);
-    console.log( process.env )
     autoBind(this);
     this.state =
       {
