@@ -1,18 +1,19 @@
 import request from 'superagent';
+const FIREBASE_URL = process.env.FIREBASE_URL;
 
 export function updateProductDetails( product )
 {
     return function( dispatch )
     {
         product.version += 1;
-        let url = 'https://product-management-dev.firebaseio.com/product/' + product.details.id + "/versions/" + product.version + ".json";
+        let url = FIREBASE_URL + '/product/' + product.details.id + "/versions/" + product.version + ".json";
 
         request.put( url )
             .type( 'application/json' )
             .send( product )
             .end((error, response) =>
                  {
-                     let productListURL = 'https://product-management-dev.firebaseio.com/products/' + product.details.id + ".json";
+                     let productListURL = FIREBASE_URL + '/products/' + product.details.id + ".json";
                      
                      request.put( productListURL )
                          .type( 'application/json' )
@@ -45,7 +46,7 @@ export function loadProduct( styleNumber, versionNumber )
 {
     return function( dispatch )
     {
-        let url = 'https://product-management-dev.firebaseio.com/product/' + styleNumber + "/versions/" + versionNumber + ".json";
+        let url = FIREBASE_URL + '/product/' + styleNumber + "/versions/" + versionNumber + ".json";
         request.get( url ).end((error, response) => {
             let productJson = JSON.parse( response.text );
             dispatch(
