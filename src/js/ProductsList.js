@@ -6,6 +6,8 @@ import request from 'superagent';
 import { connect } from 'react-redux';
 import * as AppActions from './actions/AppActions';
 
+const FIREBASE_URL = process.env.FIREBASE_URL;
+
 class ProductsList extends React.Component
 {
     constructor( props )
@@ -21,7 +23,7 @@ class ProductsList extends React.Component
     
     componentWillMount()
     {
-        let url = 'https://product-management-dev.firebaseio.com/products.json';
+        let url = FIREBASE_URL + '/products.json';
         request.get( url ).end((error, response) => {
             this.setState(
                 {
@@ -40,7 +42,9 @@ class ProductsList extends React.Component
     renderProducts( productsJSON )
     {
         let toReturn = [];
-        let context = this;
+      let context = this;
+      if( productsJSON )
+      {
         Object.keys(productsJSON).map(function(styleNumber, keyIndex) {
             toReturn.push(
                 <li key={styleNumber}>
@@ -57,6 +61,11 @@ class ProductsList extends React.Component
                 </li> );
         });
         return toReturn;
+      } else
+      {
+        return;
+      }
+      
     }
     
     render()
