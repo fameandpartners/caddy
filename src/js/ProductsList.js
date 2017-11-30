@@ -35,7 +35,6 @@ class ProductsList extends React.Component
     
     loadProduct( styleNumber, versionNumber )
     {
-        console.log( 'load product called' );
         this.props.load( styleNumber, versionNumber );
     }
     
@@ -63,9 +62,8 @@ class ProductsList extends React.Component
         return toReturn;
       } else
       {
-        return;
+        return "";
       }
-      
     }
     
     render()
@@ -94,7 +92,7 @@ function dispatchToProps(dispatch)
     return {
         load: ( styleNumber, versionNumber ) =>
             {
-                dispatch( AppActions.loadProduct( styleNumber, versionNumber ) );
+              dispatch( AppActions.loadProduct( styleNumber, versionNumber ) );
             },
         newProduct: () =>
             {

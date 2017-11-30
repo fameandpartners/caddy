@@ -155,7 +155,8 @@ class CombinationList extends React.Component
         
         <div className="row">
         <div className="col-md-12">
-        { this.state.combinations }              
+        
+        <ol>{ this.state.combinations }</ol>
       </div>
         </div>
         </div>
