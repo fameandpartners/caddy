@@ -132,6 +132,7 @@ class CombinationList extends React.Component
     link.click();
 
   }
+  
   render()
   {
     return(
