@@ -5,7 +5,21 @@ import { connect } from 'react-redux';
 import autoBind from 'react-autobind';
 import LayerCad from './LayerCad';
 import * as AppActions from './actions/AppActions';
+import DraggableList from 'react-draggable-list';
 
+
+class RenderLayerItem extends React.Component
+{
+  render()
+  {
+    return (
+      <div className="row">
+        <div className="col-md-1">{this.props.dragHandle(<div className="dragHandle" />)}</div>
+        <div className="col-md-10">{this.props.item.name}</div>
+      </div>
+    );
+  }
+}
 
 class RenderLayers extends React.Component
 {
@@ -73,13 +87,7 @@ class RenderLayers extends React.Component
   {
     return (
       <div className="container">
-        <div className="row">
-          <div className="col-md-12">
-            <ol>
-              {this.state.product.customizations.map( this.renderCustomizationItem ) }
-            </ol>
-          </div>
-        </div>
+        <DraggableList itemKey="id" template={RenderLayerItem} list={this.state.product.customizations}/>
       </div>
       
     );

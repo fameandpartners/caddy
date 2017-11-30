@@ -59,3 +59,22 @@ input[type=text]
 
 
 }
+
+.item {
+  border: 1px solid black;
+  overflow: hidden;
+  transform-origin: 30% 50% 0px;
+  padding-left: 20px;
+  background: white;
+  max-height: 100%;
+}
+.dragHandle
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: move;
+  width: 20px;
+  height: 16px;
+  background: url('grippy.png') 30% 50% no-repeat no-repeat;
+}

@@ -118,6 +118,7 @@
     "react-bootstrap": "^0.31.3",
     "react-dev-utils": "^0.5.2",
     "react-dom": "^15.4.2",
+    "react-draggable-list": "^3.4.1",
     "react-motion": "^0.5.0",
     "react-redux": "^5.0.4",
     "react-router": "^4.1.1",
