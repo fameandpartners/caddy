@@ -11,190 +11,195 @@ import uuidv4 from 'uuid/v4';
 
 class CustomizationList extends React.Component
 {
-    constructor( props )
-    {
-        super( props );
-        autoBind( this );
-        this.state = {
-            product: {
-                customizations: []
-            }
-        };
+  constructor( props )
+  {
+    super( props );
+    autoBind( this );
+    this.state = {
+      product: {
+        customizations: []
+      }
+    };
 
-        this.customizationTextBoxes = {};
-        this.priceAUDTextBoxes = {};
-        this.priceUSDTextBoxes = {};
-        
-    }
-
-    addCustomization()
-    {
-        let product = this.state.product;
-        product.customizations = product.customizations.concat([ {
-            id: uuidv4(),
-            name: null,
-            priceAUD: null,
-            priceUSD: null,
-            frontTopRenderImage: null,
-            frontBottomRenderImage: null,
-            backTopRenderImage: null,
-            backBottomRenderImage: null
-        } ] );
-        this.setState( 
-            {
-                product: product
-            }
-        );
-    }
-
-
-    removeFromCustomizationValues ( index )
-    {
-        
-        this.state.customizationValues.splice( index, 1 );
-        this.setState(
-            {
-                customizationValues: this.state.customizationValues
-            }
-        );
-    }
-
-    updateWithLatestState( props )
-    {
-        this.setState( {
-            product: props.product
-        } );
-    }
+    this.customizationTextBoxes = {};
+    this.priceAUDTextBoxes = {};
+    this.priceUSDTextBoxes = {};
     
-    componentDidMount()
-    {
+  }
 
-        this.updateWithLatestState( this.props );
-    }
+  addCustomization()
+  {
+    let product = this.state.product;
+    product.customizations = product.customizations.concat([ {
+      id: uuidv4(),
+      name: null,
+      priceAUD: null,
+      priceUSD: null,
+      frontTopRenderImage: null,
+      frontBottomRenderImage: null,
+      backTopRenderImage: null,
+      backBottomRenderImage: null
+    } ] );
+    this.setState( 
+      {
+        product: product
+      }
+    );
+  }
+
+
+  removeFromCustomizationValues ( index )
+  {
     
-    componentWillReceiveProps( nextProps )
-    {
+    this.state.customizationValues.splice( index, 1 );
+    this.setState(
+      {
+        customizationValues: this.state.customizationValues
+      }
+    );
+  }
 
-        this.updateWithLatestState( nextProps );
-    }
+  updateWithLatestState( props )
+  {
+    this.setState( {
+      product: props.product
+    } );
+  }
+  
+  componentDidMount()
+  {
 
-    updateCustomizatioName( number )
-    {
-        let product = this.state.product;
+    this.updateWithLatestState( this.props );
+  }
+  
+  componentWillReceiveProps( nextProps )
+  {
 
-        this.state.product.customizations[number].name = this.customizationTextBoxes[number].value;
-        this.setState(
-            {
-                product: product
-            }
-        );
-    }
-    
-    updateAUDPrice( number )
-    {
-        let product = this.state.product;
+    this.updateWithLatestState( nextProps );
+  }
 
-        this.state.product.customizations[number].priceAUD = this.priceAUDTextBoxes[number].value;
-        this.setState(
-            {
-                product: product
-            }
-        );
-    }
+  updateCustomizatioName( number, e )
+  {
+    let product = this.state.product;
 
-    updateUSDPrice( number )
-    {
-        let product = this.state.product;
+    this.state.product.customizations[number].name = this.customizationTextBoxes[number].value;
+    this.setState(
+      {
+        product: product
+      }
+    );
 
-        this.state.product.customizations[number].priceUSD = this.priceUSDTextBoxes[number].value;
-        this.setState(
-            {
-                product: product
-            }
-        );
-    }
-    
-    renderCustomizationItem( customization, number )
-    {
-        return (
-            <li key={"customization-" + number }>
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-2">
-                    Customization Name:
-                  </div>
-                  <div className="col-md-2">
-                    <input type="text"
-                           defaultValue={customization.name}
-                           onKeyUp={() => this.updateCustomizatioName( number ) }
-                           ref={(input) => { this.customizationTextBoxes[number] = input; }} />
-                  </div>
-                  <div className="col-md-2 text-right">
-                    AUD Price:
-                  </div>
-                  <div className="col-md-1">
-                    <input type="text"
-                           defaultValue={customization.priceAUD}
-                           onKeyUp={() => this.updateAUDPrice( number ) }                           
-                           ref={(input) => { this.priceAUDTextBoxes[number] =  input; }} />
+   if (e.key === "Enter") {
+     this.addCustomization();
+    }    
+  }
+  
+  updateAUDPrice( number )
+  {
+    let product = this.state.product;
 
-                  </div>
-                  <div className="col-md-2 text-right">
-                    USD Price:
-                  </div>
-                  <div className="col-md-1">
-                    <input type="text"
-                           defaultValue={customization.priceUSD}
-                           onKeyUp={() => this.updateUSDPrice( number ) }                                                      
-                           ref={(input) => { this.priceUSDTextBoxes[number] = input; }} />
-                           
-                  </div>
-                </div>
-              </div>
-            </li>
-        );
-    }
-    
-    render()
-    {
-        return(
-            <div className="container customization-item">
-              <div className="row">
-                <ol>
-                  {this.state.product.customizations.map( this.renderCustomizationItem ) }
-                </ol>
-              </div>
-              <div className="row">
-                <div className="col-md-2">
-                  <button onClick={this.addCustomization}>Add Customization</button>
-                </div>
-                <div className="col-md-2">
-                  <button onClick={() => this.props.save(this.state.product) }>Save</button>
-                </div>
-              </div>
+    this.state.product.customizations[number].priceAUD = this.priceAUDTextBoxes[number].value;
+    this.setState(
+      {
+        product: product
+      }
+    );
+  }
+
+  updateUSDPrice( number )
+  {
+    let product = this.state.product;
+
+    this.state.product.customizations[number].priceUSD = this.priceUSDTextBoxes[number].value;
+    this.setState(
+      {
+        product: product
+      }
+    );
+  }
+  
+  renderCustomizationItem( customization, number )
+  {
+    return (
+      <li key={"customization-" + number }>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-2">
+              Customization Name:
             </div>
-        );
-    }
+            <div className="col-md-2">
+              <input type="text"
+                     autoFocus
+                     defaultValue={customization.name}
+                     onKeyUp={(key) => this.updateCustomizatioName( number, key ) }
+                ref={(input) => { this.customizationTextBoxes[number] = input; }} />
+            </div>
+            <div className="col-md-2 text-right">
+              AUD Price:
+            </div>
+            <div className="col-md-1">
+              <input type="text"
+                     defaultValue={customization.priceAUD}
+                     onKeyUp={() => this.updateAUDPrice( number ) }                           
+                ref={(input) => { this.priceAUDTextBoxes[number] =  input; }} />
+
+            </div>
+            <div className="col-md-2 text-right">
+              USD Price:
+            </div>
+            <div className="col-md-1">
+              <input type="text"
+                     defaultValue={customization.priceUSD}
+                     onKeyUp={() => this.updateUSDPrice( number ) }                                                      
+                ref={(input) => { this.priceUSDTextBoxes[number] = input; }} />
+                
+            </div>
+          </div>
+        </div>
+      </li>
+    );
+  }
+  
+  render()
+  {
+    return(
+      <div className="container customization-item">
+        <div className="row">
+          <ol>
+            {this.state.product.customizations.map( this.renderCustomizationItem ) }
+          </ol>
+        </div>
+        <div className="row">
+          <div className="col-md-2">
+            <button onClick={this.addCustomization}>Add Customization</button>
+          </div>
+          <div className="col-md-2">
+            <button onClick={() => this.props.save(this.state.product) }>Save</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 function stateToProps(state)
 {
-    let product = state.product;
-    if( product.customizations == null )
-    {
-        product.customizations = [];
-    }
-    return { product: product };
+  let product = state.product;
+  if( product.customizations == null )
+  {
+    product.customizations = [];
+  }
+  return { product: product };
 }
 
 function dispatchToProps(dispatch)
 {
-    return {
-        save: ( value ) =>
-            {
-                dispatch(AppActions.updateProductDetails( value ));
-            }
-    };
+  return {
+    save: ( value ) =>
+      {
+        dispatch(AppActions.updateProductDetails( value ));
+      }
+  };
 }
 
 
