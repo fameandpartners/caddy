@@ -1,12 +1,31 @@
 import request from 'superagent';
 const FIREBASE_URL = process.env.FIREBASE_URL;
 
+const LENGTH_ORDER = ['Cheeky', 'Short', 'Micro-Mini', 'Mini', 'Knee', 'Midi', 'Ankle', 'Maxi', 'Full'];
+
+function ensureLengthsSortedCorrectly( product )
+{
+  
+  if( !product || !product.details || !product.details.lengths )
+  {
+    return product;
+  } else
+  {
+    let lengths = product.details.lengths;
+    lengths = lengths.sort( (a,b) => LENGTH_ORDER.indexOf( a ) - LENGTH_ORDER.indexOf( b ) );
+    product.details.lengths = lengths;
+    return product;
+  }
+}
 export function updateProductDetails( product )
 {
+  product = ensureLengthsSortedCorrectly( product );
+  
   return function( dispatch )
   {
     product.version += 1;
     let url = FIREBASE_URL + '/product/' + product.details.id + "/versions/" + product.version + ".json";
+
 
     request.put( url )
       .type( 'application/json' )
