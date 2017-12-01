@@ -55,7 +55,12 @@ class Home extends React.Component
     toReturn.push( this.generateTab( 0, "Load Product" )  );
     if( this.props.showProductDetails )
     {
-      toReturn.push( this.generateTab( 1, "Product Details" )  );
+      let name = "Product Details";
+      if( this.props.product && this.props.product.details && this.props.product.details.name )
+      {
+        name = this.props.product.details.name;
+      }
+      toReturn.push( this.generateTab( 1, name )  );
       toReturn.push( this.generateTab( 2, "Product Images" )  );
       
     }
