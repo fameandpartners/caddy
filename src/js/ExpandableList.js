@@ -25,7 +25,18 @@ export default class ExpandableList extends React.Component
     );
     this.props.contentUpdate( contents );
   }
-  
+
+  handleItemUpdate( number, e )
+  {
+    if (e.key === "Enter")
+    {
+      this.add();
+    } else
+    {
+      this.updateItem( number );
+    }
+    
+  }
   renderItem( item, number )
   {
     return (
@@ -37,8 +48,9 @@ export default class ExpandableList extends React.Component
             </div>
             <div className="col-md-2">
               <input type="text"
+                     autoFocus
                      defaultValue={item}
-                     onKeyUp={() => this.updateItem( number ) }
+                     onKeyUp={(e) => this.handleItemUpdate( number, e) }
                 ref={(input) => { this.textBoxes[number] = input; }} />
             </div>
           </div>
