@@ -140,7 +140,7 @@ class ProductDetails extends React.Component
     return (
       <div className="container">
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-9">
             <div className="container">
               <div className="row">
                 <div className="col-md-2">
@@ -256,16 +256,18 @@ class ProductDetails extends React.Component
             </div>
           </div>
 
-          <div className="col-md-6">
+          <div className="col-md-3">
             <div className="container">
               <div className="row">
-                <div className="col-md-3">
+                <div className="col-md-4">
                   <center>Product Ref Image</center>
                 </div>
-                
-                <div className="col-md-12">
-                  {this.renderProductRefImage()}
-                  
+              </div>
+              <div className="row">
+                <div className="col-md-5">
+                  <center>
+                    {this.renderProductRefImage()}
+                  </center>                  
                 </div>
               </div>
             </div>
