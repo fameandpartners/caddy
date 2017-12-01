@@ -191,18 +191,18 @@ class ProductDetails extends React.Component
                 <div className="col-md-2 text-right">
                   Micro-Mini: </div>
                 <div className="col-md-1">
-                  <input defaultChecked={this.lengthExists( 'Micro-Mini' )} onClick={ () => this.addOrRemove( 'Micro-Mini' ) }type="checkbox"/>                        
+                  <input checked={this.lengthExists( 'Micro-Mini' )} onClick={ () => this.addOrRemove( 'Micro-Mini' ) }type="checkbox"/>                        
                 </div>                
                 <div className="col-md-2 text-right">
                   Mini: </div>
                 <div className="col-md-1">
-                  <input defaultChecked={this.lengthExists( 'Mini' )} onClick={ () => this.addOrRemove( 'Mini' ) }type="checkbox"/>                        
+                  <input checked={this.lengthExists( 'Mini' )} onClick={ () => this.addOrRemove( 'Mini' ) }type="checkbox"/>                        
                 </div>
                 <div className="col-md-2 text-right">
                   Knee: 
                 </div>
                 <div className="col-md-1">
-                  <input defaultChecked={this.lengthExists( 'Knee' )} onClick={ () => this.addOrRemove( 'Knee' ) }type="checkbox"/>                        
+                  <input checked={this.lengthExists( 'Knee' )} onClick={ () => this.addOrRemove( 'Knee' ) }type="checkbox"/>                        
                 </div>
               </div>
               <div className="row">
@@ -210,19 +210,19 @@ class ProductDetails extends React.Component
                   Midi: 
                 </div>
                 <div className="col-md-1">
-                  <input defaultChecked={this.lengthExists( 'Midi' )} onClick={ () => this.addOrRemove( 'Midi' ) }type="checkbox"/>                        
+                  <input checked={this.lengthExists( 'Midi' )} onClick={ () => this.addOrRemove( 'Midi' ) }type="checkbox"/>                        
                 </div>
                 <div className="col-md-2 text-right">
                   Ankle: 
                 </div>
                 <div className="col-md-1">
-                  <input defaultChecked={this.lengthExists( 'Ankle' )} onClick={ () => this.addOrRemove( 'Ankle' ) }type="checkbox"/>
+                  <input checked={this.lengthExists( 'Ankle' )} onClick={ () => this.addOrRemove( 'Ankle' ) }type="checkbox"/>
                 </div>                      
                 <div className="col-md-2 text-right">
                   Maxi: 
                 </div>
                 <div className="col-md-1">
-                  <input defaultChecked={this.lengthExists( 'Maxi' )} onClick={ () => this.addOrRemove( 'Maxi' ) }type="checkbox"/>
+                  <input checked={this.lengthExists( 'Maxi' )} onClick={ () => this.addOrRemove( 'Maxi' ) }type="checkbox"/>
                 </div>
         
               </div>
