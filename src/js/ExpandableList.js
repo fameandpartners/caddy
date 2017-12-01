@@ -74,7 +74,6 @@ export default class ExpandableList extends React.Component
   
   componentWillReceiveProps( nextProps )
   {
-
     this.updateWithLatestState( nextProps );
   }
 

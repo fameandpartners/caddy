@@ -53,6 +53,9 @@ class ProductsList extends React.Component
                   <span>{styleNumber}</span>
                 </div>
                 <div className="col-md-2">
+                  <span>{productsJSON[styleNumber].name}</span>
+                </div>
+                <div className="col-md-2">
                   <span>
                     <button onClick={() => context.loadProduct( styleNumber, productsJSON[styleNumber].version )}>Load Product</button>
                   </span>

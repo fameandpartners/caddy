@@ -17,7 +17,7 @@ export function updateProductDetails( product )
              
              request.put( productListURL )
                .type( 'application/json' )
-               .send( {version: product.version} )
+               .send( {version: product.version, name: product.details.name} )
                .end( (error, response) =>
                      {
                        dispatch(
