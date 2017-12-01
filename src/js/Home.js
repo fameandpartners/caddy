@@ -132,6 +132,13 @@ class Home extends React.Component
 function stateToProps(state)
 {
 
+  if( state.product.details )
+  {
+    if( state.product.details.lengths == null )
+    {
+      state.product.details.lengths = [];
+    }
+  }
   return { 
     showProductDetails: state.product && state.product.version != null,
     showCustomizations: state.product && state.product.version != null && state.product.version > 0,
