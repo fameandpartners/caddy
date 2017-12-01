@@ -224,7 +224,7 @@ class ProductDetails extends React.Component
                 <div className="col-md-1">
                   <input checked={this.lengthExists( 'Maxi' )} onClick={ () => this.addOrRemove( 'Maxi' ) }type="checkbox"/>
                 </div>
-        
+                
               </div>
             </div>
 

@@ -62,6 +62,13 @@ export default class ExpandableList extends React.Component
           contents: props.startingValue
         }
       );
+    } else
+    {
+      this.setState(
+        {
+          contents: []
+        }
+      );
     };
   }
   
