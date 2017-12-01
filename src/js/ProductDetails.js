@@ -226,6 +226,27 @@ class ProductDetails extends React.Component
                 </div>
                 
               </div>
+              <div className="row">
+                <div className="col-md-2 text-right">
+                  Cheeky: 
+                </div>
+                <div className="col-md-1">
+                  <input checked={this.lengthExists( 'Cheeky' )} onClick={ () => this.addOrRemove( 'Cheeky' ) }type="checkbox"/>                        
+                </div>
+                <div className="col-md-2 text-right">
+                  Short: 
+                </div>
+                <div className="col-md-1">
+                  <input checked={this.lengthExists( 'Short' )} onClick={ () => this.addOrRemove( 'Short' ) }type="checkbox"/>                        
+                </div>
+                <div className="col-md-2 text-right">
+                  Full: 
+                </div>
+                <div className="col-md-1">
+                  <input checked={this.lengthExists( 'Full' )} onClick={ () => this.addOrRemove( 'Full' ) }type="checkbox"/>                        
+                </div>
+                
+              </div>
             </div>
 
             <div className="row top-margin">
