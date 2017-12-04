@@ -134,7 +134,7 @@ class CustomizationList extends React.Component
   renderCustomizationItem( customization, number )
   {
     return (
-      <li key={"customization-" + number }>
+      <li key={"customization-" + customization.id }>
         <div className="container">
           <div className="row">
             <div className="col-md-2">
@@ -143,7 +143,7 @@ class CustomizationList extends React.Component
             <div className="col-md-2">
               <input type="text"
                      autoFocus
-                     value={customization.name}
+                     defaultValue={customization.name}
                      onKeyUp={(key) => this.updateCustomizatioName( number, key ) }
                 ref={(input) => { this.customizationTextBoxes[number] = input; }} />
             </div>
@@ -152,7 +152,7 @@ class CustomizationList extends React.Component
             </div>
             <div className="col-md-1">
               <input type="text"
-                     value={customization.code}
+                     defaultValue={customization.code}
                      onKeyUp={() => this.updateCode( number ) }                           
                 ref={(input) => { this.codeTextBoxes[number] =  input; }} />
 
@@ -162,7 +162,7 @@ class CustomizationList extends React.Component
             </div>
             <div className="col-md-1">
               <input type="text"
-                     value={customization.priceAUD}
+                     defaultValue={customization.priceAUD}
                      onKeyUp={() => this.updateAUDPrice( number ) }                           
                 ref={(input) => { this.priceAUDTextBoxes[number] =  input; }} />
 
@@ -172,7 +172,7 @@ class CustomizationList extends React.Component
             </div>
             <div className="col-md-1">
               <input type="text"
-                     value={customization.priceUSD}
+                     defaultValue={customization.priceUSD}
                      onKeyUp={() => this.updateUSDPrice( number ) }                                                      
                 ref={(input) => { this.priceUSDTextBoxes[number] = input; }} />
                 
