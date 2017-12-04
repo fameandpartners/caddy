@@ -29,13 +29,14 @@ class CombinationList extends React.Component
     {
       let temp = [];
       let tempIds = [];
-      
+      let tempCodes = [];
       for (j = 0; j < arrLen; j++)
       {
         if ((i & power(2, j)))
         {
           temp = temp.concat( [list[j].name] );
           tempIds = tempIds.concat( [list[j].id] );
+          tempCodes = tempCodes.concat( [list[j].code] );
         }
       }
       
@@ -43,7 +44,7 @@ class CombinationList extends React.Component
       {
         if( !this.containsInvalidCombinations( tempIds ) )
         {
-          csvCombinations.push( temp );
+          csvCombinations.push( [temp, tempCodes] );
           result.push( <li key={temp.join("-")}>{temp.join( "," )}</li> );
         }
       }
@@ -124,7 +125,13 @@ class CombinationList extends React.Component
 
   exportCSV()
   {
-    let csvString = this.state.csvCombinations.reduce( ( wholeString , element ) =>  ( wholeString + element.reduce( ( rowString = "", rowElement ) =>  rowString += "\"" + rowElement + "\"," ) + "\n" ) );
+    let csvString = "";
+    for( let i = 0; i < this.state.csvCombinations.length; i++ )
+    {
+      let element = this.state.csvCombinations[i];
+      csvString  += element[0].join( "," ) +","  + element[1].join( "-" ) + "\n";
+    }
+    
     var blobdata = new Blob([csvString],{type : 'text/csv'});
     let link = document.createElement("a");
     link.setAttribute("href",  window.URL.createObjectURL(blobdata));
