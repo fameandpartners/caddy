@@ -73,7 +73,7 @@ class CombinationGrid extends React.Component
     toReturn.push( <th key='-1'></th> );
     for( let i = 0; i < this.props.product.customizations.length; i++ )
     {
-      toReturn.push( <th key={i}>{this.props.product.customizations[i].name}</th> );
+      toReturn.push( <th key={i}>{this.props.product.customizations[i].name} ({this.props.product.customizations[i].code})</th> );
     }
 
     return toReturn;
@@ -96,7 +96,7 @@ class CombinationGrid extends React.Component
 
     if( this.state.product != null )
     {
-      toReturn.push( <td key={number + "--1" }>{this.state.product.customizations[number].name}</td> );
+      toReturn.push( <td key={number + "--1" }>{this.state.product.customizations[number].name}  ({this.props.product.customizations[number].code})</td> );
       for( let i = 0; i < this.state.product.customizations.length; i++ )
       {
         toReturn.push( <CombinationGridBox
