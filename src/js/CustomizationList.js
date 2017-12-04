@@ -24,6 +24,7 @@ class CustomizationList extends React.Component
     this.customizationTextBoxes = {};
     this.priceAUDTextBoxes = {};
     this.priceUSDTextBoxes = {};
+    this.codeTextBoxes = {};
     
   }
 
@@ -117,7 +118,19 @@ class CustomizationList extends React.Component
       }
     );
   }
-  
+
+  updateCode( number )
+  {
+    let product = this.state.product;
+
+    this.state.product.customizations[number].code = this.codeTextBoxes[number].value;
+    this.setState(
+      {
+        product: product
+      }
+    );
+    
+  }
   renderCustomizationItem( customization, number )
   {
     return (
@@ -135,7 +148,17 @@ class CustomizationList extends React.Component
                 ref={(input) => { this.customizationTextBoxes[number] = input; }} />
             </div>
             <div className="col-md-2 text-right">
-              AUD Price:
+              Line Sheet Code:
+            </div>
+            <div className="col-md-1">
+              <input type="text"
+                     defaultValue={customization.code}
+                     onKeyUp={() => this.updateCode( number ) }                           
+                ref={(input) => { this.codeTextBoxes[number] =  input; }} />
+
+            </div>
+            <div className="col-md-1 text-right">
+              $AUD
             </div>
             <div className="col-md-1">
               <input type="text"
@@ -144,8 +167,8 @@ class CustomizationList extends React.Component
                 ref={(input) => { this.priceAUDTextBoxes[number] =  input; }} />
 
             </div>
-            <div className="col-md-2 text-right">
-              USD Price:
+            <div className="col-md-1 text-right">
+              $USD
             </div>
             <div className="col-md-1">
               <input type="text"
