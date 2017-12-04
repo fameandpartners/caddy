@@ -143,7 +143,7 @@ class CustomizationList extends React.Component
             <div className="col-md-2">
               <input type="text"
                      autoFocus
-                     defaultValue={customization.name}
+                     value={customization.name}
                      onKeyUp={(key) => this.updateCustomizatioName( number, key ) }
                 ref={(input) => { this.customizationTextBoxes[number] = input; }} />
             </div>
@@ -152,7 +152,7 @@ class CustomizationList extends React.Component
             </div>
             <div className="col-md-1">
               <input type="text"
-                     defaultValue={customization.code}
+                     value={customization.code}
                      onKeyUp={() => this.updateCode( number ) }                           
                 ref={(input) => { this.codeTextBoxes[number] =  input; }} />
 
@@ -162,7 +162,7 @@ class CustomizationList extends React.Component
             </div>
             <div className="col-md-1">
               <input type="text"
-                     defaultValue={customization.priceAUD}
+                     value={customization.priceAUD}
                      onKeyUp={() => this.updateAUDPrice( number ) }                           
                 ref={(input) => { this.priceAUDTextBoxes[number] =  input; }} />
 
@@ -172,7 +172,7 @@ class CustomizationList extends React.Component
             </div>
             <div className="col-md-1">
               <input type="text"
-                     defaultValue={customization.priceUSD}
+                     value={customization.priceUSD}
                      onKeyUp={() => this.updateUSDPrice( number ) }                                                      
                 ref={(input) => { this.priceUSDTextBoxes[number] = input; }} />
                 
