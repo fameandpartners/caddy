@@ -57,7 +57,8 @@ class CombinationGrid extends React.Component
 
     validSet[combinations[0]][combinations[1]] = valid;
     product.validCombinations[this.props.forLength] = validSet;
-    
+
+    console.log( product );
     this.setState(
       {
         product: product
@@ -131,6 +132,7 @@ class CombinationGrid extends React.Component
     this.updateWithLatestState( nextProps );
     
   }
+  
   copy()
   {
     let product = this.state.product;
@@ -138,7 +140,8 @@ class CombinationGrid extends React.Component
     
     if( product.validCombinations )
     {
-      copyFrom = product.validCombinations[ this.lengthCopy.value];
+      // Be sure to do a deep copy so pointers aren't still pointing at the same objects
+      copyFrom = JSON.parse( JSON.stringify( product.validCombinations[ this.lengthCopy.value] ) );
     } else
     {
       product.validCombinations = {};
@@ -149,7 +152,7 @@ class CombinationGrid extends React.Component
       copyFrom = {};
     }
 
-    product.validCombinations[this.props.forLength] = Object.assign( {}, copyFrom );
+    product.validCombinations[this.props.forLength] = copyFrom;
     console.log( product );
     this.setState(
       {
