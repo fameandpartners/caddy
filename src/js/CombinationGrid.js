@@ -160,6 +160,23 @@ class CombinationGrid extends React.Component
       }
     );
   }
+
+  export()
+  {
+    let csvString = "";
+    let validCombinations = this.state.product.validCombinations[this.props.forLength];
+
+    this.state.product.customizations.forEach( ( firstCustomization ) =>
+                                               this.state.product.customizations.forEach( (secondCustomization) =>
+                                                                                          csvString += `${firstCustomization.name},${secondCustomization.name},${firstCustomization.code}-${secondCustomization.code},${this.isValidCombination( firstCustomization, secondCustomization)}\n` ) );
+    
+    var blobdata = new Blob([csvString],{type : 'text/csv'});
+    let link = document.createElement("a");
+    link.setAttribute("href",  window.URL.createObjectURL(blobdata));
+    link.setAttribute("download", `combinationGrid${this.props.forLength}.csv`);
+    link.click();
+    
+  }
   
   render()
   {
@@ -181,12 +198,13 @@ class CombinationGrid extends React.Component
           </div>
           <div className="row">
             <div className="col-md-2">
-              <select ref={ (ref) => this.lengthCopy = ref} id="length-set">
-                        {this.props.product.details.lengths.map( (length) => ( <option key={length} value={length}>{length}</option>) )}
-      </select>
+              <select ref={ (ref) => this.lengthCopy = ref} id="length-set">{this.props.product.details.lengths.map( (length) => ( <option key={length} value={length}>{length}</option>) )}</select>
         </div>
         <div className="col-md-2">
         <button onClick={this.copy}>Copy</button>                
+        </div>
+        <div className="col-md-2">
+        <button onClick={this.export}>Export</button>                
         </div>
         </div>
         
