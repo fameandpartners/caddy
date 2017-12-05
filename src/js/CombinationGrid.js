@@ -163,12 +163,19 @@ class CombinationGrid extends React.Component
 
   export()
   {
-    let csvString = "";
+    let csvString = "Combination 1, Combination 2, Line Sheet Codes, Can Be Combined?\n";
     let validCombinations = this.state.product.validCombinations[this.props.forLength];
-
+    let context = this;
     this.state.product.customizations.forEach( ( firstCustomization ) =>
-                                               this.state.product.customizations.forEach( (secondCustomization) =>
-                                                                                          csvString += `${firstCustomization.name},${secondCustomization.name},${firstCustomization.code}-${secondCustomization.code},${this.isValidCombination( firstCustomization, secondCustomization)}\n` ) );
+                                               this.state.product.customizations.forEach( function (secondCustomization)
+                                                                                          {
+                                                                                            if( firstCustomization.id != secondCustomization.id )
+                                                                                            {
+                                                                                              csvString += `${firstCustomization.name},${secondCustomization.name},${firstCustomization.code}-${secondCustomization.code},${context.isValidCombination( firstCustomization.id, secondCustomization.id)}\n`;
+                                                                                            }
+                                                                                            return false;
+                                                                                          }
+                                                                                        ) );
     
     var blobdata = new Blob([csvString],{type : 'text/csv'});
     let link = document.createElement("a");
