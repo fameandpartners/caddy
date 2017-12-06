@@ -77,6 +77,17 @@ class RenderLayers extends React.Component
 
     this.updateWithLatestState( nextProps );
   }
+
+  dragFinished( updatedList )
+  {
+    updatedList.forEach( (item, index) => item.order = index  );
+
+    this.state.product.customizations = updatedList;
+    this.setState(
+      {
+        product: this.state.product
+      } );
+  }
   
   renderCustomizationItem( customization )
   {
@@ -87,7 +98,16 @@ class RenderLayers extends React.Component
   {
     return (
       <div className="container">
-        <DraggableList itemKey="id" template={RenderLayerItem} list={this.state.product.customizations}/>
+        <DraggableList itemKey="id"
+                       template={RenderLayerItem}
+                       list={this.state.product.customizations.sort( (a,b) => a.order - b.order )}
+          onMoveEnd ={ newList => this.dragFinished( newList ) }/>
+        <div className="row top-margin">
+          <div className="col-md-4">
+            <button onClick={()=>this.props.save( this.state.product)}>Save</button>
+          </div>
+        </div>
+          
       </div>
       
     );
