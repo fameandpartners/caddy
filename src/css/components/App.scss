@@ -84,3 +84,18 @@ input[type=text]
     position: relative;
     top: -17px;
 }
+
+.render-box
+{
+    min-height: 150px;
+    background-color: tan;
+    border-width: 1px;
+    border-style: solid;
+    border-color: white;
+    &.bottom
+    {
+        border-bottom-color:black;
+        border-bottom-width: 2px;
+    }
+}
+

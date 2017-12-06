@@ -10,13 +10,59 @@ import DraggableList from 'react-draggable-list';
 
 class RenderLayerItem extends React.Component
 {
+
+  uploadImage(e)
+  {
+    console.log( e );
+  }
+  
+  renderTopLeft()
+  {
+    return( <input type="file" id="top-left-render" name='prodRefImageUpload' onChange={this.uploadImage} /> );
+  }
+
+  renderTopRight()
+  {
+    return( <input type="file" id="top-right-render" name='prodRefImageUpload' onChange={this.uploadImage} /> );    
+  }
+
+  renderBottomLeft()
+  {
+    return( <input type="file" id="bottom-left-render" name='prodRefImageUpload' onChange={this.uploadImage} /> );
+  }
+
+  renderBottomRight()
+  {
+    return( <input type="file" id="bottom-right-render" name='prodRefImageUpload' onChange={this.uploadImage} /> );
+  }
+  
   render()
   {
     return (
-      <div className="row">
-        <div className="col-md-1">{this.props.dragHandle(<div className="dragHandle" />)}</div>
-        <div className="col-md-10">{this.props.item.name}</div>
-      </div>
+      <div>
+        <div className="row">
+          <div className="col-md-1">{this.props.dragHandle(<div className="dragHandle" />)}</div>
+          <div className="col-md-5"><b>{this.props.item.name}</b></div>
+        </div>
+        <div className="row">
+           <div className="col-md-3">Top Left</div>
+           <div className="col-md-3">Top Right</div>
+        </div>
+        <div className="row">
+           <div className="col-md-3 render-box">{this.renderTopLeft()}</div>
+           <div className="col-md-3 render-box">{this.renderTopRight()}</div>
+        </div>
+        
+        <div className="row">
+           <div className="col-md-3">Bottom Left</div>
+           <div className="col-md-3">Bottom Right</div>
+        </div>
+        <div className="row">
+           <div className="col-md-3 render-box bottom">{this.renderBottomLeft()}</div>
+           <div className="col-md-3 render-box bottom">{this.renderBottomRight()}</div>
+        </div>
+        
+        </div>        
     );
   }
 }
