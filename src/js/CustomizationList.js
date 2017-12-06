@@ -49,13 +49,13 @@ class CustomizationList extends React.Component
   }
 
 
-  removeFromCustomizationValues ( index )
+  delete( index )
   {
     
-    this.state.customizationValues.splice( index, 1 );
+    this.state.product.customizations.splice( index, 1 );
     this.setState(
       {
-        customizationValues: this.state.customizationValues
+        product: this.state.product
       }
     );
   }
@@ -131,6 +131,7 @@ class CustomizationList extends React.Component
     );
     
   }
+
   renderCustomizationItem( customization, number )
   {
     return (
@@ -176,6 +177,9 @@ class CustomizationList extends React.Component
                      onKeyUp={() => this.updateUSDPrice( number ) }                                                      
                 ref={(input) => { this.priceUSDTextBoxes[number] = input; }} />
                 
+            </div>
+            <div className="col-md-1">
+              <button onClick={() =>this.delete( number ) }>Delete</button>
             </div>
           </div>
         </div>
