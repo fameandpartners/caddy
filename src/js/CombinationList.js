@@ -129,7 +129,7 @@ class CombinationList extends React.Component
     for( let i = 0; i < this.state.csvCombinations.length; i++ )
     {
       let element = this.state.csvCombinations[i];
-      csvString  += element[0].join( "," ) +","  + element[1].join( "-" ) + "\n";
+      csvString  += element[1].join( "-" ) + ","  +element[0].join( "," ) +  "\n";
     }
     
     var blobdata = new Blob([csvString],{type : 'text/csv'});
