@@ -6,35 +6,69 @@ import autoBind from 'react-autobind';
 import LayerCad from './LayerCad';
 import * as AppActions from './actions/AppActions';
 import DraggableList from 'react-draggable-list';
+import CanvasImage from './CanvasImage';
 
 
 class RenderLayerItem extends React.Component
 {
 
-  uploadImage(e)
+  constructor( props )
   {
-    console.log( e );
+    super( props );
+    autoBind( this );
+    this.state = {
+      item: null
+    };        
   }
   
-  renderTopLeft()
+  updateWithLatestState( props )
   {
-    return( <input type="file" id="top-left-render" name='prodRefImageUpload' onChange={this.uploadImage} /> );
+    this.setState( {
+      item: props.item
+    } );
+  }
+  
+  componentDidMount()
+  {
+
+    this.updateWithLatestState( this.props );
+  }
+  
+  componentWillReceiveProps( nextProps )
+  {
+
+    this.updateWithLatestState( nextProps );
+  }
+  
+  uploadImage(e)
+  {
+
+    let context = this;
+    const file = e.target.files[0];
+    const element = e.target.id;
+    getBase64(file).then(base64 => {
+      console.log( element );
+      let item = context.state.item;
+      item[element] = base64;
+      context.setState(
+        {
+          item: item
+        }
+      );
+    });
+  }
+  
+  renderImage( name )
+  {
+    if( this.state.item && this.state.item[name] )
+    {
+      return( <CanvasImage imageData={this.state.item[name]} width={250} height={250}/> );
+    } else
+    {
+      return( <input type="file" id={name} name='prodRefImageUpload' onChange={this.uploadImage} /> );
+    }
   }
 
-  renderTopRight()
-  {
-    return( <input type="file" id="top-right-render" name='prodRefImageUpload' onChange={this.uploadImage} /> );    
-  }
-
-  renderBottomLeft()
-  {
-    return( <input type="file" id="bottom-left-render" name='prodRefImageUpload' onChange={this.uploadImage} /> );
-  }
-
-  renderBottomRight()
-  {
-    return( <input type="file" id="bottom-right-render" name='prodRefImageUpload' onChange={this.uploadImage} /> );
-  }
   
   render()
   {
@@ -49,8 +83,8 @@ class RenderLayerItem extends React.Component
            <div className="col-md-3">Top Right</div>
         </div>
         <div className="row">
-           <div className="col-md-3 render-box">{this.renderTopLeft()}</div>
-           <div className="col-md-3 render-box">{this.renderTopRight()}</div>
+           <div className="col-md-3 render-box">{this.renderImage('top_front_image')}</div>
+           <div className="col-md-3 render-box">{this.renderImage('top_back_image')}</div>
         </div>
         
         <div className="row">
@@ -58,8 +92,8 @@ class RenderLayerItem extends React.Component
            <div className="col-md-3">Bottom Right</div>
         </div>
         <div className="row">
-           <div className="col-md-3 render-box bottom">{this.renderBottomLeft()}</div>
-           <div className="col-md-3 render-box bottom">{this.renderBottomRight()}</div>
+           <div className="col-md-3 render-box bottom">{this.renderImage('bottom_front_image')}</div>
+           <div className="col-md-3 render-box bottom">{this.renderImage('bottom_back_image')}</div>
         </div>
         
         </div>        
