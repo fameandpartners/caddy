@@ -88,10 +88,10 @@ input[type=text]
 .render-box
 {
     min-height: 150px;
-    background-color: tan;
+    background-color: white;
     border-width: 1px;
     border-style: solid;
-    border-color: white;
+    border-color: black;
     &.bottom
     {
         border-bottom-color:black;

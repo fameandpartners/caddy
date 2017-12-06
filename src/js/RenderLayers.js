@@ -76,7 +76,7 @@ class RenderLayerItem extends React.Component
       <div>
         <div className="row">
           <div className="col-md-1">{this.props.dragHandle(<div className="dragHandle" />)}</div>
-          <div className="col-md-5"><b>{this.props.item.name}</b></div>
+        <div className="col-md-5"><b>{this.props.item.name} ({this.props.item.code})</b></div>
         </div>
         <div className="row">
            <div className="col-md-3">Top Left</div>
