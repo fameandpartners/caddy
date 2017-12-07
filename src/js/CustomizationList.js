@@ -143,7 +143,6 @@ class CustomizationList extends React.Component
             </div>
             <div className="col-md-2">
               <input type="text"
-                     autoFocus
                      defaultValue={customization.name}
                      onKeyUp={(key) => this.updateCustomizatioName( number, key ) }
                 ref={(input) => { this.customizationTextBoxes[number] = input; }} />
@@ -154,7 +153,7 @@ class CustomizationList extends React.Component
             <div className="col-md-1">
               <input type="text"
                      defaultValue={customization.code}
-                     onKeyUp={() => this.updateCode( number ) }                           
+                     onBlur={() => this.updateCode( number ) }                           
                 ref={(input) => { this.codeTextBoxes[number] =  input; }} />
 
             </div>
@@ -186,6 +185,19 @@ class CustomizationList extends React.Component
       </li>
     );
   }
+
+  sortCustomizations( a, b )
+  {
+    let splitFirst = a.key.split(/(\d+)/);
+    let splitSecond = b.key.split(/(\d+)/);
+    if( splitFirst[0] == splitSecond[0] )
+    {
+      return parseInt( splitFirst[1] - splitSecond[1] );
+    } else
+    {
+      return splitFirst[0] > splitSecond[0] ? -1 : splitFirst[0] < splitSecond[0] ? 1 : 0 ;                                                                                             
+    }
+  }
   
   render()
   {
@@ -193,19 +205,7 @@ class CustomizationList extends React.Component
       <div className="container customization-item">
         <div className="row">
           <ol>
-            {this.state.product.customizations.map( this.renderCustomizationItem ).sort( function(a,b)
-                                                                                         {
-                                                                                           let splitFirst = a.key.split(/(\d+)/);
-                                                                                           let splitSecond = b.key.split(/(\d+)/);
-                                                                                           if( splitFirst[0] == splitSecond[0] )
-                                                                                           {
-                                                                                             return parseInt( splitFirst[1] - splitSecond[1] );
-                                                                                           } else
-                                                                                           {
-                                                                                             return splitFirst[0] > splitSecond[0] ? -1 : splitFirst[0] < splitSecond[0] ? 1 : 0 ;                                                                                             
-                                                                                           }
-
-              } ) };
+            {this.state.product.customizations.map( this.renderCustomizationItem ).sort( this.sortCustomizations ) };
           </ol>
         </div>
         <div className="row">
