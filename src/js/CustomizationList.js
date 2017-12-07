@@ -135,7 +135,7 @@ class CustomizationList extends React.Component
   renderCustomizationItem( customization, number )
   {
     return (
-      <li key={"customization-" + customization.id }>
+      <li key={customization.code || "customization-" + customization.id }>
         <div className="container">
           <div className="row">
             <div className="col-md-2">
@@ -193,7 +193,19 @@ class CustomizationList extends React.Component
       <div className="container customization-item">
         <div className="row">
           <ol>
-            {this.state.product.customizations.map( this.renderCustomizationItem ) }
+            {this.state.product.customizations.map( this.renderCustomizationItem ).sort( function(a,b)
+                                                                                         {
+                                                                                           let splitFirst = a.key.split(/(\d+)/);
+                                                                                           let splitSecond = b.key.split(/(\d+)/);
+                                                                                           if( splitFirst[0] == splitSecond[0] )
+                                                                                           {
+                                                                                             return parseInt( splitFirst[1] - splitSecond[1] );
+                                                                                           } else
+                                                                                           {
+                                                                                             return splitFirst[0] > splitSecond[0] ? -1 : splitFirst[0] < splitSecond[0] ? 1 : 0 ;                                                                                             
+                                                                                           }
+
+              } ) };
           </ol>
         </div>
         <div className="row">
