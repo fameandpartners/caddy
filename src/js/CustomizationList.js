@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import CustomizationItem from './CustomizationItem';
 import CanvasImage from './CanvasImage';
 import * as AppActions from './actions/AppActions';
-import {getBase64} from './Utils';
+import {sortCustomizations} from './Utils';
 import uuidv4 from 'uuid/v4';
 
 class CustomizationList extends React.Component
@@ -186,18 +186,6 @@ class CustomizationList extends React.Component
     );
   }
 
-  sortCustomizations( a, b )
-  {
-    let splitFirst = a.key.split(/(\d+)/);
-    let splitSecond = b.key.split(/(\d+)/);
-    if( splitFirst[0] == splitSecond[0] )
-    {
-      return parseInt( splitFirst[1] - splitSecond[1] );
-    } else
-    {
-      return splitFirst[0] > splitSecond[0] ? -1 : splitFirst[0] < splitSecond[0] ? 1 : 0 ;                                                                                             
-    }
-  }
   
   render()
   {
@@ -205,7 +193,7 @@ class CustomizationList extends React.Component
       <div className="container customization-item">
         <div className="row">
           <ol>
-            {this.state.product.customizations.map( this.renderCustomizationItem ).sort( this.sortCustomizations ) }
+            {this.state.product.customizations.map( this.renderCustomizationItem ).sort( sortCustomizations ) }
           </ol>
         </div>
         <div className="row">

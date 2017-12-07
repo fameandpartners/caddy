@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 import CombinationGridBox from './CombinationGridBox';
 import * as AppActions from './actions/AppActions';
+import {sortCustomizations} from './Utils';
 
 class CombinationGrid extends React.Component
 {
@@ -70,11 +71,12 @@ class CombinationGrid extends React.Component
   generateTableHead()
   {
     let toReturn = [];
-
+    let customizations = this.props.product.customizations.sort( sortCustomizations );
+    
     toReturn.push( <th key='-1'></th> );
-    for( let i = 0; i < this.props.product.customizations.length; i++ )
+    for( let i = 0; i < customizations.length; i++ )
     {
-      toReturn.push( <th key={i}>{this.props.product.customizations[i].name} ({this.props.product.customizations[i].code})</th> );
+      toReturn.push( <th key={i}>{customizations[i].name} ({customizations[i].code})</th> );
     }
 
     return toReturn;
@@ -97,13 +99,14 @@ class CombinationGrid extends React.Component
 
     if( this.state.product != null )
     {
-      toReturn.push( <td key={number + "--1" }>{this.state.product.customizations[number].name}  ({this.props.product.customizations[number].code})</td> );
-      for( let i = 0; i < this.state.product.customizations.length; i++ )
+      let customizations = this.state.product.customizations.sort( sortCustomizations );      
+      toReturn.push( <td key={number + "--1" }>{customizations[number].name}  ({customizations[number].code})</td> );
+      for( let i = 0; i < customizations.length; i++ )
       {
         toReturn.push( <CombinationGridBox
                        key={this.props.forLength + "-" + number + "-" + i}
-                       first={this.state.product.customizations[number]}
-                       second={this.state.product.customizations[i]}
+                       first={customizations[number]}
+                       second={customizations[i]}
                        updateValidCombination={this.updateValidCombination}
                        isValidCombination={this.isValidCombination}>
                        </CombinationGridBox> );
