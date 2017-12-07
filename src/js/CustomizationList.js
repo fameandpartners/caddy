@@ -205,7 +205,7 @@ class CustomizationList extends React.Component
       <div className="container customization-item">
         <div className="row">
           <ol>
-            {this.state.product.customizations.map( this.renderCustomizationItem ).sort( this.sortCustomizations ) };
+            {this.state.product.customizations.map( this.renderCustomizationItem ).sort( this.sortCustomizations ) }
           </ol>
         </div>
         <div className="row">
