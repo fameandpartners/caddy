@@ -85,7 +85,7 @@ class CombinationGrid extends React.Component
     let toReturn = [];
     for( let i = 0; i < this.props.product.customizations.length; i++ )
     {
-      toReturn.push( <tr key={"row-" + i}>{this.generateTableRow( i )}</tr> );
+      toReturn.push( <tr className="stickyTableRow" key={"row-" + i}>{this.generateTableRow( i )}</tr> );
     }
 
     return toReturn;
@@ -132,12 +132,12 @@ class CombinationGrid extends React.Component
     this.updateWithLatestState( nextProps );
     
   }
-  
+   
   copy()
   {
     let product = this.state.product;
     let copyFrom = {};
-    
+     
     if( product.validCombinations )
     {
       // Be sure to do a deep copy so pointers aren't still pointing at the same objects
@@ -192,7 +192,7 @@ class CombinationGrid extends React.Component
         <div className="container">
           <div className="row">
             <table className="combination-grid">
-              <tr>
+              <tr className="stickyTableHead">
                 {this.generateTableHead()}
               </tr>
               {this.generateTableRows()}
