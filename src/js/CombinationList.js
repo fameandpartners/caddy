@@ -57,13 +57,25 @@ class CombinationList extends React.Component
 
   }        
 
+  
+  isInvalidRow( customization )
+  {
+    return this.state.product.invalidCombinations[this.lengthCopy.value] && this.state.product.invalidCombinations[this.lengthCopy.value][customization];
+  }
+  
+  
   containsInvalidCombinations( toCheck )
   {
+    if( this.isInvalidRow( toCheck[0] ) )
+    {
+      return true;
+    }
+        
     for( let i = 0; i < toCheck.length; i++ )
     {
       for( let j = i + 1; j < toCheck.length; j++ )
       {
-        if( !this.isValidCombination( toCheck[i], toCheck[j] ) )
+        if( !this.isValidCombination( toCheck[i], toCheck[j] ) || this.isInvalidRow( toCheck[i] ) || this.isInvalidRow(toCheck[j] ) )
         {
           return true;
         }
@@ -184,6 +196,12 @@ function stateToProps(state)
   {
     product.validCombinations = {};
   }
+
+  if( product.invalidCombinations == null )
+  {
+    product.invalidCombinations = {};
+  }
+  
   return { product: product };
 }
 
