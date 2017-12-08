@@ -140,11 +140,11 @@ class CombinationGrid extends React.Component
       {
         toReturn.push( <CombinationGridBox
                        key={this.props.forLength + "-" + number + "-" + i}
-                       rowInvaild={this.isInvalid( customizations[number] )}
                        first={customizations[number]}
                        second={customizations[i]}
                        updateValidCombination={this.updateValidCombination}
-                       isValidCombination={this.isValidCombination}>
+                       isValidCombination={this.isValidCombination}
+                       isInvalidForSize={this.isInvalid}>
                        </CombinationGridBox> );
       }
 
