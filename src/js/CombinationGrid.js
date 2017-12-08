@@ -281,7 +281,8 @@ function stateToProps(state)
   {
     product.invalidCombinations = {};
   }
-  
+
+
   return { product: product };
 }
 
