@@ -52,6 +52,6 @@ export default class CombinationGridBox extends React.Component
   
   render()
   {
-    return <td onClick={this.flipValid} style={ {"backgroundColor": this.state.valid ? 'green' : 'red'} }> </td>
+    return <td onClick={this.flipValid} style={ {"backgroundColor": this.props.rowInvaild ? 'black' : this.state.valid ? 'green' : 'red'} }> </td>
   }
 }
