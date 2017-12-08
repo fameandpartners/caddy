@@ -74,6 +74,8 @@ class CombinationGrid extends React.Component
     let customizations = this.props.product.customizations.sort( sortCustomizations );
     
     toReturn.push( <th key='-1'></th> );
+    toReturn.push( <th key='-2'></th> );
+    
     for( let i = 0; i < customizations.length; i++ )
     {
       toReturn.push( <th key={i}>{customizations[i].name} ({customizations[i].code})</th> );
@@ -93,6 +95,29 @@ class CombinationGrid extends React.Component
     return toReturn;
   }
 
+  markInvalid( customization, isInvalid )
+  {
+    let product = this.state.product;
+    let invalidCombinations = product.invalidCombinations[this.props.forLength];
+    if( invalidCombinations == null )
+    {
+      invalidCombinations = {};
+    }
+    
+    invalidCombinations[customization.id] = isInvalid;
+    this.state.product.invalidCombinations[this.props.forLength] = invalidCombinations;
+    this.setState(
+      {
+        product: this.state.product
+      }
+    );
+  }
+
+  isInvalid( customization )
+  {
+    return this.state.product.invalidCombinations[this.props.forLength] && this.state.product.invalidCombinations[this.props.forLength][customization.id];
+  }
+  
   generateTableRow( number )
   {
     let toReturn = [];
@@ -101,6 +126,16 @@ class CombinationGrid extends React.Component
     {
       let customizations = this.state.product.customizations.sort( sortCustomizations );      
       toReturn.push( <td key={number + "--1" }>{customizations[number].name}  ({customizations[number].code})</td> );
+      if( this.isInvalid( customizations[number] ) )
+      {
+        toReturn.push( <td key={number + "--2" }><button onClick={() => this.markInvalid( customizations[number], false ) }>Valid</button></td> );
+        
+      } else
+      {
+        toReturn.push( <td key={number + "--2" }><button onClick={() => this.markInvalid( customizations[number],true ) }>Invalid</button></td> );
+      }
+      
+      
       for( let i = 0; i < customizations.length; i++ )
       {
         toReturn.push( <CombinationGridBox
@@ -241,6 +276,11 @@ function stateToProps(state)
   {
     product.validCombinations = {};
   }
+  if( product.invalidCombinations == null )
+  {
+    product.invalidCombinations = {};
+  }
+  
   return { product: product };
 }
 
