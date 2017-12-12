@@ -244,7 +244,7 @@ class CombinationGrid extends React.Component
           </div>
           <div className="row">
             <div className="col-md-2">
-              <select ref={ (ref) => this.lengthCopy = ref} id="length-set">{this.props.product.details.lengths.map( (length) => ( <option key={length} value={length}>{length}</option>) )}</select>
+              <select ref={ (ref) => this.lengthCopy = ref} id="length-set">{this.props.product.details.lengths.map( (length) => ( <option key={length.name} value={length.name}>{length.name}</option>) )}</select>
         </div>
         <div className="col-md-2">
         <button onClick={this.copy}>Copy</button>                
