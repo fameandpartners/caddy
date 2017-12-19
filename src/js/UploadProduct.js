@@ -29,10 +29,17 @@ class UploadProduct extends React.Component
   buildDetails()
   {
     return {
-      colors: this.state.product.details.colors ? this.state.product.details.colors : []
+      colors: this.state.product.details.colors ? this.state.product.details.colors : [],
+      lengths: this.state.product.details.lengths ? this.state.product.details.lengths.map( (element) => this.buildLength( element )) : []
     };
   }
 
+  buildLength( length )
+  {
+    return { name: length.name,
+             required_customizations: length.requiredCustomizations ? length.requiredCustomizations : []
+           } ;
+  }
   buildStyleNumber()
   {
     return 'FP-BLAH';
