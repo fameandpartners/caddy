@@ -49,12 +49,12 @@ class UploadProduct extends React.Component
   }
   buildStyleNumber()
   {
-    return 'FP-BLAH';
+    return this.state.product.details.id;
   }
 
   buildVersion()
   {
-    return 1;
+    return this.state.product.version;
   }
   post()
   {
