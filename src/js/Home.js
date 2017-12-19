@@ -11,6 +11,7 @@ import ProductDetails from './ProductDetails';
 import CombinationGrid from './CombinationGrid';
 import RenderLayers from './RenderLayers';
 import ProductImages from './ProductImages';
+import UploadProduct from './UploadProduct';
 
 class Home extends React.Component
 {
@@ -76,6 +77,7 @@ class Home extends React.Component
       }
       toReturn.push( this.generateTab( 4 + i, "Renders" )  );      
       toReturn.push( this.generateTab( 5 + i, "Combinations Test" )  );          
+      toReturn.push( this.generateTab( 6 + i, "Upload" )  );          
       
     }
     return toReturn;
@@ -109,6 +111,7 @@ class Home extends React.Component
       
       toReturn.push( this.generateSingleTabContent( 4 + i, <RenderLayers/> ) );
       toReturn.push( this.generateSingleTabContent( 5 + i, <CombinationList/> ) );
+      toReturn.push( this.generateSingleTabContent( 6 + i, <UploadProduct/> ) );
 
       
     }
