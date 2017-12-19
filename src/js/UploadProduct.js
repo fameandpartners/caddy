@@ -16,9 +16,26 @@ class UploadProduct extends React.Component
     this.state = {};
   }
 
+  buildCustomization( customization )
+  {
+    return {
+      customization_presentation: customization.name,
+      customization_id: customization.id,
+      customization_name: customization.name.parameterize,
+      required_by: {"lengths": this.buildLengthsRequiredFor( customization )}
+    };
+  }
+  
   buildCustomizationList()
   {
-    return [];
+    if( this.state.product.customizations )
+    {
+      return this.state.product.customizations.map( (element) => this.buildCustomization( element ) );
+    } else
+    {
+      return [];
+    }
+    
   }
 
   buildCustomizationVisualizationList()
@@ -46,6 +63,24 @@ class UploadProduct extends React.Component
     return { name: length.name,
              required_customizations: length.requiredCustomizations ? length.requiredCustomizations : []
            } ;
+  }
+
+  buildLengthsRequiredFor( customization )
+  {
+    let toReturn = [];
+    if( this.state.product.details.lengths )
+    {
+      for( let i = 0; i < this.state.product.details.lengths.length; i++ )
+      {
+        if( this.state.product.details.lengths[i].requiredCustomizations && this.state.product.details.lengths[i].requiredCustomizations.includes( customization.id ) )
+        {
+          toReturn.push( this.state.product.details.lengths[i].name );
+        }
+      }
+    }
+
+    return toReturn;
+      
   }
   buildStyleNumber()
   {
