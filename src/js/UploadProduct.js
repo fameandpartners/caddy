@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import CanvasImage from './CanvasImage';
 import {getBase64} from './Utils';
+import CustomizationCombinations from './CustomizationCombinations';
 
 class UploadProduct extends React.Component
 {
@@ -22,7 +23,9 @@ class UploadProduct extends React.Component
       customization_presentation: customization.name,
       customization_id: customization.id,
       customization_name: customization.name.parameterize,
-      required_by: {"lengths": this.buildLengthsRequiredFor( customization )}
+      required_by: {"lengths": this.buildLengthsRequiredFor( customization )},
+      price_usd: customization.priceUSD,
+      price_aud: customization.priceAUD
     };
   }
   
@@ -40,7 +43,12 @@ class UploadProduct extends React.Component
 
   buildCustomizationVisualizationList()
   {
-    return [];
+    let list = new CustomizationCombinations(
+      this.state.product.details.lengths[0],
+      this.state.product.customizations,
+      this.state.product.invalidCombinations[this.state.product.details.lengths[0]],
+      this.state.product.validCombinations[ this.state.product.details.lengths[0] ]);
+    return list.list();
   }
   
   buildDetails()
@@ -82,6 +90,7 @@ class UploadProduct extends React.Component
     return toReturn;
       
   }
+  
   buildStyleNumber()
   {
     return this.state.product.details.id;
@@ -91,6 +100,7 @@ class UploadProduct extends React.Component
   {
     return this.state.product.version;
   }
+  
   post()
   {
     console.log( 'Posting to ' + this.url.value );
@@ -102,7 +112,7 @@ class UploadProduct extends React.Component
       customization_visualization_list: this.buildCustomizationVisualizationList()
     };
 
-    console.log( JSON.stringify( toPost ) );
+    console.log(  toPost );
   }
 
 

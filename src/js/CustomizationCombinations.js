@@ -1,0 +1,114 @@
+export default class CustomizationCombinations
+{
+  constructor( lengthName,
+               listOfCombinations,
+               listOfInvalidCombinationsForLength,
+               listOfInvalidCombinationToCombination )
+  {
+    this.lengthName = lengthName;
+    this.listOfCombinations = listOfCombinations;
+    this.listOfInvalidCombinationToCombination = listOfInvalidCombinationToCombination;
+    this.listOfInvalidCombinationsForLength = listOfInvalidCombinationsForLength;
+    this.resultsList = null;
+  }
+
+  list()
+  {
+    if( this.resultsList == null )
+    {
+      this.resultsList =this._generateCombinations();
+    }
+
+    return this.resultsList;
+  }
+
+  _generateCombinations()
+  {
+    let i, j, temp;
+    let result = [];
+    let arrLen = this.listOfCombinations.length;
+    let power = Math.pow;
+    let combinations = power(2, arrLen);
+    
+    for (i = 0; i < combinations;  i++)
+    {
+      let temp = [];
+      let tempIds = [];
+      let tempCodes = [];
+      for (j = 0; j < arrLen; j++)
+      {
+        if ((i & power(2, j)))
+        {
+          temp = temp.concat( [this.listOfCombinations[j].name] );
+          tempIds = tempIds.concat( [this.listOfCombinations[j].id] );
+          tempCodes = tempCodes.concat( [this.listOfCombinations[j].code] );
+        }
+      }
+      
+      if( temp.length > 0 )
+      {
+        if( !this._containsInvalidCombinations( tempIds ) )
+        {
+          result.push( {
+            customization_ids: tempIds
+          });
+        }
+      }
+    }
+
+    return result;
+    
+  }
+
+  _isInvalidRow( customization )
+  {
+    return this.listOfInvalidCombinationsForLength && this.listOfInvalidCombinationsForLength[customization];
+  }
+  
+  
+  _containsInvalidCombinations( toCheck )
+  {
+    if( this._isInvalidRow( toCheck[0] ) )
+    {
+      return true;
+    }
+        
+    for( let i = 0; i < toCheck.length; i++ )
+    {
+      for( let j = i + 1; j < toCheck.length; j++ )
+      {
+        if( !this._isValidCombination( toCheck[i], toCheck[j] ) || this._isInvalidRow( toCheck[i] ) || this._isInvalidRow(toCheck[j] ) )
+        {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+  
+  _isValidCombination( first, second )
+  {
+    let combinations = [first.toString(),second.toString()].sort();
+    let ic = this.listOfInvalidCombinationToCombination || {};
+
+    if( first === second )
+    {
+      return false;
+    }
+    
+    if( !ic[combinations[0]] )
+    {
+      return true;
+    }
+
+    if( ic[combinations[0]][combinations[1]] == null )
+    {
+      return true;
+    }
+    return ic[combinations[0]][combinations[1]];
+    
+  }
+  
+  
+}
