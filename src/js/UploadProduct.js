@@ -13,6 +13,7 @@ class UploadProduct extends React.Component
   {
     super( props );
     autoBind(this);
+    this.state = {};
   }
 
   buildCustomizationList()
@@ -27,7 +28,9 @@ class UploadProduct extends React.Component
   
   buildDetails()
   {
-    return {};
+    return {
+      colors: this.state.product.details.colors ? this.state.product.details.colors : []
+    };
   }
 
   buildStyleNumber()
@@ -35,13 +38,17 @@ class UploadProduct extends React.Component
     return 'FP-BLAH';
   }
 
-  
+  buildVersion()
+  {
+    return 1;
+  }
   post()
   {
     console.log( 'Posting to ' + this.url.value );
     let toPost = {
       details: this.buildDetails(),
       style_number: this.buildStyleNumber(),
+      version: this.buildVersion(),
       customization_list: this.buildCustomizationList(),
       customization_visualization_list: this.buildCustomizationVisualizationList()
     };
@@ -49,6 +56,25 @@ class UploadProduct extends React.Component
     console.log( JSON.stringify( toPost ) );
   }
 
+
+  updateWithLatestState( props )
+  {
+    this.setState( {
+      product: props.product
+    } );
+  }
+
+  componentDidMount()
+  {
+
+    this.updateWithLatestState( this.props );
+  }
+  
+  componentWillReceiveProps( nextProps )
+  {
+
+    this.updateWithLatestState( nextProps );
+  }
   
   render()
   {
