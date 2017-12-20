@@ -16,7 +16,7 @@ export default class CustomizationCombinations
   {
     if( this.resultsList == null )
     {
-      this.resultsList =this._generateCombinations();
+      this.resultsList = this._generateCombinations();
     }
 
     return this.resultsList;
@@ -29,7 +29,6 @@ export default class CustomizationCombinations
     let arrLen = this.listOfCombinations.length;
     let power = Math.pow;
     let combinations = power(2, arrLen);
-    
     for (i = 0; i < combinations;  i++)
     {
       let temp = [];
@@ -49,8 +48,24 @@ export default class CustomizationCombinations
       {
         if( !this._containsInvalidCombinations( tempIds ) )
         {
+          let incompatibilySet = new Set();
+
+          for( let i = 0; i < tempIds.length; i++ )
+          {
+            if( this.listOfInvalidCombinationToCombination && this.listOfInvalidCombinationToCombination[ tempIds[i] ] )
+            {
+              incompatibilySet =  new Set([...incompatibilySet, ...this.listOfInvalidCombinationToCombination[ tempIds[i] ] ]);
+            }
+            if( this.listOfInvalidCombinationsForLength )
+            {
+
+              let self = this;
+              incompatibilySet = new Set([...incompatibilySet, ...Object.keys( this.listOfInvalidCombinationsForLength ).filter( function( key ) { return self.listOfInvalidCombinationsForLength[ key]; }  ) ]);
+            }
+          }
           result.push( {
-            customization_ids: tempIds
+            customization_ids: tempIds,
+            lengths: [ { name: this.lengthName, incompatability_list: Array.from( incompatibilySet ) }]
           });
         }
       }

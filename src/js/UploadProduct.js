@@ -44,10 +44,10 @@ class UploadProduct extends React.Component
   buildCustomizationVisualizationList()
   {
     let list = new CustomizationCombinations(
-      this.state.product.details.lengths[0],
+      this.state.product.details.lengths[0].name,
       this.state.product.customizations,
-      this.state.product.invalidCombinations[this.state.product.details.lengths[0]],
-      this.state.product.validCombinations[ this.state.product.details.lengths[0] ]);
+      this.state.product.invalidCombinations[this.state.product.details.lengths[0].name],
+      this.state.product.validCombinations[ this.state.product.details.lengths[0].name ]);
     return list.list();
   }
   
