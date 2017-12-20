@@ -1,3 +1,4 @@
+import request from 'superagent';
 import React from 'react';
 import autoBind from 'react-autobind';
 import * as AppActions from './actions/AppActions';
@@ -124,8 +125,18 @@ class UploadProduct extends React.Component
       customization_list: this.buildCustomizationList(),
       customization_visualization_list: this.buildCustomizationVisualizationList()
     };
+    console.log(  toPost );    
+    request.put( this.url.value )
+      .withCredentials()    
+      .type( 'application/json' )
+      .send( toPost )
+      .end((error, response) =>
+           {
+             console.log( error );
+             console.log( response );
+           } );
 
-    console.log(  toPost );
+
   }
 
 
