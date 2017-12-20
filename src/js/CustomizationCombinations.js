@@ -1,3 +1,5 @@
+import CustomizationCombinationList from './CustomizationCombinationList';
+
 export default class CustomizationCombinations
 {
   constructor( lengthName,
@@ -71,7 +73,7 @@ export default class CustomizationCombinations
       }
     }
 
-    return result;
+    return new CustomizationCombinationList( result );
     
   }
 
