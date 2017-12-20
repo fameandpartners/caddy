@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import CanvasImage from './CanvasImage';
 import {getBase64} from './Utils';
 import CustomizationCombinations from './CustomizationCombinations';
+import RenderedCustomizationCombinationList from './RenderedCustomizationCombinationList';
 
 class UploadProduct extends React.Component
 {
@@ -60,7 +61,7 @@ class UploadProduct extends React.Component
                                                     toReturn = toReturn.combine( list.list() );
                                                   }
                                                 } );
-    return toReturn.toArray();
+    return new RenderedCustomizationCombinationList( toReturn, this.state.product.details.colors ).toArray();
   }
   
   buildDetails()
