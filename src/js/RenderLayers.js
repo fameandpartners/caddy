@@ -178,10 +178,17 @@ class RenderLayers extends React.Component
   {
     return (
       <div className="container">
-        <DraggableList itemKey="id"
-                       template={RenderLayerItem}
-                       list={this.state.product.customizations.sort( (a,b) => a.order - b.order )}
-          onMoveEnd ={ newList => this.dragFinished( newList ) }/>
+        <div className="row">
+          <div className="col-md-6">
+            <DraggableList itemKey="id"
+                           template={RenderLayerItem}
+                           list={this.state.product.customizations.sort( (a,b) => a.order - b.order )}
+              onMoveEnd ={ newList => this.dragFinished( newList ) }/>
+          </div>
+          <div className="col-md-6">
+            Image
+          </div>
+        </div>          
         <div className="row top-margin">
           <div className="col-md-4">
             <button onClick={()=>this.props.save( this.state.product)}>Save</button>
@@ -219,6 +226,7 @@ function dispatchToProps(dispatch)
   return {
     save: ( value ) =>
       {
+        console.log( value );
         dispatch(AppActions.updateProductDetails( value ));
       }
   };
