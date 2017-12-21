@@ -99,3 +99,25 @@ input[type=text]
     }
 }
 
+.stickyTableHead
+{
+    display: table;
+    position: sticky;
+    z-index: 10;
+    background-color: white;
+    top: 0;
+    th
+    {
+        min-width: 100px;
+    }
+}
+ 
+.stickyTableRow
+{
+    display:table;
+    td
+    {
+        min-width: 100px;
+    }
+    
+}

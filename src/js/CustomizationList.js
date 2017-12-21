@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import CustomizationItem from './CustomizationItem';
 import CanvasImage from './CanvasImage';
 import * as AppActions from './actions/AppActions';
-import {getBase64} from './Utils';
+import {sortCustomizations} from './Utils';
 import uuidv4 from 'uuid/v4';
 
 class CustomizationList extends React.Component
@@ -49,13 +49,13 @@ class CustomizationList extends React.Component
   }
 
 
-  removeFromCustomizationValues ( index )
+  delete( index )
   {
     
-    this.state.customizationValues.splice( index, 1 );
+    this.state.product.customizations.splice( index, 1 );
     this.setState(
       {
-        customizationValues: this.state.customizationValues
+        product: this.state.product
       }
     );
   }
@@ -131,10 +131,11 @@ class CustomizationList extends React.Component
     );
     
   }
+
   renderCustomizationItem( customization, number )
   {
     return (
-      <li key={"customization-" + customization.id }>
+      <li key={customization.code || "customization-" + customization.id }>
         <div className="container">
           <div className="row">
             <div className="col-md-2">
@@ -142,7 +143,6 @@ class CustomizationList extends React.Component
             </div>
             <div className="col-md-2">
               <input type="text"
-                     autoFocus
                      defaultValue={customization.name}
                      onKeyUp={(key) => this.updateCustomizatioName( number, key ) }
                 ref={(input) => { this.customizationTextBoxes[number] = input; }} />
@@ -153,7 +153,7 @@ class CustomizationList extends React.Component
             <div className="col-md-1">
               <input type="text"
                      defaultValue={customization.code}
-                     onKeyUp={() => this.updateCode( number ) }                           
+                     onBlur={() => this.updateCode( number ) }                           
                 ref={(input) => { this.codeTextBoxes[number] =  input; }} />
 
             </div>
@@ -177,11 +177,15 @@ class CustomizationList extends React.Component
                 ref={(input) => { this.priceUSDTextBoxes[number] = input; }} />
                 
             </div>
+            <div className="col-md-1">
+              <button onClick={() =>this.delete( number ) }>Delete</button>
+            </div>
           </div>
         </div>
       </li>
     );
   }
+
   
   render()
   {
@@ -189,7 +193,7 @@ class CustomizationList extends React.Component
       <div className="container customization-item">
         <div className="row">
           <ol>
-            {this.state.product.customizations.map( this.renderCustomizationItem ) }
+            {this.state.product.customizations.map( this.renderCustomizationItem ).sort( sortCustomizations ) }
           </ol>
         </div>
         <div className="row">

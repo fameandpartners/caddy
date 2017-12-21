@@ -57,13 +57,25 @@ class CombinationList extends React.Component
 
   }        
 
+  
+  isInvalidRow( customization )
+  {
+    return this.state.product.invalidCombinations[this.lengthCopy.value] && this.state.product.invalidCombinations[this.lengthCopy.value][customization];
+  }
+  
+  
   containsInvalidCombinations( toCheck )
   {
+    if( this.isInvalidRow( toCheck[0] ) )
+    {
+      return true;
+    }
+        
     for( let i = 0; i < toCheck.length; i++ )
     {
       for( let j = i + 1; j < toCheck.length; j++ )
       {
-        if( !this.isValidCombination( toCheck[i], toCheck[j] ) )
+        if( !this.isValidCombination( toCheck[i], toCheck[j] ) || this.isInvalidRow( toCheck[i] ) || this.isInvalidRow(toCheck[j] ) )
         {
           return true;
         }
@@ -129,7 +141,7 @@ class CombinationList extends React.Component
     for( let i = 0; i < this.state.csvCombinations.length; i++ )
     {
       let element = this.state.csvCombinations[i];
-      csvString  += element[0].join( "," ) +","  + element[1].join( "-" ) + "\n";
+      csvString  += element[1].join( "-" ) + ","  +element[0].join( "," ) +  "\n";
     }
     
     var blobdata = new Blob([csvString],{type : 'text/csv'});
@@ -151,7 +163,7 @@ class CombinationList extends React.Component
         </div>
         <div className="row">
           <div className="col-md-2">
-            <select ref={ (ref) => this.lengthCopy = ref} id="length-set">{this.props.product.details.lengths.map( (length) => ( <option key={length} value={length}>{length}</option>) )}</select>
+            <select ref={ (ref) => this.lengthCopy = ref} id="length-set">{this.props.product.details.lengths.map( (length) => ( <option key={length.name} value={length.name}>{length.name}</option>) )}</select>
         </div>
         <div className="col-md-2">
         <button onClick={this.generate}>Generate</button>
@@ -184,6 +196,12 @@ function stateToProps(state)
   {
     product.validCombinations = {};
   }
+
+  if( product.invalidCombinations == null )
+  {
+    product.invalidCombinations = {};
+  }
+  
   return { product: product };
 }
 

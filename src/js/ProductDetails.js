@@ -100,15 +100,32 @@ class ProductDetails extends React.Component
     
     
   }
+  indexOfLength( product, lengthName )
+  {
+    let toReturn = -1;
+    if( product.details.lengths )
+    {
+      product.details.lengths.forEach( function( lengthObject, index )
+                                       {
+                                         if( lengthObject.name === lengthName )
+                                         {
+                                           toReturn = index;
+                                         }
+                                       } );
+    }
+    return toReturn;
+
+  }
   addOrRemove( lengthName )
   {
     let product = this.state.product;
-    if( product.details.lengths.indexOf( lengthName ) > -1 )
+    let indexOfLength = this.indexOfLength( product, lengthName );
+    if( indexOfLength > -1 )
     {
-      product.details.lengths.splice( product.details.lengths.indexOf( lengthName ), 1 );
+      product.details.lengths.splice( indexOfLength, 1 );
     } else
     {
-      product.details.lengths.push( lengthName );
+      product.details.lengths.push( { name: lengthName } );
     }
 
     this.setState(
@@ -120,7 +137,7 @@ class ProductDetails extends React.Component
 
   lengthExists( lengthName )
   {
-    return this.state.product.details.lengths && this.state.product.details.lengths.indexOf( lengthName ) > -1;
+    return this.state.product.details.lengths && this.indexOfLength(this.state.product, lengthName ) > -1;
   }
 
   updateDetail( detailName, value )

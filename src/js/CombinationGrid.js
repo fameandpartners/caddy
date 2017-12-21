@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 import CombinationGridBox from './CombinationGridBox';
 import * as AppActions from './actions/AppActions';
+import {sortCustomizations} from './Utils';
 
 class CombinationGrid extends React.Component
 {
@@ -58,7 +59,6 @@ class CombinationGrid extends React.Component
     validSet[combinations[0]][combinations[1]] = valid;
     product.validCombinations[this.props.forLength] = validSet;
 
-    console.log( product );
     this.setState(
       {
         product: product
@@ -70,11 +70,14 @@ class CombinationGrid extends React.Component
   generateTableHead()
   {
     let toReturn = [];
-
+    let customizations = this.props.product.customizations.sort( sortCustomizations );
+    
     toReturn.push( <th key='-1'></th> );
-    for( let i = 0; i < this.props.product.customizations.length; i++ )
+    toReturn.push( <th key='-2'></th> );
+    
+    for( let i = 0; i < customizations.length; i++ )
     {
-      toReturn.push( <th key={i}>{this.props.product.customizations[i].name} ({this.props.product.customizations[i].code})</th> );
+      toReturn.push( <th key={i}>{customizations[i].name} ({customizations[i].code})</th> );
     }
 
     return toReturn;
@@ -85,27 +88,62 @@ class CombinationGrid extends React.Component
     let toReturn = [];
     for( let i = 0; i < this.props.product.customizations.length; i++ )
     {
-      toReturn.push( <tr key={"row-" + i}>{this.generateTableRow( i )}</tr> );
+      toReturn.push( <tr className="stickyTableRow" key={"row-" + i}>{this.generateTableRow( i )}</tr> );
     }
 
     return toReturn;
   }
 
+  markInvalid( customization, isInvalid )
+  {
+    let product = this.state.product;
+    let invalidCombinations = product.invalidCombinations[this.props.forLength];
+    if( invalidCombinations == null )
+    {
+      invalidCombinations = {};
+    }
+    
+    invalidCombinations[customization.id] = isInvalid;
+    this.state.product.invalidCombinations[this.props.forLength] = invalidCombinations;
+    this.setState(
+      {
+        product: this.state.product
+      }
+    );
+  }
+
+  isInvalid( customization )
+  {
+    return this.state.product.invalidCombinations[this.props.forLength] && this.state.product.invalidCombinations[this.props.forLength][customization.id];
+  }
+  
   generateTableRow( number )
   {
     let toReturn = [];
 
     if( this.state.product != null )
     {
-      toReturn.push( <td key={number + "--1" }>{this.state.product.customizations[number].name}  ({this.props.product.customizations[number].code})</td> );
-      for( let i = 0; i < this.state.product.customizations.length; i++ )
+      let customizations = this.state.product.customizations.sort( sortCustomizations );      
+      toReturn.push( <td key={number + "--1" }>{customizations[number].name}  ({customizations[number].code})</td> );
+      if( this.isInvalid( customizations[number] ) )
+      {
+        toReturn.push( <td key={number + "--2" }><button onClick={() => this.markInvalid( customizations[number], false ) }>Valid</button></td> );
+        
+      } else
+      {
+        toReturn.push( <td key={number + "--2" }><button onClick={() => this.markInvalid( customizations[number],true ) }>Invalid</button></td> );
+      }
+      
+      
+      for( let i = 0; i < customizations.length; i++ )
       {
         toReturn.push( <CombinationGridBox
                        key={this.props.forLength + "-" + number + "-" + i}
-                       first={this.state.product.customizations[number]}
-                       second={this.state.product.customizations[i]}
+                       first={customizations[number]}
+p                       second={customizations[i]}
                        updateValidCombination={this.updateValidCombination}
-                       isValidCombination={this.isValidCombination}>
+                       isValidCombination={this.isValidCombination}
+                       isInvalidForSize={this.isInvalid}>
                        </CombinationGridBox> );
       }
 
@@ -132,12 +170,12 @@ class CombinationGrid extends React.Component
     this.updateWithLatestState( nextProps );
     
   }
-  
+   
   copy()
   {
     let product = this.state.product;
     let copyFrom = {};
-    
+     
     if( product.validCombinations )
     {
       // Be sure to do a deep copy so pointers aren't still pointing at the same objects
@@ -153,7 +191,6 @@ class CombinationGrid extends React.Component
     }
 
     product.validCombinations[this.props.forLength] = copyFrom;
-    console.log( product );
     this.setState(
       {
         product: product
@@ -184,6 +221,53 @@ class CombinationGrid extends React.Component
     link.click();
     
   }
+
+  generateLengthList()
+  {
+    return (<select ref={ (ref) => this.lengthCopy = ref} id="length-set">{this.props.product.details.lengths.map( (length) => ( <option key={length.name} value={length.name}>{length.name}</option>) )}</select>);    
+  }
+
+  generateListOfCustomizationsToRequire()
+  {
+    let customizations = this.props.product.customizations.sort( sortCustomizations );
+    
+    return (<select key="customization-list" ref={ (ref) => this.requiredCustomizations = ref}>{customizations.map( (customization) => ( <option key={customization.id} value={customization.id}>{customization.name}({customization.code})</option>) )}</select>);
+  }
+
+  lengthObject()
+  {
+    return this.state.product.details.lengths.find( (element) => element.name == this.props.forLength );
+  }
+  addRequiredCustomization()
+  {
+
+    let length = this.lengthObject();
+    if( length.requiredCustomizations == null )
+    {
+      length.requiredCustomizations = [];
+    }
+
+    length.requiredCustomizations.push( this.requiredCustomizations.value );
+    this.setState(
+      {
+        product: this.state.product
+      } );
+  }
+
+  mapCustomizationIdToName( customizationId )
+  {
+    return this.state.product.customizations.find( (customization) => customization.id == customizationId ).name;
+  }
+  generateRequiredCustomizationList()
+  {
+    if( this.state.product  && this.state.product.details && this.lengthObject() && this.lengthObject().requiredCustomizations )
+    {
+      return (<ol>{this.lengthObject().requiredCustomizations.map( (customization,index) => <li key={customization}>{this.mapCustomizationIdToName( customization )} {index != this.lengthObject().requiredCustomizations.length -1 ? <b> OR</b>  : "" }</li> )}</ol> );
+    } else
+    {
+      return (<span></span> );
+    }
+  }
   
   render()
   {
@@ -192,7 +276,7 @@ class CombinationGrid extends React.Component
         <div className="container">
           <div className="row">
             <table className="combination-grid">
-              <tr>
+              <tr className="stickyTableHead">
                 {this.generateTableHead()}
               </tr>
               {this.generateTableRows()}
@@ -205,23 +289,40 @@ class CombinationGrid extends React.Component
           </div>
           <div className="row">
             <div className="col-md-2">
-              <select ref={ (ref) => this.lengthCopy = ref} id="length-set">{this.props.product.details.lengths.map( (length) => ( <option key={length} value={length}>{length}</option>) )}</select>
+              {this.generateLengthList()}
+            </div>
+            <div className="col-md-2">
+              <button onClick={this.copy}>Copy</button>                
+            </div>
+            <div className="col-md-2">
+              <button onClick={this.export}>Export</button>                
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-12">
+              <h3>Require Customiziotn to Make Valid</h3>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-4">
+              {this.generateListOfCustomizationsToRequire()}
+            </div>
+            <div className="col-md-2">
+              <button onClick={this.addRequiredCustomization}>Add</button>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-4">
+              {this.generateRequiredCustomizationList()}
+            </div>
+          </div>
+          <div className="row top-margin">
+            <div className="col-md-4">
+              <button onClick={()=>this.props.save( this.state.product)}>Save</button>
+            </div>
+          </div>
         </div>
-        <div className="col-md-2">
-        <button onClick={this.copy}>Copy</button>                
-        </div>
-        <div className="col-md-2">
-        <button onClick={this.export}>Export</button>                
-        </div>
-        </div>
-        
-        <div className="row top-margin">
-        <div className="col-md-4">
-        <button onClick={()=>this.props.save( this.state.product)}>Save</button>
-        </div>
-        </div>
-        </div>
-        </div>            
+      </div>            
     );
   }
 }
@@ -238,6 +339,12 @@ function stateToProps(state)
   {
     product.validCombinations = {};
   }
+  if( product.invalidCombinations == null )
+  {
+    product.invalidCombinations = {};
+  }
+
+
   return { product: product };
 }
 

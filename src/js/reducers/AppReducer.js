@@ -13,6 +13,7 @@ export default function AppReducer($$state = { details: {}, customizations: [] }
           details: action.details,
           customizations: action.customizations,
           validCombinations: action.validCombinations,
+          invalidCombinations: action.invalidCombinations,
           version: action.version
         };
       }
@@ -21,7 +22,8 @@ export default function AppReducer($$state = { details: {}, customizations: [] }
         return {
           details: action.details,
           customizations: action.customizations,
-          validCombinations: action.validCombinations,          
+          validCombinations: action.validCombinations,
+          invalidCombinations: action.invalidCombinations,          
           version: action.version
         };
       }
@@ -31,6 +33,7 @@ export default function AppReducer($$state = { details: {}, customizations: [] }
           details: {},
           customizations: [],
           validCombinations: {},
+          invalidCombinations: {},
           version: 0
         }
       }

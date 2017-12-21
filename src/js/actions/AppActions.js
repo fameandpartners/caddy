@@ -45,12 +45,12 @@ export function updateProductDetails( product )
                            details: product.details,
                            customizations: product.customizations,
                            validCombinations: product.validCombinations,
+                           invalidCombinations: product.invalidCombinations,
                            version: product.version
                          } );
                        
                      } );
            } );
-    
   };
 }
 
@@ -75,6 +75,7 @@ export function loadProduct( styleNumber, versionNumber )
           details: productJson.details,
           customizations: productJson.customizations,
           validCombinations: productJson.validCombinations,
+          invalidCombinations: productJson.invalidCombinations,
           version: versionNumber
         } );
     } );
