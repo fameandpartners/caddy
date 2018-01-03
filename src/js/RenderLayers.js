@@ -56,7 +56,6 @@ class RenderLayerItem extends React.Component
 
   renderBackgroundColor()
   {
-    console.log( this.props.commonProps );
     let color = 'gray';
     if( !this.state.disabled )
     {
@@ -100,9 +99,11 @@ class RenderLayers extends React.Component
     super( props );
     autoBind( this );
     this.state = {
-      product: { customizations: [] },
+      product: { customizations: [], details: {lengths:[]} },
       selectedItems: [],
-      setSelectedItem: this.setSelectedItem
+      setSelectedItem: this.setSelectedItem,
+      lengthCopy: null
+       
     };        
   }
 
@@ -176,11 +177,29 @@ class RenderLayers extends React.Component
   {
     return (<li key={customization.id}>{customization.name}</li> );
   }
+
+  renderLengthSelect()
+  {
+    if( this.state.product )
+    {
+      return <select ref={ (ref) => this.state.lengthCopy == null ? this.setState( {lengthCopy: ref} ): ''} id="length-set">{this.state.product.details.lengths.map( (length) => ( <option key={length.name} value={length.name}>{length.name}</option>) )}</select>;
+    } else
+    {
+      return <div></div>;
+    }
+      
+      
+  }
   
   render()
   {
     return (
       <div className="container">
+        <div className="row">
+          <div className="col-md-2">
+            {this.renderLengthSelect()}
+        </div>
+        </div>
         <div className="row">
           <div className="col-md-4">
             <DraggableList itemKey="id"
