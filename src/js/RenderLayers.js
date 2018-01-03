@@ -50,10 +50,13 @@ class RenderLayerItem extends React.Component
         selected: selected
       }
     );
+
+    this.props.commonProps.setSelectedItem( "A1" );
   }
 
   renderBackgroundColor()
   {
+    console.log( this.props.commonProps );
     let color = 'gray';
     if( !this.state.disabled )
     {
@@ -67,7 +70,7 @@ class RenderLayerItem extends React.Component
       }
     }
 
-    return {'background-color': color};
+    return {'backgroundColor': color};
   }
   render()
   {
@@ -75,12 +78,16 @@ class RenderLayerItem extends React.Component
       <div style={this.renderBackgroundColor()}>
         <div className="row">
           <div className="col-md-1">{this.props.dragHandle(<div className="dragHandle" />)}</div>
-        <div className="col-md-5"><b>{this.props.item.name} ({this.props.item.code})</b></div>
+        <div className="col-md-11"><b>{this.props.item.name} ({this.props.item.code})</b></div>
         </div>
         <div className="row">
-        <div className="col-md-3"><button onClick={() => this.setSelected(true)}>On</button></div>
-        <div className="col-md-3"><button onClick={() => this.setSelected(false)}>Off</button></div>
+        <div className="col-md-1"><button onClick={() => this.setSelected(true)}>On</button></div>
+        <div className="col-md-1"><button onClick={() => this.setSelected(false)}>Off</button></div>
         </div>
+        <div className="row">
+        <div className="col-md-12">{this.props.commonProps.selectedItems}</div>
+        </div>
+        
         </div>        
     );
   }
@@ -93,10 +100,21 @@ class RenderLayers extends React.Component
     super( props );
     autoBind( this );
     this.state = {
-      product: { customizations: [] }
+      product: { customizations: [] },
+      selectedItems: [],
+      setSelectedItem: this.setSelectedItem
     };        
   }
-  
+
+  setSelectedItem( value )
+  {
+    this.state.selectedItems.push( value );
+    this.setState(
+      {
+        selectedItems: this.state.selectedItems
+      }
+    );
+  }    
   uploadFrontFile(e)
   {
     let context = this;
@@ -164,10 +182,11 @@ class RenderLayers extends React.Component
     return (
       <div className="container">
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-4">
             <DraggableList itemKey="id"
                            template={RenderLayerItem}
                            list={this.state.product.customizations.sort( (a,b) => a.order - b.order )}
+              commonProps={this.state}
               onMoveEnd ={ newList => this.dragFinished( newList ) }/>
           </div>
           <div className="col-md-6">
@@ -187,14 +206,6 @@ class RenderLayers extends React.Component
   
 }
 
-const getBase64 = (file) => {
-  return new Promise((resolve,reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-    reader.readAsDataURL(file);
-  });
-};
 
 function stateToProps(state)
 {
