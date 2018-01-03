@@ -17,7 +17,9 @@ class RenderLayerItem extends React.Component
     super( props );
     autoBind( this );
     this.state = {
-      item: null
+      item: null,
+      selected: false,
+      disabled: false
     };        
   }
   
@@ -40,62 +42,45 @@ class RenderLayerItem extends React.Component
     this.updateWithLatestState( nextProps );
   }
   
-  uploadImage(e)
-  {
 
-    let context = this;
-    const file = e.target.files[0];
-    const element = e.target.id;
-    getBase64(file).then(base64 => {
-      console.log( element );
-      let item = context.state.item;
-      item[element] = base64;
-      context.setState(
-        {
-          item: item
-        }
-      );
-    });
-  }
-  
-  renderImage( name )
+  setSelected( selected )
   {
-    if( this.state.item && this.state.item[name] )
+    this.setState(
+      {
+        selected: selected
+      }
+    );
+  }
+
+  renderBackgroundColor()
+  {
+    let color = 'gray';
+    if( !this.state.disabled )
     {
-      return( <CanvasImage imageData={this.state.item[name]} width={250} height={250}/> );
-    } else
-    {
-      return( <input type="file" id={name} name='prodRefImageUpload' onChange={this.uploadImage} /> );
+      
+      if( this.state.selected )
+      {
+        color = 'green';
+      } else
+      {
+        color = 'red';
+      }
     }
-  }
 
-  
+    return {'background-color': color};
+  }
   render()
   {
     return (
-      <div>
+      <div style={this.renderBackgroundColor()}>
         <div className="row">
           <div className="col-md-1">{this.props.dragHandle(<div className="dragHandle" />)}</div>
         <div className="col-md-5"><b>{this.props.item.name} ({this.props.item.code})</b></div>
         </div>
         <div className="row">
-           <div className="col-md-3">Top Left</div>
-           <div className="col-md-3">Top Right</div>
+        <div className="col-md-3"><button onClick={() => this.setSelected(true)}>On</button></div>
+        <div className="col-md-3"><button onClick={() => this.setSelected(false)}>Off</button></div>
         </div>
-        <div className="row">
-           <div className="col-md-3 render-box">{this.renderImage('top_front_image')}</div>
-           <div className="col-md-3 render-box">{this.renderImage('top_back_image')}</div>
-        </div>
-        
-        <div className="row">
-           <div className="col-md-3">Bottom Left</div>
-           <div className="col-md-3">Bottom Right</div>
-        </div>
-        <div className="row">
-           <div className="col-md-3 render-box bottom">{this.renderImage('bottom_front_image')}</div>
-           <div className="col-md-3 render-box bottom">{this.renderImage('bottom_back_image')}</div>
-        </div>
-        
         </div>        
     );
   }
