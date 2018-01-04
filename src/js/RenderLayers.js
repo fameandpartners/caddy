@@ -35,18 +35,28 @@ class RenderLayerItem extends React.Component
   determineIfDisabled( commonProps )
   {
     let validCombinations = commonProps.product.validCombinations[commonProps.length];
+    let invalidCombinations = commonProps.product.invalidCombinations[commonProps.length];
+    
     let disabled = false;
-    for( let i = 0; commonProps.selectedItems && i < commonProps.selectedItems.length; i++ )
-    {
-      let currentItemId = commonProps.selectedItems[i];
-      if( validCombinations[ currentItemId ] && validCombinations[currentItemId][this.state.item.id] == false )
-      {
-        disabled = true;
-      }
 
-      if( validCombinations[ this.state.item.id ] && validCombinations[this.state.item.id][currentItemId] == false )
+    console.log( this.state.item );
+    if( this.state.item && invalidCombinations[ this.state.item.id ] == true )
+    {
+      disabled = true;
+    } else
+    {
+      for( let i = 0; commonProps.selectedItems && i < commonProps.selectedItems.length; i++ )
       {
-        disabled = true;
+        let currentItemId = commonProps.selectedItems[i];
+        if( validCombinations[ currentItemId ] && validCombinations[currentItemId][this.state.item.id] == false )
+        {
+          disabled = true;
+        }
+
+        if( validCombinations[ this.state.item.id ] && validCombinations[this.state.item.id][currentItemId] == false )
+        {
+          disabled = true;
+        }
       }
     }
 
@@ -67,7 +77,8 @@ class RenderLayerItem extends React.Component
 
     this.updateWithLatestState( nextProps );
   }
-  
+
+  componentD
 
   setSelected( selected )
   {
@@ -141,7 +152,6 @@ class RenderLayers extends React.Component
       selectedItems: [],
       setSelectedItem: this.setSelectedItem,
       length: "Micro-Mini"
-       
     };        
   }
 
@@ -216,7 +226,7 @@ class RenderLayers extends React.Component
   {
     if( this.state.product )
     {
-      return <select ref={ (ref) => this.lengthCopy = ref} onChange={this.updateLength} id="length-set">{this.state.product.details.lengths.map( (length) => ( <option key={length.name} value={length.name}>{length.name}</option>) )}</select>;
+      return <select ref={ (ref) => this.lengthCopy = ref} onChange={this.updateLength} id="length-set"><option key="default" disabled="true" selected="true">select</option>{this.state.product.details.lengths.map( (length) => ( <option key={length.name} value={length.name}>{length.name}</option>) )}</select>;
     } else
     {
       return <div></div>;
