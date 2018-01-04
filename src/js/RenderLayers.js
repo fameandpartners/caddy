@@ -28,8 +28,34 @@ class RenderLayerItem extends React.Component
     this.setState( {
       item: props.item
     } );
+
+    this.determineIfDisabled( props.commonProps );
   }
-  
+
+  determineIfDisabled( commonProps )
+  {
+    let validCombinations = commonProps.product.validCombinations[commonProps.length];
+    let disabled = false;
+    for( let i = 0; commonProps.selectedItems && i < commonProps.selectedItems.length; i++ )
+    {
+      let currentItemId = commonProps.selectedItems[i];
+      if( validCombinations[ currentItemId ] && validCombinations[currentItemId][this.state.item.id] == false )
+      {
+        disabled = true;
+      }
+
+      if( validCombinations[ this.state.item.id ] && validCombinations[this.state.item.id][currentItemId] == false )
+      {
+        disabled = true;
+      }
+    }
+
+    this.setState(
+      {
+        disabled: disabled
+      }
+    );
+  }
   componentDidMount()
   {
 
@@ -51,9 +77,24 @@ class RenderLayerItem extends React.Component
       }
     );
 
-    this.props.commonProps.setSelectedItem( this.props.item.code, selected );
+    this.props.commonProps.setSelectedItem( this.props.item.id, selected );
   }
-
+  renderOnOffButtons()
+  {
+    if( !this.state.disabled  )
+    {
+        return <div className="row">
+        <div className="col-md-1"><button onClick={() => this.setSelected(true)}>On</button></div>
+        <div className="col-md-1"><button onClick={() => this.setSelected(false)}>Off</button></div>
+        </div>;
+    }
+    else
+    {
+      return <div></div>;
+    }
+      
+  }
+  
   renderBackgroundColor()
   {
     let color = 'gray';
@@ -79,10 +120,7 @@ class RenderLayerItem extends React.Component
           <div className="col-md-1">{this.props.dragHandle(<div className="dragHandle" />)}</div>
         <div className="col-md-11"><b>{this.props.item.name} ({this.props.item.code})</b></div>
         </div>
-        <div className="row">
-        <div className="col-md-1"><button onClick={() => this.setSelected(true)}>On</button></div>
-        <div className="col-md-1"><button onClick={() => this.setSelected(false)}>Off</button></div>
-        </div>
+        {this.renderOnOffButtons()}
         <div className="row">
         <div className="col-md-12">{this.props.commonProps.selectedItems}</div>
         </div>
@@ -167,7 +205,6 @@ class RenderLayers extends React.Component
 
   updateLength()
   {
-    console.log( this.lengthCopy.value );
     this.setState(
       {
         length: this.lengthCopy.value
@@ -238,7 +275,6 @@ function dispatchToProps(dispatch)
   return {
     save: ( value ) =>
       {
-        console.log( value );
         dispatch(AppActions.updateProductDetails( value ));
       }
   };
