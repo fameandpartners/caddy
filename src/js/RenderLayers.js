@@ -51,7 +51,7 @@ class RenderLayerItem extends React.Component
       }
     );
 
-    this.props.commonProps.setSelectedItem( "A1" );
+    this.props.commonProps.setSelectedItem( this.props.item.code, selected );
   }
 
   renderBackgroundColor()
@@ -102,46 +102,33 @@ class RenderLayers extends React.Component
       product: { customizations: [], details: {lengths:[]} },
       selectedItems: [],
       setSelectedItem: this.setSelectedItem,
-      lengthCopy: null
+      length: "Micro-Mini"
        
     };        
   }
 
-  setSelectedItem( value )
+  setSelectedItem( value, on )
   {
-    this.state.selectedItems.push( value );
+    let elementIndex = this.state.selectedItems.indexOf( value );
+    if( on )
+    {
+      if( elementIndex == -1 )
+      {
+        this.state.selectedItems.push( value );
+      }
+    } else
+    {
+      if( elementIndex != -1 )
+      {
+        this.state.selectedItems.splice( elementIndex );
+      }
+    }
     this.setState(
       {
         selectedItems: this.state.selectedItems
       }
     );
   }    
-  uploadFrontFile(e)
-  {
-    let context = this;
-    const file = e.target.files[0];
-    getBase64(file).then(base64 => {
-      let layers = context.state.frontValues;
-      layers.push( {cad: base64 } );
-      context.setState( {
-        frontValues: layers
-      } );
-    });
-  }
-
-  uploadBackFile(e)
-  {
-    let context = this;
-    const file = e.target.files[0];
-    getBase64(file).then(base64 => {
-      let layers = context.state.backValues;
-      layers.push( {cad: base64 } );
-      context.setState( {
-        backValues: layers
-      } );
-    });
-  }
-
 
   updateWithLatestState( props )
   {
@@ -178,11 +165,21 @@ class RenderLayers extends React.Component
     return (<li key={customization.id}>{customization.name}</li> );
   }
 
+  updateLength()
+  {
+    console.log( this.lengthCopy.value );
+    this.setState(
+      {
+        length: this.lengthCopy.value
+      }
+    );
+  }
+  
   renderLengthSelect()
   {
     if( this.state.product )
     {
-      return <select ref={ (ref) => this.state.lengthCopy == null ? this.setState( {lengthCopy: ref} ): ''} id="length-set">{this.state.product.details.lengths.map( (length) => ( <option key={length.name} value={length.name}>{length.name}</option>) )}</select>;
+      return <select ref={ (ref) => this.lengthCopy = ref} onChange={this.updateLength} id="length-set">{this.state.product.details.lengths.map( (length) => ( <option key={length.name} value={length.name}>{length.name}</option>) )}</select>;
     } else
     {
       return <div></div>;
