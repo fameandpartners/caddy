@@ -39,8 +39,7 @@ class RenderLayerItem extends React.Component
     
     let disabled = false;
 
-    console.log( this.state.item );
-    if( this.state.item && invalidCombinations[ this.state.item.id ] == true )
+    if( this.state.item && invalidCombinations && invalidCombinations[ this.state.item.id ] == true )
     {
       disabled = true;
     } else
@@ -234,7 +233,50 @@ class RenderLayers extends React.Component
       
       
   }
+
+  addRenderImage( array, data, width, offset )
+  {
+    if( data )
+    {
+      if( Array.isArray( data ) )
+      {
+        for( let i = 0; i < data.length; i++ )
+        {
+          array.push( <img style={{"position":"absolute", width:width, left:offset }} key={data[i]} src={`/renders/fp-dr1005-102/${data[i]}_0000.png`}/> );
+        }
+      } else
+      {
+        array.push( <img style={{"position":"absolute", width:width, left:offset}} key={data} src={`/renders/fp-dr1005-102/${data}_0000.png`}/> );
+      }
+    }
+    return array;
+  }
   
+  renderDress()
+  {
+    let front = [];
+    let back = [];
+    
+    if( this.state.product.renders )
+    {
+      let renders = this.state.product.renders[this.state.length];
+      let defaults = renders['default'];
+
+      front = this.addRenderImage( front, defaults['front']['bottom'], 600, 0 );
+      front = this.addRenderImage( front, defaults['front']['belt'], 600, 0 );      
+      front = this.addRenderImage( front, defaults['front']['back-embellishments'], 600, 0 );      
+      front = this.addRenderImage( front, defaults['front']['top'], 600, 0 );
+      front = this.addRenderImage( front, defaults['front']['front-embellishments'], 600, 0 );
+
+      back = this.addRenderImage( back, defaults['back']['bottom'], 600, 600 );
+      back = this.addRenderImage( back, defaults['back']['belt'], 600, 600 );
+      back = this.addRenderImage( back, defaults['back']['back-embellishments'], 600, 600 );
+      back = this.addRenderImage( back, defaults['back']['top'], 600, 600 );
+      back = this.addRenderImage( back, defaults['back']['front-embellishments'], 600, 600 );
+      
+    }
+    return <div style={{"position":"relative"}} ><div style={{"position":"static"}}>{front}</div><div style={{"position":"static"}}>{back}</div></div>;
+  }
   render()
   {
     return (
@@ -253,7 +295,8 @@ class RenderLayers extends React.Component
               onMoveEnd ={ newList => this.dragFinished( newList ) }/>
           </div>
           <div className="col-md-6">
-            Image
+            {this.renderDress()}
+
           </div>
         </div>          
         <div className="row top-margin">

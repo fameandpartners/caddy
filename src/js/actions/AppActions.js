@@ -46,6 +46,7 @@ export function updateProductDetails( product )
                            customizations: product.customizations,
                            validCombinations: product.validCombinations,
                            invalidCombinations: product.invalidCombinations,
+                           renders: product.renders,
                            version: product.version
                          } );
                        
@@ -76,6 +77,7 @@ export function loadProduct( styleNumber, versionNumber )
           customizations: productJson.customizations,
           validCombinations: productJson.validCombinations,
           invalidCombinations: productJson.invalidCombinations,
+          renders: productJson.renders,
           version: versionNumber
         } );
     } );
