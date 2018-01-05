@@ -251,7 +251,63 @@ class RenderLayers extends React.Component
     }
     return array;
   }
+
+  clone( object )
+  {
+    return JSON.parse( JSON.stringify( object ) );
+  }
+
+  combineRenders( baseSet, newSet )
+  {
+    let toReturn = baseSet;
+    if( newSet != null )
+    {
+      if( baseSet == null )
+      {
+        toReturn = newSet;
+      }
+      toReturn['bottom'] = newSet['bottom' ] || toReturn['bottom'];
+      toReturn['belt'] = newSet['belt' ] || toReturn['belt'];
+      toReturn['back-embellishments' ] = (newSet['back-embellishments'] || []).concat( toReturn['back-embellishments'] );
+      toReturn['top'] = newSet['top' ] || toReturn['top'];
+      toReturn['front-embellishments' ] = (newSet['front-embellishments'] || []).concat( toReturn['front-embellishments'] );
+    }
+    
+    return toReturn;
+  }
+  combineRenderSets( renders, itemCodesToAdd )
+  {
+    let toReturn = this.clone( renders['default'] );
+
+    for( let i = 0; i < itemCodesToAdd.length; i++ )
+    {
+      let itemCode = itemCodesToAdd[i].toLowerCase();
+      if( renders[itemCode] )
+      {
+        toReturn['front'] = this.combineRenders( toReturn['front'], renders[itemCode]['front'] );
+        toReturn['back'] = this.combineRenders( toReturn['back'], renders[itemCode]['back'] );
+        
+      }
+    }
+    return toReturn;
+  }
+
+  findCustomization( guid )
+  {
+    return this.state.product.customizations.find( (element) => element.id == guid );
+  }
   
+  mapGUIDsToCodes( arrayOfGUIDs )
+  {
+    let toReturn = [];
+    for( let i = 0; i < arrayOfGUIDs.length; i++ )
+    {
+      toReturn.push( this.findCustomization( arrayOfGUIDs[i] ).code );
+    }
+
+    console.log( toReturn );
+    return toReturn;
+  }
   renderDress()
   {
     let front = [];
@@ -261,18 +317,19 @@ class RenderLayers extends React.Component
     {
       let renders = this.state.product.renders[this.state.length];
       let defaults = renders['default'];
+      let renderSet = this.combineRenderSets( renders, this.mapGUIDsToCodes(this.state.selectedItems ) );
 
-      front = this.addRenderImage( front, defaults['front']['bottom'], 600, 0 );
-      front = this.addRenderImage( front, defaults['front']['belt'], 600, 0 );      
-      front = this.addRenderImage( front, defaults['front']['back-embellishments'], 600, 0 );      
-      front = this.addRenderImage( front, defaults['front']['top'], 600, 0 );
-      front = this.addRenderImage( front, defaults['front']['front-embellishments'], 600, 0 );
+      front = this.addRenderImage( front, renderSet['front']['bottom'], 600, 0 );
+      front = this.addRenderImage( front, renderSet['front']['belt'], 600, 0 );      
+      front = this.addRenderImage( front, renderSet['front']['back-embellishments'], 600, 0 );      
+      front = this.addRenderImage( front, renderSet['front']['top'], 600, 0 );
+      front = this.addRenderImage( front, renderSet['front']['front-embellishments'], 600, 0 );
 
-      back = this.addRenderImage( back, defaults['back']['bottom'], 600, 600 );
-      back = this.addRenderImage( back, defaults['back']['belt'], 600, 600 );
-      back = this.addRenderImage( back, defaults['back']['back-embellishments'], 600, 600 );
-      back = this.addRenderImage( back, defaults['back']['top'], 600, 600 );
-      back = this.addRenderImage( back, defaults['back']['front-embellishments'], 600, 600 );
+      back = this.addRenderImage( back, renderSet['back']['bottom'], 600, 600 );
+      back = this.addRenderImage( back, renderSet['back']['belt'], 600, 600 );
+      back = this.addRenderImage( back, renderSet['back']['back-embellishments'], 600, 600 );
+      back = this.addRenderImage( back, renderSet['back']['top'], 600, 600 );
+      back = this.addRenderImage( back, renderSet['back']['front-embellishments'], 600, 600 );
       
     }
     return <div style={{"position":"relative"}} ><div style={{"position":"static"}}>{front}</div><div style={{"position":"static"}}>{back}</div></div>;
