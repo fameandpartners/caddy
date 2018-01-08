@@ -311,15 +311,31 @@ class RenderLayers extends React.Component
   {
     return this.state.product.customizations.find( (element) => element.id == guid );
   }
-  
+
+  sortByCustomizationOrder( codeArray )
+  {
+    let customizations = this.state.product.customizations;
+    
+    codeArray.sort( function( a, b )
+                    {
+                      let customizationA = customizations.find( ( element ) => element.code == a );
+                      let customizationB = customizations.find( ( element ) => element.code == b );
+                      return customizationA.order - customizationB.order;
+                    }
+                  );
+
+    return codeArray;
+  }
   mapGUIDsToCodes( arrayOfGUIDs )
   {
     let toReturn = [];
     for( let i = 0; i < arrayOfGUIDs.length; i++ )
     {
+      
       toReturn.push( this.findCustomization( arrayOfGUIDs[i] ).code );
     }
 
+    toReturn = this.sortByCustomizationOrder( toReturn );
     console.log( toReturn );
     return toReturn;
   }
