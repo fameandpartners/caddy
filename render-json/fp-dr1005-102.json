@@ -15,7 +15,14 @@
             "t3": { "front": { "back-embellishments": ["t29_front_sweatheart"]}, "back": { "front-embellishments": ["t29_sweatheart_back"]} },
             "t4": { "front": { "back-embellishments": ["t29_front_straight"]}, "back": { "front-embellishments": ["t29_straight_back"]} }
            },
-    "t31":{ "default":{ "front": { "back-embellishments": ["t31_front"] }, "back": { "front-embellishments": ["t31_back"] } } }
+    "t31":{ "default":{ "front": { "back-embellishments": ["t31_front"] }, "back": { "front-embellishments": ["t31_back"] } } },
+    "t33":{ "default":{ "front": { "back-embellishments": ["t33_front"] }, "back": { "front-embellishments": ["t33_back"] } } },
+    "t34":{ "default":{ "front": { "back-embellishments": ["t34_front"] }, "back": { "front-embellishments": ["t34_back"] } } },
+    "t35":{ "default":{ "front": { "back-embellishments": ["t35_front"] }, "back": { "front-embellishments": ["t35_back"] } } },    
+    "t44":{ "default":{ "front": { "back-embellishments": ["t44_front"] }, "back": { "front-embellishments": ["t44_back"] } } },
+    "t51":{ "default":{ "front": { "back-embellishments": ["t51_front"] }, "back": { "front-embellishments": ["t51_back"] } } },
+    "t58":{ "default":{ "back": { "front-embellishments": ["t58_back"] } } }
+    
     
   },
   "Knee": {
