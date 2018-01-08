@@ -23,7 +23,10 @@ class UploadProduct extends React.Component
       customization_name: customization.name.parameterize,
       required_by: {"lengths": this.buildLengthsRequiredFor( customization )},
       price_usd: customization.priceUSD,
-      price_aud: customization.priceAUD
+      price_aud: customization.priceAUD,
+      group_name: customization.group_name,
+      new_silhouette_name: customization.new_silhouette_name,
+      new_neckline_name: customization.new_neckline_name
     };
   }
   
