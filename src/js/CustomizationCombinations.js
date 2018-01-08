@@ -36,6 +36,8 @@ export default class CustomizationCombinations
       let temp = [];
       let tempIds = [];
       let tempCodes = [];
+      let tempNeckline = '';
+      let tempSilhouette = '';
       for (j = 0; j < arrLen; j++)
       {
         if ((i & power(2, j)))
@@ -43,6 +45,14 @@ export default class CustomizationCombinations
           temp = temp.concat( [this.listOfCombinations[j].name] );
           tempIds = tempIds.concat( [this.listOfCombinations[j].id] );
           tempCodes = tempCodes.concat( [this.listOfCombinations[j].code] );
+          
+          if (this.listOfCombinations[j].new_silhouette_name) {
+              tempNeckline = this.listOfCombinations[j].new_silhouette_name
+          }
+
+          if (this.listOfCombinations[j].new_neckline_name) {
+              tempSilhouette = this.listOfCombinations[j].new_neckline_name
+          }
         }
       }
       
@@ -67,8 +77,8 @@ export default class CustomizationCombinations
           }
           result.push( {
             customization_ids: tempIds,
-            neckline: this.listOfCombinations.find((x) => x.new_neckline_name),
-            silhouette: this.listOfCombinations.find((x) => x.new_silhouette_name),
+            neckline: tempNeckline,
+            silhouette: tempSilhouette,
             lengths: [ { name: this.lengthName, incompatability_list: Array.from( incompatibilySet ) }]
           });
         }
