@@ -242,11 +242,11 @@ class RenderLayers extends React.Component
       {
         for( let i = 0; i < data.length; i++ )
         {
-          array.push( <img style={{"position":"absolute", width:width, left:offset }} key={data[i]} src={`/renders/fp-dr1005-102/${data[i]}_0000.png`}/> );
+          array.push( <img style={{"position":"absolute", width:width, left:offset }} key={data[i]} src={`/renders/fp-dr1005-102/${data[i]}_0017.png`}/> );
         }
       } else
       {
-        array.push( <img style={{"position":"absolute", width:width, left:offset}} key={data} src={`/renders/fp-dr1005-102/${data}_0000.png`}/> );
+        array.push( <img style={{"position":"absolute", width:width, left:offset}} key={data} src={`/renders/fp-dr1005-102/${data}_0017.png`}/> );
       }
     }
     return array;
@@ -268,9 +268,9 @@ class RenderLayers extends React.Component
       }
       toReturn['bottom'] = newSet['bottom' ] || toReturn['bottom'];
       toReturn['belt'] = newSet['belt' ] || toReturn['belt'];
-      toReturn['back-embellishments' ] = (newSet['back-embellishments'] || []).concat( toReturn['back-embellishments'] );
+      toReturn['back-embellishments' ] = (newSet['back-embellishments'] || []).concat( toReturn['back-embellishments'] || []);
       toReturn['top'] = newSet['top' ] || toReturn['top'];
-      toReturn['front-embellishments' ] = (newSet['front-embellishments'] || []).concat( toReturn['front-embellishments'] );
+      toReturn['front-embellishments' ] = (newSet['front-embellishments'] || []).concat( toReturn['front-embellishments'] || [] );
     }
     
     return toReturn;
@@ -289,6 +289,8 @@ class RenderLayers extends React.Component
         
       }
     }
+
+    console.log( toReturn );
     return toReturn;
   }
 
