@@ -35,6 +35,8 @@ class ProductDetails extends React.Component
     product.details.fabric = this.fabric.value;
     product.details.short_description = this.short_description.value;
     product.details.factory = this.factory.value;
+    product.details.silhouette = this.silhouette.value;
+    product.details.neckline = this.neckline.value;
     
     this.setState(
       {
@@ -71,6 +73,9 @@ class ProductDetails extends React.Component
     this.fabric.value = this.clean( props.product.details.fabric );
     this.short_description.value = this.clean( props.product.details.short_description );
     this.factory.value = this.clean( props.product.details.factory );
+    this.silhouette.value = this.clean( props.product.details.silhouette );
+    this.neckline.value = this.clean( props.product.details.neckline );
+    
   }
 
   componentDidMount()
@@ -332,6 +337,22 @@ class ProductDetails extends React.Component
               </div>
               
             </div>
+            <div className="row top-margin">
+              <div className="col-md-2">
+                Default Silhouette:
+              </div>
+              <div className="col-md-3">
+                <input type="text" ref={(input) => { this.silhouette = input;  }}/>
+              </div>
+            </div>
+            <div className="row top-margin">
+              <div className="col-md-2">
+                Default Neckline:
+              </div>
+              <div className="col-md-3">
+                <input type="text" ref={(input) => { this.neckline = input;  }}/>
+              </div>
+            </div>            
             <div className="row top-margin">
               <div className="col-md-2">
                 Factory:

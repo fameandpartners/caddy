@@ -75,6 +75,8 @@ class UploadProduct extends React.Component
       style_notes: this.state.product.details.style_notes,
       fit: this.state.product.details.fit,
       fabric: this.state.product.details.fabric,
+      silhouette: this.state.product.details.silhouette,
+      neckline: this.state.product.details.neckline,
       short_description: this.state.product.details.short_description,
       factory: this.state.product.details.factory,
       primary_image: this.state.product.details.primaryImage ? "https://d1msb7dh8kb0o9.cloudfront.net/spree/products/38022/original/fp2615-navy-1.jpg?1509656449" : "",
