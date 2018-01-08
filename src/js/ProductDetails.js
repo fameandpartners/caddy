@@ -30,6 +30,13 @@ class ProductDetails extends React.Component
     product.details.name = this.productName.value;
     product.details.priceAUD = this.productAUDPrice.value;
     product.details.priceUSD = this.productUSDPrice.value;
+    product.details.style_notes = this.style_notes.value;
+    product.details.fit = this.fit.value;
+    product.details.fabric = this.fabric.value;
+    product.details.short_description = this.short_description.value;
+    product.details.factory = this.factory.value;
+    product.details.silhouette = this.silhouette.value;
+    product.details.neckline = this.neckline.value;
     
     this.setState(
       {
@@ -60,7 +67,15 @@ class ProductDetails extends React.Component
     this.productId.value = this.clean(props.product.details.id);
     this.productName.value = this.clean(props.product.details.name);
     this.productAUDPrice.value = this.clean( props.product.details.priceAUD );
-    this.productUSDPrice.value = this.clean( props.product.details.priceUSD);
+    this.productUSDPrice.value=  this.clean( props.product.details.priceUSD);
+    this.style_notes.value = this.clean( props.product.details.style_notes );
+    this.fit.value = this.clean( props.product.details.fit );
+    this.fabric.value = this.clean( props.product.details.fabric );
+    this.short_description.value = this.clean( props.product.details.short_description );
+    this.factory.value = this.clean( props.product.details.factory );
+    this.silhouette.value = this.clean( props.product.details.silhouette );
+    this.neckline.value = this.clean( props.product.details.neckline );
+    
   }
 
   componentDidMount()
@@ -286,7 +301,66 @@ class ProductDetails extends React.Component
                 <ExpandableList addType="Taxon" contentUpdate={( value ) => this.updateDetail( 'taxons', value )} startingValue={this.state.product.details.taxons}/>
               </div>
             </div>
-
+            <div className="row top-margin">
+              <div className="col-md-2">
+                Style Notes:
+              </div>
+              <div className="col-md-10">
+                <textarea cols="50" rows="4" type="text" ref={(input) => { this.style_notes = input;  }}/>
+              </div>
+              
+            </div>
+            <div className="row top-margin">
+              <div className="col-md-2">
+                Fit:
+              </div>
+              <div className="col-md-10">
+                <textarea cols="50" rows="4" type="text" ref={(input) => { this.fit = input;  }}/>
+              </div>
+              
+            </div>
+            <div className="row top-margin">
+              <div className="col-md-2">
+                Fabric: 
+              </div>
+              <div className="col-md-10">
+                <textarea cols="50" rows="4" type="text" ref={(input) => { this.fabric = input;  }}/>
+              </div>
+              
+            </div>
+            <div className="row top-margin">
+              <div className="col-md-2">
+                Short Description: 
+              </div>
+              <div className="col-md-10">
+                <textarea cols="50" rows="4" type="text" ref={(input) => { this.short_description = input;  }}/>
+              </div>
+              
+            </div>
+            <div className="row top-margin">
+              <div className="col-md-2">
+                Default Silhouette:
+              </div>
+              <div className="col-md-3">
+                <input type="text" ref={(input) => { this.silhouette = input;  }}/>
+              </div>
+            </div>
+            <div className="row top-margin">
+              <div className="col-md-2">
+                Default Neckline:
+              </div>
+              <div className="col-md-3">
+                <input type="text" ref={(input) => { this.neckline = input;  }}/>
+              </div>
+            </div>            
+            <div className="row top-margin">
+              <div className="col-md-2">
+                Factory:
+              </div>
+              <div className="col-md-3">
+                <input type="text" ref={(input) => { this.factory = input;  }}/>
+              </div>
+            </div>
             <div className="row top-margin">
               <div>
                 <button onClick={this.save}>Save</button>

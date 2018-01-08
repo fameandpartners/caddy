@@ -31,7 +31,6 @@ export default class RenderedCustomizationCombinationList
   {
     this.renderedList = this.list.toArray();
     let coloredRenders = this._generateColorList();
-    let self = this;
     for( let i = 0; i < this.renderedList.length; i++ )
     {
       this.renderedList.lengths = this.renderedList[i].lengths.map( function( length )
