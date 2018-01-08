@@ -69,6 +69,11 @@ class UploadProduct extends React.Component
       name: this.state.product.details.name,
       price_aud: this.state.product.details.priceAUD,
       price_usd: this.state.product.details.priceUSD,
+      style_notes: this.state.product.details.style_notes,
+      fit: this.state.product.details.fit,
+      fabric: this.state.product.details.fabric,
+      short_description: this.state.product.details.short_description,
+      factory: this.state.product.details.factory,
       primary_image: this.state.product.details.primaryImage ? "https://d1msb7dh8kb0o9.cloudfront.net/spree/products/38022/original/fp2615-navy-1.jpg?1509656449" : "",
       secondary_images: this.state.product.details.secondaryImages ? this.state.product.details.secondaryImages.map( () => "https://d1msb7dh8kb0o9.cloudfront.net/spree/products/38021/original/fp2615-navy-2.jpg?1509656448" ) : "",
       taxons: this.state.product.details.taxons ? this.state.product.details.taxons : []
