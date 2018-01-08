@@ -25,7 +25,9 @@ class CustomizationList extends React.Component
     this.priceAUDTextBoxes = {};
     this.priceUSDTextBoxes = {};
     this.codeTextBoxes = {};
-    
+    this.groupNameTextBoxes = {};
+    this.silhouetteTextBoxes = {};
+    this.necklineTextBoxes = {};
   }
 
   addCustomization()
@@ -132,6 +134,44 @@ class CustomizationList extends React.Component
     
   }
 
+  updateGroupName( number )
+  {
+    let product = this.state.product;
+
+    this.state.product.customizations[number].group_name = this.groupNameTextBoxes[number].value;
+    this.setState(
+      {
+        product: product
+      }
+    );
+    
+  }
+
+  updateNewSilhouetteName( number )
+  {
+    let product = this.state.product;
+
+    this.state.product.customizations[number].new_silhouette_name = this.silhouetteTextBoxes[number].value;
+    this.setState(
+      {
+        product: product
+      }
+    );
+    
+  }
+
+  updateNecklineName( number )
+  {
+    let product = this.state.product;
+
+    this.state.product.customizations[number].new_neckline_name = this.necklineTextBoxes[number].value;
+    this.setState(
+      {
+        product: product
+      }
+    );
+    
+  }
   renderCustomizationItem( customization, number )
   {
     return (
@@ -181,6 +221,38 @@ class CustomizationList extends React.Component
               <button onClick={() =>this.delete( number ) }>Delete</button>
             </div>
           </div>
+          <div className="row">
+            <div className="col-md-2">
+              Group Name:
+            </div>
+            <div className="col-md-2">
+              <input type="text"
+                     defaultValue={customization.group_name}
+                     onKeyUp={(key) => this.updateGroupName( number, key ) }
+                ref={(input) => { this.groupNameTextBoxes[number] = input; }} />
+            </div>
+            <div className="col-md-2 text-right">
+              New Silhouette Name:
+            </div>
+            <div className="col-md-2">
+              <input type="text"
+                     defaultValue={customization.new_silhouette_name}
+                     onBlur={() => this.updateNewSilhouetteName( number ) }                           
+                ref={(input) => { this.silhouetteTextBoxes[number] =  input; }} />
+
+            </div>
+            <div className="col-md-2 text-right">
+              New Neckline Name:
+            </div>
+            <div className="col-md-2">
+              <input type="text"
+                     defaultValue={customization.new_neckline_name}
+                     onBlur={() => this.updateNecklineName( number ) }                           
+                ref={(input) => { this.necklineTextBoxes[number] =  input; }} />
+
+            </div>
+          </div>
+          
         </div>
       </li>
     );
