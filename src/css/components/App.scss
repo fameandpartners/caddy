@@ -85,6 +85,20 @@ input[type=text]
     top: -17px;
 }
 
+.render-box
+{
+    min-height: 150px;
+    background-color: white;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    &.bottom
+    {
+        border-bottom-color:black;
+        border-bottom-width: 2px;
+    }
+}
+
 .stickyTableHead
 {
     display: table;
