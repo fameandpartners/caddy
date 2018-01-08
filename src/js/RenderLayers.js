@@ -163,7 +163,7 @@ class RenderLayers extends React.Component
     {
       if( elementIndex != -1 )
       {
-        this.state.selectedItems.splice( elementIndex );
+        this.state.selectedItems.splice( elementIndex,1 );
       }
     }
     this.setState(
@@ -238,11 +238,11 @@ class RenderLayers extends React.Component
       {
         for( let i = 0; i < data.length; i++ )
         {
-          array.push( <img style={{"position":"absolute", width:width, left:offset }} key={data[i]} src={`/renders/fp-dr1005-102/${data[i]}_0017.png`}/> );
+          array.push( <img style={{"position":"absolute", width:width, left:offset }} key={data[i]} src={`/renders/fp-dr1005-102/${data[i]}_0000.png`}/> );
         }
       } else
       {
-        array.push( <img style={{"position":"absolute", width:width, left:offset}} key={data} src={`/renders/fp-dr1005-102/${data}_0017.png`}/> );
+        array.push( <img style={{"position":"absolute", width:width, left:offset}} key={data} src={`/renders/fp-dr1005-102/${data}_0000.png`}/> );
       }
     }
     return array;
@@ -271,6 +271,22 @@ class RenderLayers extends React.Component
     
     return toReturn;
   }
+
+  findItemToRender( renders, combinationCodes )
+  {
+    let toReturn = renders['default'];
+
+    for( let i = 0; combinationCodes && i < combinationCodes.length; i++ )
+    {
+      let code = combinationCodes[i].toLowerCase();
+      if( renders[code] )
+      {
+        toReturn = renders[code];
+      }
+    }
+
+    return toReturn;
+  }
   combineRenderSets( renders, itemCodesToAdd )
   {
     let toReturn = this.clone( renders['default'] );
@@ -280,8 +296,9 @@ class RenderLayers extends React.Component
       let itemCode = itemCodesToAdd[i].toLowerCase();
       if( renders[itemCode] )
       {
-        toReturn['front'] = this.combineRenders( toReturn['front'], renders[itemCode]['default']['front'] );
-        toReturn['back'] = this.combineRenders( toReturn['back'], renders[itemCode]['default']['back'] );
+        let itemRenders = this.findItemToRender( renders[itemCode], itemCodesToAdd );
+        toReturn['front'] = this.combineRenders( toReturn['front'], itemRenders['front'] );
+        toReturn['back'] = this.combineRenders( toReturn['back'], itemRenders['back'] );
         
       }
     }
