@@ -265,7 +265,7 @@ class RenderLayers extends React.Component
       toReturn['bottom'] = newSet['bottom' ] || toReturn['bottom'];
       toReturn['belt'] = newSet['belt' ] || toReturn['belt'];
       toReturn['back-embellishments' ] = (newSet['back-embellishments'] || []).concat( toReturn['back-embellishments'] || []);
-      toReturn['top'] = newSet['top' ] || toReturn['top'];
+      toReturn['neckline'] = newSet['neckline' ] || toReturn['neckline'];
       toReturn['front-embellishments' ] = (newSet['front-embellishments'] || []).concat( toReturn['front-embellishments'] || [] );
     }
     
@@ -337,13 +337,13 @@ class RenderLayers extends React.Component
       front = this.addRenderImage( front, renderSet['front']['bottom'], 600, 0 );
       front = this.addRenderImage( front, renderSet['front']['belt'], 600, 0 );      
       front = this.addRenderImage( front, renderSet['front']['back-embellishments'], 600, 0 );      
-      front = this.addRenderImage( front, renderSet['front']['top'], 600, 0 );
+      front = this.addRenderImage( front, renderSet['front']['neckline'], 600, 0 );
       front = this.addRenderImage( front, renderSet['front']['front-embellishments'], 600, 0 );
 
       back = this.addRenderImage( back, renderSet['back']['bottom'], 600, 600 );
       back = this.addRenderImage( back, renderSet['back']['belt'], 600, 600 );
       back = this.addRenderImage( back, renderSet['back']['back-embellishments'], 600, 600 );
-      back = this.addRenderImage( back, renderSet['back']['top'], 600, 600 );
+      back = this.addRenderImage( back, renderSet['back']['neckline'], 600, 600 );
       back = this.addRenderImage( back, renderSet['back']['front-embellishments'], 600, 600 );
       
     }
