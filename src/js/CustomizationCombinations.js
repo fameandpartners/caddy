@@ -67,6 +67,8 @@ export default class CustomizationCombinations
           }
           result.push( {
             customization_ids: tempIds,
+            neckline: this.listOfCombinations.find((x) => x.new_neckline_name),
+            silhouette: this.listOfCombinations.find((x) => x.new_silhouette_name),
             lengths: [ { name: this.lengthName, incompatability_list: Array.from( incompatibilySet ) }]
           });
         }
