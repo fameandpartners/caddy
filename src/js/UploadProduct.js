@@ -1,11 +1,7 @@
 import request from 'superagent';
 import React from 'react';
 import autoBind from 'react-autobind';
-import * as AppActions from './actions/AppActions';
 import { connect } from 'react-redux';
-
-import CanvasImage from './CanvasImage';
-import {getBase64} from './Utils';
 import CustomizationCombinations from './CustomizationCombinations';
 import RenderedCustomizationCombinationList from './RenderedCustomizationCombinationList';
 

@@ -26,7 +26,7 @@ export default class CustomizationCombinations
 
   _generateCombinations()
   {
-    let i, j, temp;
+    let i, j;
     let result = [];
     let arrLen = this.listOfCombinations.length;
     let power = Math.pow;

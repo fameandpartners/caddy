@@ -11,9 +11,9 @@ export const sortCustomizations = ( a, b ) => {
   let secondCode = b.key || b.code;
   let splitFirst = firstCode.split(/(\d+)/);
   let splitSecond = secondCode.split(/(\d+)/);
-  if( splitFirst[0] == splitSecond[0] )
+  if( splitFirst[0] === splitSecond[0] )
   {
-    return parseInt( splitFirst[1] - splitSecond[1] );
+    return parseInt( splitFirst[1] - splitSecond[1], 10 );
   } else
   {
     return splitFirst[0] > splitSecond[0] ? -1 : splitFirst[0] < splitSecond[0] ? 1 : 0 ;                                                                                             
