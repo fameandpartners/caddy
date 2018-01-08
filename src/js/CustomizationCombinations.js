@@ -47,11 +47,12 @@ export default class CustomizationCombinations
           tempCodes = tempCodes.concat( [this.listOfCombinations[j].code] );
           
           if (this.listOfCombinations[j].new_silhouette_name) {
-              tempNeckline = this.listOfCombinations[j].new_silhouette_name
+              
+              tempSilhouette = this.listOfCombinations[j].new_silhouette_name
           }
 
           if (this.listOfCombinations[j].new_neckline_name) {
-              tempSilhouette = this.listOfCombinations[j].new_neckline_name
+              tempNeckline = this.listOfCombinations[j].new_neckline_name
           }
         }
       }
