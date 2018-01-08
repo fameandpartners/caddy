@@ -131,10 +131,6 @@ class RenderLayerItem extends React.Component
         <div className="col-md-11"><b>{this.props.item.name} ({this.props.item.code})</b></div>
         </div>
         {this.renderOnOffButtons()}
-        <div className="row">
-        <div className="col-md-12">{this.props.commonProps.selectedItems}</div>
-        </div>
-        
         </div>        
     );
   }
@@ -284,8 +280,8 @@ class RenderLayers extends React.Component
       let itemCode = itemCodesToAdd[i].toLowerCase();
       if( renders[itemCode] )
       {
-        toReturn['front'] = this.combineRenders( toReturn['front'], renders[itemCode]['front'] );
-        toReturn['back'] = this.combineRenders( toReturn['back'], renders[itemCode]['back'] );
+        toReturn['front'] = this.combineRenders( toReturn['front'], renders[itemCode]['default']['front'] );
+        toReturn['back'] = this.combineRenders( toReturn['back'], renders[itemCode]['default']['back'] );
         
       }
     }
