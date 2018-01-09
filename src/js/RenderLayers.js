@@ -239,10 +239,12 @@ class RenderLayers extends React.Component
         for( let i = 0; i < data.length; i++ )
         {
           array.push( <img style={{"position":"absolute", width:width, left:offset }} key={data[i]} src={`http://assets.fameandpartners.com/renders/fp-dr1005-102/${data[i]}_0000.png`}/> );
+//          array.push( <img style={{"position":"absolute", width:width, left:offset }} key={data[i]} src={`/renders/fp-dr1005-102/${data[i]}_0000.png`}/> );
         }
       } else
-      {
-        array.push( <img style={{"position":"absolute", width:width, left:offset}} key={data} src={`http://assets.fameandpartners.com/renders/fp-dr1005-102/${data}_0000.png`}/> );
+    {
+        array.push( <img style={{"position":"absolute", width:width, left:offset}} key={data} src={`http://assets.fameandpartners.com/renders/fp-dr1005-102/${data}_0000.png`}/> );      
+//        array.push( <img style={{"position":"absolute", width:width, left:offset}} key={data} src={`/renders/fp-dr1005-102/${data}_0000.png`}/> );
       }
     }
     return array;
@@ -265,6 +267,7 @@ class RenderLayers extends React.Component
       toReturn['bottom'] = newSet['bottom' ] || toReturn['bottom'];
       toReturn['belt'] = newSet['belt' ] || toReturn['belt'];
       toReturn['behind' ] = (newSet['behind'] || []).concat( toReturn['behind'] || []);
+      toReturn['behindbelt' ] = (newSet['behindbelt'] || []).concat( toReturn['behindbelt'] || []);      
       toReturn['neckline'] = newSet['neckline' ] || toReturn['neckline'];
       toReturn['infront' ] = (newSet['infront'] || []).concat( toReturn['infront'] || [] );
     }
@@ -343,7 +346,8 @@ class RenderLayers extends React.Component
   {
     let front = [];
     let back = [];
-    
+
+    console.log( this.state.product.renders );
     if( this.state.product.renders )
     {
       let renders = this.state.product.renders[this.state.length];
@@ -352,12 +356,14 @@ class RenderLayers extends React.Component
       
       front = this.addRenderImage( front, renderSet['front']['behind'], 600, 0 );            
       front = this.addRenderImage( front, renderSet['front']['bottom'], 600, 0 );
+      front = this.addRenderImage( front, renderSet['front']['behindbelt'], 600, 0 );                  
       front = this.addRenderImage( front, renderSet['front']['belt'], 600, 0 );      
       front = this.addRenderImage( front, renderSet['front']['neckline'], 600, 0 );
       front = this.addRenderImage( front, renderSet['front']['infront'], 600, 0 );
 
       back = this.addRenderImage( back, renderSet['back']['behind'], 600, 600 );            
       back = this.addRenderImage( back, renderSet['back']['bottom'], 600, 600 );
+      back = this.addRenderImage( back, renderSet['back']['behindbelt'], 600, 600 );            
       back = this.addRenderImage( back, renderSet['back']['belt'], 600, 600 );
       back = this.addRenderImage( back, renderSet['back']['neckline'], 600, 600 );
       back = this.addRenderImage( back, renderSet['back']['infront'], 600, 600 );
