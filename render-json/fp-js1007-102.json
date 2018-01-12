@@ -1,0 +1,1947 @@
+{
+  "Midi": {
+    "default": {
+      "front": {
+        "bottom": "jumpsuit_pants_midi_bottom_front",
+        "belt": "default_belt_front",
+        "neckline": "t1_neckline_front"
+      },
+      "back": {
+        "bottom": "jumpsuit_pants_midi_bottom_back",
+        "belt": "default_belt_back",
+        "neckline": "t1_neckline_back"
+      }
+    },
+    "t60": {
+      "default": {
+        "front": {
+          "neckline": "t60_for_t1_neckline_front"
+        },
+        "back": {
+          "neckline": "t60_for_t1_neckline_back"
+        }
+      },
+      "t29": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t29_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t29_t1_neckline_back"
+          }
+        },
+        "t4": {
+          "default": {
+            "front": {
+              "neckline": "t60_for_t29_t4_neckline_front"
+            },
+            "back": {
+              "neckline": "t60_for_t29_t4_neckline_back"
+            }
+          }
+        },
+        "t3": {
+          "default": {
+            "front": {
+              "neckline": "t60_for_t29_t3_neckline_front"
+            },
+            "back": {
+              "neckline": "t60_for_t29_t3_neckline_back"
+            }
+          }
+        }
+      },
+      "t31": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t31_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t31_neckline_back"
+          }
+        }
+      },
+      "t3": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t3_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t3_neckline_back"
+          }
+        }
+      },
+      "t4": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t4_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t4_neckline_back"
+          }
+        }
+      },
+      "t2": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t2_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t2_neckline_back"
+          }
+        }
+      }
+    },
+    "t44": {
+      "default": {
+        "front": {
+          "neckline": "t44_neckline_front"
+        },
+        "back": {
+          "neckline": "t44_neckline_back"
+        }
+      }
+    },
+    "t29": {
+      "default": {
+        "front": {
+          "neckline": "t29_for_t1_neckline_front"
+        },
+        "back": {
+          "neckline": "t29_for_t1_neckline_back"
+        }
+      },
+      "t3": {
+        "default": {
+          "front": {
+            "neckline": "t29_for_t3_neckline_front"
+          },
+          "back": {
+            "neckline": "t29_for_t3_neckline_back"
+          }
+        }
+      },
+      "t4": {
+        "default": {
+          "front": {
+            "neckline": "t29_for_t4_neckline_front"
+          },
+          "back": {
+            "neckline": "t29_for_t4_neckline_back"
+          }
+        }
+      },
+      "t2": {
+        "default": {
+          "front": {
+            "neckline": "t29_for_t2_neckline_front"
+          },
+          "back": {
+            "neckline": "t29_for_t2_neckline_back"
+          }
+        }
+      }
+    },
+    "t33": {
+      "default": {
+        "front": {
+          "infront": [
+            "t33_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t33_infront_back"
+          ]
+        }
+      }
+    },
+    "t6": {
+      "default": {
+        "front": {
+          "neckline": "t6_neckline_front"
+        },
+        "back": {
+          "neckline": "t6_neckline_back"
+        }
+      }
+    },
+    "a5": {
+      "default": {
+        "front": {
+          "behindbelt": [
+            "a5_behind_belt_front"
+          ]
+        },
+        "back": {
+          "neckline": "a5_neckline_back"
+        }
+      }
+    },
+    "b6": {
+      "default": {
+        "front": {
+          "bottom": "b6_midi_bottom_front"
+        },
+        "back": {
+          "bottom": "b6_midi_bottom_back"
+        }
+      }
+    },
+    "b21": {
+      "default": {
+        "front": {
+          "infront": [
+            "b21_v1_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "b21_v2_infront_back"
+          ]
+        }
+      }
+    },
+    "a1": {
+      "default": {
+        "front": {
+          "infront": [
+            "a1_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "a1_infront_back"
+          ]
+        }
+      }
+    },
+    "t7": {
+      "default": {
+        "front": {
+          "neckline": "t7_neckline_front"
+        },
+        "back": {
+          "neckline": "t7_neckline_back"
+        }
+      }
+    },
+    "t2": {
+      "default": {
+        "front": {
+          "neckline": "t2_neckline_front"
+        },
+        "back": {
+          "neckline": "t2_neckline_back"
+        }
+      }
+    },
+    "t56": {
+      "default": {
+        "front": {
+          "neckline": "t56_neckline_front"
+        },
+        "back": {
+          "neckline": "t56_neckline_back"
+        }
+      }
+    },
+    "t22": {
+      "default": {
+        "front": {
+          "behind": [
+            "t22_behind_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t22_infront_back"
+          ]
+        }
+      }
+    },
+    "t35": {
+      "default": {
+        "front": {
+          "infront": [
+            "t35_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t35_infront_back"
+          ]
+        }
+      }
+    },
+    "t39": {
+      "default": {
+        "front": {
+          "neckline": "t39_neckline_front"
+        },
+        "back": {
+          "neckline": "t39_neckline_back"
+        }
+      }
+    },
+    "t64": {
+      "default": {
+        "front": {
+          "neckline": "t64_neckline_front"
+        },
+        "back": {
+          "neckline": "t64_neckline_back"
+        }
+      }
+    },
+    "a2": {
+      "default": {
+        "front": {
+          "infront": [
+            "a2_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "a2_infront_back"
+          ]
+        }
+      }
+    },
+    "t34": {
+      "default": {
+        "front": {
+          "infront": [
+            "t34_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t34_infront_back"
+          ]
+        }
+      }
+    }
+  },
+  "Ankle": {
+    "default": {
+      "front": {
+        "bottom": "jumpsuit_pants_ankle_bottom_front",
+        "belt": "default_belt_front",
+        "neckline": "t1_neckline_front"
+      },
+      "back": {
+        "bottom": "jumpsuit_pants_ankle_bottom_back",
+        "belt": "default_belt_back",
+        "neckline": "t1_neckline_back"
+      }
+    },
+    "t60": {
+      "default": {
+        "front": {
+          "neckline": "t60_for_t1_neckline_front"
+        },
+        "back": {
+          "neckline": "t60_for_t1_neckline_back"
+        }
+      },
+      "t29": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t29_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t29_t1_neckline_back"
+          }
+        },
+        "t4": {
+          "default": {
+            "front": {
+              "neckline": "t60_for_t29_t4_neckline_front"
+            },
+            "back": {
+              "neckline": "t60_for_t29_t4_neckline_back"
+            }
+          }
+        },
+        "t3": {
+          "default": {
+            "front": {
+              "neckline": "t60_for_t29_t3_neckline_front"
+            },
+            "back": {
+              "neckline": "t60_for_t29_t3_neckline_back"
+            }
+          }
+        }
+      },
+      "t31": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t31_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t31_neckline_back"
+          }
+        }
+      },
+      "t3": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t3_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t3_neckline_back"
+          }
+        }
+      },
+      "t4": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t4_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t4_neckline_back"
+          }
+        }
+      },
+      "t2": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t2_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t2_neckline_back"
+          }
+        }
+      }
+    },
+    "t44": {
+      "default": {
+        "front": {
+          "neckline": "t44_neckline_front"
+        },
+        "back": {
+          "neckline": "t44_neckline_back"
+        }
+      }
+    },
+    "t29": {
+      "default": {
+        "front": {
+          "neckline": "t29_for_t1_neckline_front"
+        },
+        "back": {
+          "neckline": "t29_for_t1_neckline_back"
+        }
+      },
+      "t3": {
+        "default": {
+          "front": {
+            "neckline": "t29_for_t3_neckline_front"
+          },
+          "back": {
+            "neckline": "t29_for_t3_neckline_back"
+          }
+        }
+      },
+      "t4": {
+        "default": {
+          "front": {
+            "neckline": "t29_for_t4_neckline_front"
+          },
+          "back": {
+            "neckline": "t29_for_t4_neckline_back"
+          }
+        }
+      },
+      "t2": {
+        "default": {
+          "front": {
+            "neckline": "t29_for_t2_neckline_front"
+          },
+          "back": {
+            "neckline": "t29_for_t2_neckline_back"
+          }
+        }
+      }
+    },
+    "t33": {
+      "default": {
+        "front": {
+          "infront": [
+            "t33_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t33_infront_back"
+          ]
+        }
+      }
+    },
+    "t6": {
+      "default": {
+        "front": {
+          "neckline": "t6_neckline_front"
+        },
+        "back": {
+          "neckline": "t6_neckline_back"
+        }
+      }
+    },
+    "a5": {
+      "default": {
+        "front": {
+          "behindbelt": [
+            "a5_behind_belt_front"
+          ]
+        },
+        "back": {
+          "neckline": "a5_neckline_back"
+        }
+      }
+    },
+    "b21": {
+      "default": {
+        "front": {
+          "infront": [
+            "b21_v1_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "b21_v2_infront_back"
+          ]
+        }
+      }
+    },
+    "a1": {
+      "default": {
+        "front": {
+          "infront": [
+            "a1_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "a1_infront_back"
+          ]
+        }
+      }
+    },
+    "t7": {
+      "default": {
+        "front": {
+          "neckline": "t7_neckline_front"
+        },
+        "back": {
+          "neckline": "t7_neckline_back"
+        }
+      }
+    },
+    "t2": {
+      "default": {
+        "front": {
+          "neckline": "t2_neckline_front"
+        },
+        "back": {
+          "neckline": "t2_neckline_back"
+        }
+      }
+    },
+    "t56": {
+      "default": {
+        "front": {
+          "neckline": "t56_neckline_front"
+        },
+        "back": {
+          "neckline": "t56_neckline_back"
+        }
+      }
+    },
+    "t22": {
+      "default": {
+        "front": {
+          "behind": [
+            "t22_behind_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t22_infront_back"
+          ]
+        }
+      }
+    },
+    "t35": {
+      "default": {
+        "front": {
+          "infront": [
+            "t35_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t35_infront_back"
+          ]
+        }
+      }
+    },
+    "b7": {
+      "default": {
+        "front": {
+          "bottom": "b7_ankle_bottom_front"
+        },
+        "back": {
+          "bottom": "b7_ankle_bottom_back"
+        }
+      }
+    },
+    "t39": {
+      "default": {
+        "front": {
+          "neckline": "t39_neckline_front"
+        },
+        "back": {
+          "neckline": "t39_neckline_back"
+        }
+      }
+    },
+    "t64": {
+      "default": {
+        "front": {
+          "neckline": "t64_neckline_front"
+        },
+        "back": {
+          "neckline": "t64_neckline_back"
+        }
+      }
+    },
+    "b6": {
+      "default": {
+        "front": {
+          "bottom": "b6_ankle_bottom_front"
+        },
+        "back": {
+          "bottom": "b6_ankle_bottom_back"
+        }
+      }
+    },
+    "a2": {
+      "default": {
+        "front": {
+          "infront": [
+            "a2_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "a2_infront_back"
+          ]
+        }
+      }
+    },
+    "t34": {
+      "default": {
+        "front": {
+          "infront": [
+            "t34_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t34_infront_back"
+          ]
+        }
+      }
+    }
+  },
+  "Cheeky": {
+    "default": {
+      "front": {
+        "bottom": "jumpsuit_pants_cheeky_bottom_front",
+        "belt": "default_belt_front",
+        "neckline": "t1_neckline_front"
+      },
+      "back": {
+        "bottom": "jumpsuit_pants_cheeky_bottom_back",
+        "belt": "default_belt_back",
+        "neckline": "t1_neckline_back"
+      }
+    }
+  },
+  "Short": {
+    "default": {
+      "front": {
+        "bottom": "jumpsuit_pants_short_bottom_front",
+        "belt": "default_belt_front",
+        "neckline": "t1_neckline_front"
+      },
+      "back": {
+        "bottom": "jumpsuit_pants_short_bottom_back",
+        "belt": "default_belt_back",
+        "neckline": "t1_neckline_back"
+      }
+    }
+  },
+  "Full": {
+    "default": {
+      "front": {
+        "bottom": "default_jumpsuit_pants_full_bottom_front",
+        "belt": "default_belt_front",
+        "neckline": "t1_neckline_front"
+      },
+      "back": {
+        "bottom": "default_jumpsuit_pants_full_bottom_back",
+        "belt": "default_belt_back",
+        "neckline": "t1_neckline_back"
+      }
+    }
+  },
+  "Micro-Mini": {
+    "t60": {
+      "default": {
+        "front": {
+          "neckline": "t60_for_t1_neckline_front"
+        },
+        "back": {
+          "neckline": "t60_for_t1_neckline_back"
+        }
+      },
+      "t29": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t29_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t29_t1_neckline_back"
+          }
+        },
+        "t4": {
+          "default": {
+            "front": {
+              "neckline": "t60_for_t29_t4_neckline_front"
+            },
+            "back": {
+              "neckline": "t60_for_t29_t4_neckline_back"
+            }
+          }
+        },
+        "t3": {
+          "default": {
+            "front": {
+              "neckline": "t60_for_t29_t3_neckline_front"
+            },
+            "back": {
+              "neckline": "t60_for_t29_t3_neckline_back"
+            }
+          }
+        }
+      },
+      "t31": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t31_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t31_neckline_back"
+          }
+        }
+      },
+      "t3": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t3_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t3_neckline_back"
+          }
+        }
+      },
+      "t4": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t4_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t4_neckline_back"
+          }
+        }
+      },
+      "t2": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t2_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t2_neckline_back"
+          }
+        }
+      }
+    },
+    "t44": {
+      "default": {
+        "front": {
+          "neckline": "t44_neckline_front"
+        },
+        "back": {
+          "neckline": "t44_neckline_back"
+        }
+      }
+    },
+    "default": {
+      
+    },
+    "t29": {
+      "default": {
+        "front": {
+          "neckline": "t29_for_t1_neckline_front"
+        },
+        "back": {
+          "neckline": "t29_for_t1_neckline_back"
+        }
+      },
+      "t3": {
+        "default": {
+          "front": {
+            "neckline": "t29_for_t3_neckline_front"
+          },
+          "back": {
+            "neckline": "t29_for_t3_neckline_back"
+          }
+        }
+      },
+      "t4": {
+        "default": {
+          "front": {
+            "neckline": "t29_for_t4_neckline_front"
+          },
+          "back": {
+            "neckline": "t29_for_t4_neckline_back"
+          }
+        }
+      },
+      "t2": {
+        "default": {
+          "front": {
+            "neckline": "t29_for_t2_neckline_front"
+          },
+          "back": {
+            "neckline": "t29_for_t2_neckline_back"
+          }
+        }
+      }
+    },
+    "t33": {
+      "default": {
+        "front": {
+          "infront": [
+            "t33_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t33_infront_back"
+          ]
+        }
+      }
+    },
+    "t6": {
+      "default": {
+        "front": {
+          "neckline": "t6_neckline_front"
+        },
+        "back": {
+          "neckline": "t6_neckline_back"
+        }
+      }
+    },
+    "a5": {
+      "default": {
+        "front": {
+          "behindbelt": [
+            "a5_behind_belt_front"
+          ]
+        },
+        "back": {
+          "neckline": "a5_neckline_back"
+        }
+      }
+    },
+    "b21": {
+      "default": {
+        "front": {
+          "infront": [
+            "b21_v1_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "b21_v2_infront_back"
+          ]
+        }
+      }
+    },
+    "a1": {
+      "default": {
+        "front": {
+          "infront": [
+            "a1_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "a1_infront_back"
+          ]
+        }
+      }
+    },
+    "t7": {
+      "default": {
+        "front": {
+          "neckline": "t7_neckline_front"
+        },
+        "back": {
+          "neckline": "t7_neckline_back"
+        }
+      }
+    },
+    "t2": {
+      "default": {
+        "front": {
+          "neckline": "t2_neckline_front"
+        },
+        "back": {
+          "neckline": "t2_neckline_back"
+        }
+      }
+    },
+    "t56": {
+      "default": {
+        "front": {
+          "neckline": "t56_neckline_front"
+        },
+        "back": {
+          "neckline": "t56_neckline_back"
+        }
+      }
+    },
+    "t22": {
+      "default": {
+        "front": {
+          "behind": [
+            "t22_behind_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t22_infront_back"
+          ]
+        }
+      }
+    },
+    "t35": {
+      "default": {
+        "front": {
+          "infront": [
+            "t35_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t35_infront_back"
+          ]
+        }
+      }
+    },
+    "t39": {
+      "default": {
+        "front": {
+          "neckline": "t39_neckline_front"
+        },
+        "back": {
+          "neckline": "t39_neckline_back"
+        }
+      }
+    },
+    "t64": {
+      "default": {
+        "front": {
+          "neckline": "t64_neckline_front"
+        },
+        "back": {
+          "neckline": "t64_neckline_back"
+        }
+      }
+    },
+    "a2": {
+      "default": {
+        "front": {
+          "infront": [
+            "a2_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "a2_infront_back"
+          ]
+        }
+      }
+    },
+    "t34": {
+      "default": {
+        "front": {
+          "infront": [
+            "t34_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t34_infront_back"
+          ]
+        }
+      }
+    }
+  },
+  "Knee": {
+    "t60": {
+      "default": {
+        "front": {
+          "neckline": "t60_for_t1_neckline_front"
+        },
+        "back": {
+          "neckline": "t60_for_t1_neckline_back"
+        }
+      },
+      "t29": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t29_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t29_t1_neckline_back"
+          }
+        },
+        "t4": {
+          "default": {
+            "front": {
+              "neckline": "t60_for_t29_t4_neckline_front"
+            },
+            "back": {
+              "neckline": "t60_for_t29_t4_neckline_back"
+            }
+          }
+        },
+        "t3": {
+          "default": {
+            "front": {
+              "neckline": "t60_for_t29_t3_neckline_front"
+            },
+            "back": {
+              "neckline": "t60_for_t29_t3_neckline_back"
+            }
+          }
+        }
+      },
+      "t31": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t31_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t31_neckline_back"
+          }
+        }
+      },
+      "t3": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t3_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t3_neckline_back"
+          }
+        }
+      },
+      "t4": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t4_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t4_neckline_back"
+          }
+        }
+      },
+      "t2": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t2_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t2_neckline_back"
+          }
+        }
+      }
+    },
+    "t44": {
+      "default": {
+        "front": {
+          "neckline": "t44_neckline_front"
+        },
+        "back": {
+          "neckline": "t44_neckline_back"
+        }
+      }
+    },
+    "default": {
+      
+    },
+    "t29": {
+      "default": {
+        "front": {
+          "neckline": "t29_for_t1_neckline_front"
+        },
+        "back": {
+          "neckline": "t29_for_t1_neckline_back"
+        }
+      },
+      "t3": {
+        "default": {
+          "front": {
+            "neckline": "t29_for_t3_neckline_front"
+          },
+          "back": {
+            "neckline": "t29_for_t3_neckline_back"
+          }
+        }
+      },
+      "t4": {
+        "default": {
+          "front": {
+            "neckline": "t29_for_t4_neckline_front"
+          },
+          "back": {
+            "neckline": "t29_for_t4_neckline_back"
+          }
+        }
+      },
+      "t2": {
+        "default": {
+          "front": {
+            "neckline": "t29_for_t2_neckline_front"
+          },
+          "back": {
+            "neckline": "t29_for_t2_neckline_back"
+          }
+        }
+      }
+    },
+    "t33": {
+      "default": {
+        "front": {
+          "infront": [
+            "t33_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t33_infront_back"
+          ]
+        }
+      }
+    },
+    "t6": {
+      "default": {
+        "front": {
+          "neckline": "t6_neckline_front"
+        },
+        "back": {
+          "neckline": "t6_neckline_back"
+        }
+      }
+    },
+    "a5": {
+      "default": {
+        "front": {
+          "behindbelt": [
+            "a5_behind_belt_front"
+          ]
+        },
+        "back": {
+          "neckline": "a5_neckline_back"
+        }
+      }
+    },
+    "b21": {
+      "default": {
+        "front": {
+          "infront": [
+            "b21_v1_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "b21_v2_infront_back"
+          ]
+        }
+      }
+    },
+    "a1": {
+      "default": {
+        "front": {
+          "infront": [
+            "a1_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "a1_infront_back"
+          ]
+        }
+      }
+    },
+    "t7": {
+      "default": {
+        "front": {
+          "neckline": "t7_neckline_front"
+        },
+        "back": {
+          "neckline": "t7_neckline_back"
+        }
+      }
+    },
+    "t2": {
+      "default": {
+        "front": {
+          "neckline": "t2_neckline_front"
+        },
+        "back": {
+          "neckline": "t2_neckline_back"
+        }
+      }
+    },
+    "t56": {
+      "default": {
+        "front": {
+          "neckline": "t56_neckline_front"
+        },
+        "back": {
+          "neckline": "t56_neckline_back"
+        }
+      }
+    },
+    "t22": {
+      "default": {
+        "front": {
+          "behind": [
+            "t22_behind_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t22_infront_back"
+          ]
+        }
+      }
+    },
+    "t35": {
+      "default": {
+        "front": {
+          "infront": [
+            "t35_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t35_infront_back"
+          ]
+        }
+      }
+    },
+    "t39": {
+      "default": {
+        "front": {
+          "neckline": "t39_neckline_front"
+        },
+        "back": {
+          "neckline": "t39_neckline_back"
+        }
+      }
+    },
+    "t64": {
+      "default": {
+        "front": {
+          "neckline": "t64_neckline_front"
+        },
+        "back": {
+          "neckline": "t64_neckline_back"
+        }
+      }
+    },
+    "a2": {
+      "default": {
+        "front": {
+          "infront": [
+            "a2_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "a2_infront_back"
+          ]
+        }
+      }
+    },
+    "t34": {
+      "default": {
+        "front": {
+          "infront": [
+            "t34_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t34_infront_back"
+          ]
+        }
+      }
+    }
+  },
+  "Mini": {
+    "t60": {
+      "default": {
+        "front": {
+          "neckline": "t60_for_t1_neckline_front"
+        },
+        "back": {
+          "neckline": "t60_for_t1_neckline_back"
+        }
+      },
+      "t29": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t29_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t29_t1_neckline_back"
+          }
+        },
+        "t4": {
+          "default": {
+            "front": {
+              "neckline": "t60_for_t29_t4_neckline_front"
+            },
+            "back": {
+              "neckline": "t60_for_t29_t4_neckline_back"
+            }
+          }
+        },
+        "t3": {
+          "default": {
+            "front": {
+              "neckline": "t60_for_t29_t3_neckline_front"
+            },
+            "back": {
+              "neckline": "t60_for_t29_t3_neckline_back"
+            }
+          }
+        }
+      },
+      "t31": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t31_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t31_neckline_back"
+          }
+        }
+      },
+      "t3": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t3_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t3_neckline_back"
+          }
+        }
+      },
+      "t4": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t4_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t4_neckline_back"
+          }
+        }
+      },
+      "t2": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t2_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t2_neckline_back"
+          }
+        }
+      }
+    },
+    "t44": {
+      "default": {
+        "front": {
+          "neckline": "t44_neckline_front"
+        },
+        "back": {
+          "neckline": "t44_neckline_back"
+        }
+      }
+    },
+    "default": {
+      
+    },
+    "t29": {
+      "default": {
+        "front": {
+          "neckline": "t29_for_t1_neckline_front"
+        },
+        "back": {
+          "neckline": "t29_for_t1_neckline_back"
+        }
+      },
+      "t3": {
+        "default": {
+          "front": {
+            "neckline": "t29_for_t3_neckline_front"
+          },
+          "back": {
+            "neckline": "t29_for_t3_neckline_back"
+          }
+        }
+      },
+      "t4": {
+        "default": {
+          "front": {
+            "neckline": "t29_for_t4_neckline_front"
+          },
+          "back": {
+            "neckline": "t29_for_t4_neckline_back"
+          }
+        }
+      },
+      "t2": {
+        "default": {
+          "front": {
+            "neckline": "t29_for_t2_neckline_front"
+          },
+          "back": {
+            "neckline": "t29_for_t2_neckline_back"
+          }
+        }
+      }
+    },
+    "t33": {
+      "default": {
+        "front": {
+          "infront": [
+            "t33_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t33_infront_back"
+          ]
+        }
+      }
+    },
+    "t6": {
+      "default": {
+        "front": {
+          "neckline": "t6_neckline_front"
+        },
+        "back": {
+          "neckline": "t6_neckline_back"
+        }
+      }
+    },
+    "a5": {
+      "default": {
+        "front": {
+          "behindbelt": [
+            "a5_behind_belt_front"
+          ]
+        },
+        "back": {
+          "neckline": "a5_neckline_back"
+        }
+      }
+    },
+    "b21": {
+      "default": {
+        "front": {
+          "infront": [
+            "b21_v1_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "b21_v2_infront_back"
+          ]
+        }
+      }
+    },
+    "a1": {
+      "default": {
+        "front": {
+          "infront": [
+            "a1_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "a1_infront_back"
+          ]
+        }
+      }
+    },
+    "t7": {
+      "default": {
+        "front": {
+          "neckline": "t7_neckline_front"
+        },
+        "back": {
+          "neckline": "t7_neckline_back"
+        }
+      }
+    },
+    "t2": {
+      "default": {
+        "front": {
+          "neckline": "t2_neckline_front"
+        },
+        "back": {
+          "neckline": "t2_neckline_back"
+        }
+      }
+    },
+    "t56": {
+      "default": {
+        "front": {
+          "neckline": "t56_neckline_front"
+        },
+        "back": {
+          "neckline": "t56_neckline_back"
+        }
+      }
+    },
+    "t22": {
+      "default": {
+        "front": {
+          "behind": [
+            "t22_behind_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t22_infront_back"
+          ]
+        }
+      }
+    },
+    "t35": {
+      "default": {
+        "front": {
+          "infront": [
+            "t35_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t35_infront_back"
+          ]
+        }
+      }
+    },
+    "t39": {
+      "default": {
+        "front": {
+          "neckline": "t39_neckline_front"
+        },
+        "back": {
+          "neckline": "t39_neckline_back"
+        }
+      }
+    },
+    "t64": {
+      "default": {
+        "front": {
+          "neckline": "t64_neckline_front"
+        },
+        "back": {
+          "neckline": "t64_neckline_back"
+        }
+      }
+    },
+    "a2": {
+      "default": {
+        "front": {
+          "infront": [
+            "a2_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "a2_infront_back"
+          ]
+        }
+      }
+    },
+    "t34": {
+      "default": {
+        "front": {
+          "infront": [
+            "t34_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t34_infront_back"
+          ]
+        }
+      }
+    }
+  },
+  "Maxi": {
+    "t60": {
+      "default": {
+        "front": {
+          "neckline": "t60_for_t1_neckline_front"
+        },
+        "back": {
+          "neckline": "t60_for_t1_neckline_back"
+        }
+      },
+      "t29": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t29_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t29_t1_neckline_back"
+          }
+        },
+        "t4": {
+          "default": {
+            "front": {
+              "neckline": "t60_for_t29_t4_neckline_front"
+            },
+            "back": {
+              "neckline": "t60_for_t29_t4_neckline_back"
+            }
+          }
+        },
+        "t3": {
+          "default": {
+            "front": {
+              "neckline": "t60_for_t29_t3_neckline_front"
+            },
+            "back": {
+              "neckline": "t60_for_t29_t3_neckline_back"
+            }
+          }
+        }
+      },
+      "t31": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t31_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t31_neckline_back"
+          }
+        }
+      },
+      "t3": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t3_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t3_neckline_back"
+          }
+        }
+      },
+      "t4": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t4_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t4_neckline_back"
+          }
+        }
+      },
+      "t2": {
+        "default": {
+          "front": {
+            "neckline": "t60_for_t2_neckline_front"
+          },
+          "back": {
+            "neckline": "t60_for_t2_neckline_back"
+          }
+        }
+      }
+    },
+    "t44": {
+      "default": {
+        "front": {
+          "neckline": "t44_neckline_front"
+        },
+        "back": {
+          "neckline": "t44_neckline_back"
+        }
+      }
+    },
+    "default": {
+      
+    },
+    "t29": {
+      "default": {
+        "front": {
+          "neckline": "t29_for_t1_neckline_front"
+        },
+        "back": {
+          "neckline": "t29_for_t1_neckline_back"
+        }
+      },
+      "t3": {
+        "default": {
+          "front": {
+            "neckline": "t29_for_t3_neckline_front"
+          },
+          "back": {
+            "neckline": "t29_for_t3_neckline_back"
+          }
+        }
+      },
+      "t4": {
+        "default": {
+          "front": {
+            "neckline": "t29_for_t4_neckline_front"
+          },
+          "back": {
+            "neckline": "t29_for_t4_neckline_back"
+          }
+        }
+      },
+      "t2": {
+        "default": {
+          "front": {
+            "neckline": "t29_for_t2_neckline_front"
+          },
+          "back": {
+            "neckline": "t29_for_t2_neckline_back"
+          }
+        }
+      }
+    },
+    "t33": {
+      "default": {
+        "front": {
+          "infront": [
+            "t33_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t33_infront_back"
+          ]
+        }
+      }
+    },
+    "t6": {
+      "default": {
+        "front": {
+          "neckline": "t6_neckline_front"
+        },
+        "back": {
+          "neckline": "t6_neckline_back"
+        }
+      }
+    },
+    "a5": {
+      "default": {
+        "front": {
+          "behindbelt": [
+            "a5_behind_belt_front"
+          ]
+        },
+        "back": {
+          "neckline": "a5_neckline_back"
+        }
+      }
+    },
+    "b21": {
+      "default": {
+        "front": {
+          "infront": [
+            "b21_v1_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "b21_v2_infront_back"
+          ]
+        }
+      }
+    },
+    "a1": {
+      "default": {
+        "front": {
+          "infront": [
+            "a1_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "a1_infront_back"
+          ]
+        }
+      }
+    },
+    "t7": {
+      "default": {
+        "front": {
+          "neckline": "t7_neckline_front"
+        },
+        "back": {
+          "neckline": "t7_neckline_back"
+        }
+      }
+    },
+    "t2": {
+      "default": {
+        "front": {
+          "neckline": "t2_neckline_front"
+        },
+        "back": {
+          "neckline": "t2_neckline_back"
+        }
+      }
+    },
+    "t56": {
+      "default": {
+        "front": {
+          "neckline": "t56_neckline_front"
+        },
+        "back": {
+          "neckline": "t56_neckline_back"
+        }
+      }
+    },
+    "t22": {
+      "default": {
+        "front": {
+          "behind": [
+            "t22_behind_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t22_infront_back"
+          ]
+        }
+      }
+    },
+    "t35": {
+      "default": {
+        "front": {
+          "infront": [
+            "t35_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t35_infront_back"
+          ]
+        }
+      }
+    },
+    "t39": {
+      "default": {
+        "front": {
+          "neckline": "t39_neckline_front"
+        },
+        "back": {
+          "neckline": "t39_neckline_back"
+        }
+      }
+    },
+    "t64": {
+      "default": {
+        "front": {
+          "neckline": "t64_neckline_front"
+        },
+        "back": {
+          "neckline": "t64_neckline_back"
+        }
+      }
+    },
+    "a2": {
+      "default": {
+        "front": {
+          "infront": [
+            "a2_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "a2_infront_back"
+          ]
+        }
+      }
+    },
+    "t34": {
+      "default": {
+        "front": {
+          "infront": [
+            "t34_infront_front"
+          ]
+        },
+        "back": {
+          "infront": [
+            "t34_infront_back"
+          ]
+        }
+      }
+    }
+  },
+  "_empty_": {
+    "b6": {
+      "default": {
+        "front": {
+          "bottom": "b6_short_bottom_front"
+        },
+        "back": {
+          "bottom": "b6_short_bottom_back"
+        }
+      }
+    },
+    "default": {
+      
+    },
+    "b7": {
+      "default": {
+        "front": {
+          "bottom": "b7_full_bottom_front"
+        },
+        "back": {
+          "bottom": "b7_full_bottom_back"
+        }
+      }
+    }
+  }
+}
