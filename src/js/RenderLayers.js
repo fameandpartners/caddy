@@ -238,12 +238,14 @@ class RenderLayers extends React.Component
       {
         for( let i = 0; i < data.length; i++ )
         {
-          array.push( <img style={{"position":"absolute", width:width, left:offset }} key={data[i]} src={`http://assets.fameandpartners.com/renders/fp-dr1005-102/${data[i]}_0000.png`}/> );
+          let code = data[i].split( '_' )[0];
+          array.push( <img style={{"position":"absolute", width:width, left:offset }} key={data[i]} src={`http://assets.fameandpartners.com/renders/${code}/${data[i]}_0000.png`}/> );
 //          array.push( <img style={{"position":"absolute", width:width, left:offset }} key={data[i]} src={`/renders/fp-dr1005-102/${data[i]}_0000.png`}/> );
         }
       } else
-    {
-        array.push( <img style={{"position":"absolute", width:width, left:offset}} key={data} src={`http://assets.fameandpartners.com/renders/fp-dr1005-102/${data}_0000.png`}/> );      
+      {
+        let code = data.split( '_' )[0];
+        array.push( <img style={{"position":"absolute", width:width, left:offset}} key={data} src={`http://assets.fameandpartners.com/renders/${code}/${data}_0000.png`}/> );      
 //        array.push( <img style={{"position":"absolute", width:width, left:offset}} key={data} src={`/renders/fp-dr1005-102/${data}_0000.png`}/> );
       }
     }
@@ -284,7 +286,7 @@ class RenderLayers extends React.Component
       let code = combinationCodes[i].toLowerCase();
       if( renders[code] )
       {
-        toReturn = renders[code];
+        toReturn = this.findItemToRender( renders[code], combinationCodes );
       }
     }
 
