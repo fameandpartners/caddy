@@ -93,7 +93,7 @@ class RenderLayerItem extends React.Component
   {
     if( !this.state.disabled  )
     {
-        return <div className="row">
+      return <div className="row">
         <div className="col-md-1"><button onClick={() => this.setSelected(true)}>On</button></div>
         <div className="col-md-1"><button onClick={() => this.setSelected(false)}>Off</button></div>
         </div>;
@@ -102,7 +102,7 @@ class RenderLayerItem extends React.Component
     {
       return <div></div>;
     }
-      
+    
   }
   
   renderBackgroundColor()
@@ -131,7 +131,7 @@ class RenderLayerItem extends React.Component
         <div className="col-md-11"><b>{this.props.item.name} ({this.props.item.code})</b></div>
         </div>
         {this.renderOnOffButtons()}
-        </div>        
+      </div>        
     );
   }
 }
@@ -146,7 +146,8 @@ class RenderLayers extends React.Component
       product: { customizations: [], details: {lengths:[]} },
       selectedItems: [],
       setSelectedItem: this.setSelectedItem,
-      length: "Micro-Mini"
+      length: null,
+      color: "0000"      
     };        
   }
 
@@ -216,6 +217,37 @@ class RenderLayers extends React.Component
       }
     );
   }
+  updateColor()
+  {
+    this.setState(
+      {
+        color: this.colorCopy.value
+      }
+    );
+  }
+
+  renderColorSelect()
+  {
+    let toReturn = [];
+    
+    for( let i = 0; i < 15; i++ )
+    {
+      let key = "00";
+      if( i< 10 )
+      {
+        key = `${key}0${i}`;
+      } else
+      {
+        key = `${key}${i}`;
+      }
+        
+      
+      toReturn.push( <option key={key} value={key}>{key}</option>);
+    }
+
+    return <select ref={ (ref) => this.colorCopy = ref} onChange={this.updateColor} id="color-set">{toReturn}</select>;
+
+  }
   
   renderLengthSelect()
   {
@@ -226,8 +258,8 @@ class RenderLayers extends React.Component
     {
       return <div></div>;
     }
-      
-      
+    
+    
   }
 
   addRenderImage( array, data, width, offset )
@@ -239,14 +271,14 @@ class RenderLayers extends React.Component
         for( let i = 0; i < data.length; i++ )
         {
           let code = data[i].split( '_' )[0];
-          array.push( <img style={{"position":"absolute", width:width, left:offset }} key={data[i]} src={`http://assets.fameandpartners.com/renders/${code}/${data[i]}_0000.png`}/> );
-//          array.push( <img style={{"position":"absolute", width:width, left:offset }} key={data[i]} src={`/renders/fp-dr1005-102/${data[i]}_0000.png`}/> );
+          array.push( <img style={{"position":"absolute", width:width, left:offset }} key={data[i]} src={`http://assets.fameandpartners.com/renders/${code}/${data[i]}_${this.state.color}.png`}/> );
+          //          array.push( <img style={{"position":"absolute", width:width, left:offset }} key={data[i]} src={`/renders/fp-dr1005-102/${data[i]}_0000.png`}/> );
         }
       } else
       {
         let code = data.split( '_' )[0];
-        array.push( <img style={{"position":"absolute", width:width, left:offset}} key={data} src={`http://assets.fameandpartners.com/renders/${code}/${data}_0000.png`}/> );      
-//        array.push( <img style={{"position":"absolute", width:width, left:offset}} key={data} src={`/renders/fp-dr1005-102/${data}_0000.png`}/> );
+        array.push( <img style={{"position":"absolute", width:width, left:offset}} key={data} src={`http://assets.fameandpartners.com/renders/${code}/${data}_${this.state.color}.png`}/> );      
+        //        array.push( <img style={{"position":"absolute", width:width, left:offset}} key={data} src={`/renders/fp-dr1005-102/${data}_0000.png`}/> );
       }
     }
     return array;
@@ -254,6 +286,7 @@ class RenderLayers extends React.Component
 
   clone( object )
   {
+    console.log( object );
     return JSON.parse( JSON.stringify( object ) );
   }
 
@@ -294,6 +327,7 @@ class RenderLayers extends React.Component
   }
   combineRenderSets( renders, itemCodesToAdd )
   {
+    console.log( renders );
     let toReturn = this.clone( renders['default'] );
 
     for( let i = 0; i < itemCodesToAdd.length; i++ )
@@ -350,7 +384,8 @@ class RenderLayers extends React.Component
     let back = [];
 
     console.log( this.state.product.renders );
-    if( this.state.product.renders )
+    console.log( "Length = " + this.state.length );
+    if( this.state.product.renders && this.state.length )
     {
       let renders = this.state.product.renders[this.state.length];
       let defaults = renders['default'];
@@ -378,9 +413,13 @@ class RenderLayers extends React.Component
     return (
       <div className="container">
         <div className="row">
-          <div className="col-md-2">
-            {this.renderLengthSelect()}
-        </div>
+          <div className="col-md-4">
+            Length: {this.renderLengthSelect()}
+          </div>
+          <div className="col-md-4">
+            Color: {this.renderColorSelect()}
+          </div>
+          
         </div>
         <div className="row">
           <div className="col-md-4">
@@ -389,19 +428,19 @@ class RenderLayers extends React.Component
                            list={this.state.product.customizations.sort( (a,b) => a.order - b.order )}
               commonProps={this.state}
               onMoveEnd ={ newList => this.dragFinished( newList ) }/>
-          </div>
-          <div className="col-md-6">
-            {this.renderDress()}
+</div>
+<div className="col-md-6">
+  {this.renderDress()}
 
-          </div>
-        </div>          
-        <div className="row top-margin">
-          <div className="col-md-4">
-            <button onClick={()=>this.props.save( this.state.product)}>Save</button>
-          </div>
-        </div>
-          
-      </div>
+</div>
+</div>          
+<div className="row top-margin">
+  <div className="col-md-4">
+    <button onClick={()=>this.props.save( this.state.product)}>Save</button>
+  </div>
+</div>
+
+</div>
       
     );
   }
