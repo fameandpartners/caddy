@@ -5,6 +5,24 @@ export default class RenderSet
     this.combinedRenderSet = this.combineRenderSets( renders, customizationCodes );
   }
 
+  back()
+  {
+    return this.buildSideSet( 'back' );
+  }
+
+  buildSideSet( sideName )
+  {
+    let toReturn = [];
+    toReturn = this.pushIfNotNull( toReturn, this.combinedRenderSet[sideName]['behind'] );
+    toReturn = this.pushIfNotNull( toReturn, this.combinedRenderSet[sideName]['bottom'] );
+    toReturn = this.pushIfNotNull( toReturn, this.combinedRenderSet[sideName]['behindbelt'] );
+    toReturn = this.pushIfNotNull( toReturn, this.combinedRenderSet[sideName]['belt'] );
+    toReturn = this.pushIfNotNull( toReturn, this.combinedRenderSet[sideName]['neckline'] );
+    toReturn = this.pushIfNotNull( toReturn, this.combinedRenderSet[sideName]['infront'] );
+    return toReturn;
+    
+  }
+  
   clone( object )
   {
     console.log( object );
@@ -33,7 +51,9 @@ export default class RenderSet
   
   combineRenderSets( renders, itemCodesToAdd )
   {
+    console.log( "--------------" );
     console.log( renders );
+    console.log( itemCodesToAdd );
     let toReturn = this.clone( renders['default'] );
 
     for( let i = 0; i < itemCodesToAdd.length; i++ )
@@ -55,7 +75,6 @@ export default class RenderSet
   findItemToRender( renders, combinationCodes )
   {
     let toReturn = renders['default'];
-
     for( let i = 0; combinationCodes && i < combinationCodes.length; i++ )
     {
       let code = combinationCodes[i].toLowerCase();
@@ -67,6 +86,22 @@ export default class RenderSet
 
     return toReturn;
   }
-  
-  
+
+
+  front()
+  {
+    return this.buildSideSet( 'front' );
+  }
+
+  pushIfNotNull( array, value )
+  {
+    if( value != null )
+    {
+      array.push( value );
+    }
+
+    return array;
+  }
+
+
 }

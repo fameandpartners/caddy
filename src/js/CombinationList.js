@@ -5,6 +5,7 @@ import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 
 import CombinationItem from './CombinationItem';
+import RenderSet from './RenderSet';
 
 class CombinationList extends React.Component
 {
@@ -151,6 +152,44 @@ class CombinationList extends React.Component
     link.click();
 
   }
+
+  exportRenderCSV()
+  {
+    let csvString = "";
+    for( let i = 0; i < this.state.csvCombinations.length; i++ )
+    {
+      let element = this.state.csvCombinations[i];
+      let renders = this.state.product.renders[this.lengthCopy.value];
+      let renderSet = (new RenderSet( renders, element[1] ) );
+      
+      csvString  += element[1].join( "-" ) + ","  + this.flatten( renderSet.front() ).join( " " ) + "," + this.flatten( renderSet.back() ).join( " " ) +  "\n";
+    }
+
+    var blobdata = new Blob([csvString],{type : 'text/csv'});
+    let link = document.createElement("a");
+    link.setAttribute("href",  window.URL.createObjectURL(blobdata));
+    link.setAttribute("download", "render-combinations.csv");
+    link.click();
+    
+    
+  }
+
+  flatten( array )
+  {
+      return array.reduce(
+        function(a, b) {
+          if( Array.isArray( b ) )
+          {
+            return a.concat(b);
+          } else
+          {
+            a.push( b );
+            return a;
+          }
+        },
+        []
+      );   
+  }
   
   render()
   {
@@ -171,6 +210,10 @@ class CombinationList extends React.Component
         <div className="col-md-2">
         <button onClick={this.exportCSV}>Export CSV</button>
         </div>
+        <div className="col-md-2">
+        <button onClick={this.exportRenderCSV}>Export Render CSV</button>
+        </div>
+        
         </div>
         
         <div className="row">
