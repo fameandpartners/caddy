@@ -162,7 +162,7 @@ class CombinationList extends React.Component
       let renders = this.state.product.renders[this.lengthCopy.value];
       let renderSet = (new RenderSet( renders, element[1] ) );
       
-      csvString  += element[1].join( "-" ) + ","  + this.flatten( renderSet.front() ).join( " " ) + "," + this.flatten( renderSet.back() ).join( " " ) +  "\n";
+      csvString  += element[1].join( "-" ).toLowerCase() + ","  + this.flatten( renderSet.front() ).join( " " ) + "," + this.flatten( renderSet.back() ).join( " " ) +  "\n";
     }
 
     var blobdata = new Blob([csvString],{type : 'text/csv'});

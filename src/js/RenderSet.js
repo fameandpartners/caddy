@@ -25,7 +25,6 @@ export default class RenderSet
   
   clone( object )
   {
-    console.log( object );
     return JSON.parse( JSON.stringify( object ) );
   }
   
@@ -51,9 +50,6 @@ export default class RenderSet
   
   combineRenderSets( renders, itemCodesToAdd )
   {
-    console.log( "--------------" );
-    console.log( renders );
-    console.log( itemCodesToAdd );
     let toReturn = this.clone( renders['default'] );
 
     for( let i = 0; i < itemCodesToAdd.length; i++ )
@@ -68,7 +64,6 @@ export default class RenderSet
       }
     }
 
-    console.log( toReturn );
     return toReturn;
   }
 
