@@ -42,6 +42,48 @@ class UploadProduct extends React.Component
     
   }
 
+  addLengthsToCustomiations( customizations, lengths )
+  {
+    let toReturn = [];
+    toReturn = toReturn.concat( customizations );
+    for( let i = 0; i < lengths.length; i++ )
+    {
+      toReturn.push( { code: `L${i}`, id: lengths[i].id, name: `Change to ${lengths[i].name}`, order: toReturn.length, priceAUD: lengths[i].priceAUD, priceUSD: lengths[i].priceUSD } );
+    }
+
+    return toReturn;
+  }
+
+  addOtherLengthsAsInvalid( validCombinations, currentLength, allLengths )
+  {
+    let toReturn = {};
+    toReturn = Object.assign({},toReturn,  validCombinations );
+    toReturn[currentLength.id] = {};
+    for( let i = 0; i < allLengths.length; i++ )
+    {
+      if( allLengths[i] !== currentLength )
+      {
+        toReturn[currentLength.id][allLengths[i].id] = false;
+      }
+    }
+
+    return toReturn;
+  }
+
+  addOtherLengthsToInvalidCombinations( invalidCombinations, currentLength, allLengths )
+  {
+    let toReturn = {};
+    toReturn = Object.assign({},toReturn,  invalidCombinations );
+    for( let i = 0; i < allLengths.length; i++ )
+    {
+      if( allLengths[i] !== currentLength )
+      {
+        toReturn[allLengths[i].id] = true;
+      }
+    }
+
+    return toReturn;
+  }
   buildCustomizationVisualizationList()
   {
     let toReturn = null;
@@ -50,9 +92,10 @@ class UploadProduct extends React.Component
                                                 {
                                                   let list = new CustomizationCombinations(
                                                     length.name,
-                                                    self.state.product.customizations,
-                                                    self.state.product.invalidCombinations[length.name],
-                                                    self.state.product.validCombinations[ length.name ]);
+                                                    self.addLengthsToCustomiations( self.state.product.customizations,
+                                                                                    self.state.product.details.lengths ),
+                                                    self.addOtherLengthsToInvalidCombinations(self.state.product.invalidCombinations[length.name], length, self.state.product.details.lengths ),
+                                                    self.state.product.validCombinations[ length.name ] );
                                                   if( toReturn == null )
                                                   {
                                                     toReturn = list.list();
@@ -129,6 +172,7 @@ class UploadProduct extends React.Component
       customization_list: this.buildCustomizationList(),
       customization_visualization_list: this.buildCustomizationVisualizationList()
     };
+    console.log( "ToPost = " );
     console.log(  toPost );    
     request.put( this.url.value )
       .withCredentials()    

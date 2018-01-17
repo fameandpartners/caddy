@@ -24,13 +24,29 @@ export default class CustomizationCombinations
     return this.resultsList;
   }
 
+  _removeInvalidCombinations( combinations, invalidCombinations )
+  {
+    let toReturn = [];
+    for( let i = 0; i < combinations.length; i++ )
+    {
+      if( invalidCombinations[combinations[i].id] !== true )
+      {
+        toReturn.push( combinations[i] );
+      }
+    }
+
+    return toReturn;
+  }
+  
   _generateCombinations()
   {
     let i, j;
     let result = [];
-    let arrLen = this.listOfCombinations.length;
+    let validCombinations = this._removeInvalidCombinations( this.listOfCombinations, this.listOfInvalidCombinationsForLength );
+    let arrLen = validCombinations.length;
     let power = Math.pow;
     let combinations = power(2, arrLen);
+
     for (i = 0; i < combinations;  i++)
     {
       let temp = [];
@@ -42,23 +58,24 @@ export default class CustomizationCombinations
       {
         if ((i & power(2, j)))
         {
-          temp = temp.concat( [this.listOfCombinations[j].name] );
-          tempIds = tempIds.concat( [this.listOfCombinations[j].id] );
-          tempCodes = tempCodes.concat( [this.listOfCombinations[j].code] );
+          temp = temp.concat( [validCombinations[j].name] );
+          tempIds = tempIds.concat( [validCombinations[j].id] );
+          tempCodes = tempCodes.concat( [validCombinations[j].code] );
           
-          if (this.listOfCombinations[j].new_silhouette_name) {
+          if (validCombinations[j].new_silhouette_name) {
               
-              tempSilhouette = this.listOfCombinations[j].new_silhouette_name
+            tempSilhouette = validCombinations[j].new_silhouette_name;
           }
 
-          if (this.listOfCombinations[j].new_neckline_name) {
-              tempNeckline = this.listOfCombinations[j].new_neckline_name
+          if (validCombinations[j].new_neckline_name) {
+            tempNeckline = validCombinations[j].new_neckline_name;
           }
         }
       }
       
       if( temp.length > 0 )
       {
+
         if( !this._containsInvalidCombinations( tempIds ) )
         {
           let incompatibilySet = new Set();
@@ -83,6 +100,7 @@ export default class CustomizationCombinations
             lengths: [ { name: this.lengthName, incompatability_list: Array.from( incompatibilySet ) }]
           });
         }
+
       }
     }
 
