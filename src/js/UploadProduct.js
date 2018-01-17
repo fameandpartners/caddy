@@ -12,7 +12,9 @@ class UploadProduct extends React.Component
   {
     super( props );
     autoBind(this);
-    this.state = {};
+    this.state = {
+      workingOn: null
+    };
   }
 
   buildCustomization( customization )
@@ -87,23 +89,33 @@ class UploadProduct extends React.Component
   buildCustomizationVisualizationList()
   {
     let toReturn = null;
+
     let self = this;
-    this.state.product.details.lengths.forEach( function( length )
-                                                {
-                                                  let list = new CustomizationCombinations(
-                                                    length.name,
-                                                    self.addLengthsToCustomiations( self.state.product.customizations,
-                                                                                    self.state.product.details.lengths ),
-                                                    self.addOtherLengthsToInvalidCombinations(self.state.product.invalidCombinations[length.name], length, self.state.product.details.lengths ),
-                                                    self.state.product.validCombinations[ length.name ] );
-                                                  if( toReturn == null )
-                                                  {
-                                                    toReturn = list.list();
-                                                  } else
-                                                  {
-                                                    toReturn = toReturn.combine( list.list() );
-                                                  }
-                                                } );
+    for( let i = 0; i < this.state.product.details.lengths.length; i++ )
+    {
+      let length = this.state.product.details.lengths[i];
+      console.log( "Working on: " + length.name );
+      this.setState( {
+        workingOn: length.name
+      } );
+      console.log( this.state.workingOn );
+      let list = new CustomizationCombinations(
+        length.name,
+        self.addLengthsToCustomiations( self.state.product.customizations,
+                                        self.state.product.details.lengths ),
+        self.addOtherLengthsToInvalidCombinations(self.state.product.invalidCombinations[length.name], length, self.state.product.details.lengths ),
+        self.state.product.validCombinations[ length.name ] );
+      if( toReturn == null )
+      {
+        toReturn = list.list();
+      } else
+      {
+        toReturn = toReturn.combine( list.list() );
+      }
+
+    }
+
+    
     return new RenderedCustomizationCombinationList( toReturn, this.state.product.details.colors ).toArray();
   }
   
@@ -206,6 +218,17 @@ class UploadProduct extends React.Component
 
     this.updateWithLatestState( nextProps );
   }
+
+  renderWorkingOn()
+  {
+    if( this.state.workingOn != null )
+    {
+      return <span>Working on {this.state.workingOn}</span>;
+    } else
+    {
+      return <span></span>;
+    }
+  }
   
   render()
   {
@@ -224,6 +247,12 @@ class UploadProduct extends React.Component
             <button onClick={this.post}>Post</button>
           </div>
         </div>
+        <div className="row">
+          <div className="col-md-2">
+            { this.renderWorkingOn() }
+          </div>
+        </div>
+        
       </div>
     );
   }
