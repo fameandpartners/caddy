@@ -37,6 +37,7 @@ export default class ExpandableList extends React.Component
     }
     
   }
+  
   renderItem( item, number )
   {
     return (

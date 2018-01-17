@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import {getBase64} from './Utils';
 import CanvasImage from './CanvasImage';
 import ExpandableList from './ExpandableList';
+import PricingExpandableList from './PricingExpandableList';
 
 class ProductDetails extends React.Component
 {
@@ -66,8 +67,6 @@ class ProductDetails extends React.Component
     
     this.productId.value = this.clean(props.product.details.id);
     this.productName.value = this.clean(props.product.details.name);
-    this.productAUDPrice.value = this.clean( props.product.details.priceAUD );
-    this.productUSDPrice.value=  this.clean( props.product.details.priceUSD);
     this.style_notes.value = this.clean( props.product.details.style_notes );
     this.fit.value = this.clean( props.product.details.fit );
     this.fabric.value = this.clean( props.product.details.fabric );
@@ -115,45 +114,6 @@ class ProductDetails extends React.Component
     
     
   }
-  indexOfLength( product, lengthName )
-  {
-    let toReturn = -1;
-    if( product.details.lengths )
-    {
-      product.details.lengths.forEach( function( lengthObject, index )
-                                       {
-                                         if( lengthObject.name === lengthName )
-                                         {
-                                           toReturn = index;
-                                         }
-                                       } );
-    }
-    return toReturn;
-
-  }
-  addOrRemove( lengthName )
-  {
-    let product = this.state.product;
-    let indexOfLength = this.indexOfLength( product, lengthName );
-    if( indexOfLength > -1 )
-    {
-      product.details.lengths.splice( indexOfLength, 1 );
-    } else
-    {
-      product.details.lengths.push( { name: lengthName } );
-    }
-
-    this.setState(
-      {
-        product: product
-      }
-    );
-  }
-
-  lengthExists( lengthName )
-  {
-    return this.state.product.details.lengths && this.indexOfLength(this.state.product, lengthName ) > -1;
-  }
 
   updateDetail( detailName, value )
   {
@@ -190,97 +150,18 @@ class ProductDetails extends React.Component
                   <input type="text" ref={(input) => { this.productName = input;  }}/>
                 </div>
               </div>
-              <div className="row">
-                <div className="col-md-2">
-                  Price AUD:
-                </div>
-                <div className="col-md-1 text-right">
-                  $
-                </div>
-                <div className="col-md-1">
-                  <input type="text" ref={(input) => { this.productAUDPrice = input;  }}/>
-                </div>
-                
-              </div>
-              <div className="row">
-                <div className="col-md-2">
-                  Price USD:
-                </div>
-                <div className="col-md-1 text-right">
-                  $
-                </div>
-                <div className="col-md-1">
-                  <input type="text" ref={(input) => { this.productUSDPrice = input;  }}/>
-                </div>
-                
-              </div>
-              <div className="row">
-                <div className="col-md-12">
-                  Available Lengths
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-2 text-right">
-                  Micro-Mini: </div>
-                <div className="col-md-1">
-                  <input checked={this.lengthExists( 'Micro-Mini' )} onClick={ () => this.addOrRemove( 'Micro-Mini' ) }type="checkbox"/>                        
-                </div>                
-                <div className="col-md-2 text-right">
-                  Mini: </div>
-                <div className="col-md-1">
-                  <input checked={this.lengthExists( 'Mini' )} onClick={ () => this.addOrRemove( 'Mini' ) }type="checkbox"/>                        
-                </div>
-                <div className="col-md-2 text-right">
-                  Knee: 
-                </div>
-                <div className="col-md-1">
-                  <input checked={this.lengthExists( 'Knee' )} onClick={ () => this.addOrRemove( 'Knee' ) }type="checkbox"/>                        
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-2 text-right">
-                  Midi: 
-                </div>
-                <div className="col-md-1">
-                  <input checked={this.lengthExists( 'Midi' )} onClick={ () => this.addOrRemove( 'Midi' ) }type="checkbox"/>                        
-                </div>
-                <div className="col-md-2 text-right">
-                  Ankle: 
-                </div>
-                <div className="col-md-1">
-                  <input checked={this.lengthExists( 'Ankle' )} onClick={ () => this.addOrRemove( 'Ankle' ) }type="checkbox"/>
-                </div>                      
-                <div className="col-md-2 text-right">
-                  Maxi: 
-                </div>
-                <div className="col-md-1">
-                  <input checked={this.lengthExists( 'Maxi' )} onClick={ () => this.addOrRemove( 'Maxi' ) }type="checkbox"/>
-                </div>
-                
-              </div>
-              <div className="row">
-                <div className="col-md-2 text-right">
-                  Cheeky: 
-                </div>
-                <div className="col-md-1">
-                  <input checked={this.lengthExists( 'Cheeky' )} onClick={ () => this.addOrRemove( 'Cheeky' ) }type="checkbox"/>                        
-                </div>
-                <div className="col-md-2 text-right">
-                  Short: 
-                </div>
-                <div className="col-md-1">
-                  <input checked={this.lengthExists( 'Short' )} onClick={ () => this.addOrRemove( 'Short' ) }type="checkbox"/>                        
-                </div>
-                <div className="col-md-2 text-right">
-                  Full: 
-                </div>
-                <div className="col-md-1">
-                  <input checked={this.lengthExists( 'Full' )} onClick={ () => this.addOrRemove( 'Full' ) }type="checkbox"/>                        
-                </div>
-                
+            </div>
+            <div className="row top-margin">
+              <div className="col-md-12">
+                Lengths
               </div>
             </div>
-
+            <div className="row">
+              <div className="col-md-12">
+                <PricingExpandableList addType="Length" contentUpdate={( value ) => this.updateDetail( 'lengths', value )} startingValue={this.state.product.details.lengths}/>
+              </div>
+            </div>
+            
             <div className="row top-margin">
               <div className="col-md-12">
                 Colors
