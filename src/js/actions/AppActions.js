@@ -1,4 +1,6 @@
 import request from 'superagent';
+import uuidv4 from 'uuid/v4';
+
 const FIREBASE_URL = process.env.FIREBASE_URL;
 
 const LENGTH_ORDER = ['Cheeky', 'Short', 'Micro-Mini', 'Mini', 'Knee', 'Midi', 'Ankle', 'Maxi', 'Full'];
@@ -13,6 +15,15 @@ function ensureLengthsSortedCorrectly( product )
   {
     let lengths = product.details.lengths;
     lengths = lengths.sort( (a,b) => LENGTH_ORDER.indexOf( a ) - LENGTH_ORDER.indexOf( b ) );
+    
+    // Clean up a legaciy issue where lengths didn't have ids
+    for( let i = 0; i < lengths.length; i++ )
+    {
+      if( lengths[i].id == null )
+      {
+        lengths[i].id = uuidv4();
+      }
+    }
     product.details.lengths = lengths;
     return product;
   }

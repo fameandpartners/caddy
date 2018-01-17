@@ -29,8 +29,6 @@ class ProductDetails extends React.Component
     let product = this.state.product;
     product.details.id = this.productId.value;
     product.details.name = this.productName.value;
-    product.details.priceAUD = this.productAUDPrice.value;
-    product.details.priceUSD = this.productUSDPrice.value;
     product.details.style_notes = this.style_notes.value;
     product.details.fit = this.fit.value;
     product.details.fabric = this.fabric.value;

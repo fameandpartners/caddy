@@ -70,8 +70,6 @@ class UploadProduct extends React.Component
       colors: this.state.product.details.colors ? this.state.product.details.colors : [],
       lengths: this.state.product.details.lengths ? this.state.product.details.lengths.map( (element) => this.buildLength( element )) : [],
       name: this.state.product.details.name,
-      price_aud: this.state.product.details.priceAUD,
-      price_usd: this.state.product.details.priceUSD,
       style_notes: this.state.product.details.style_notes,
       fit: this.state.product.details.fit,
       fabric: this.state.product.details.fabric,
