@@ -265,6 +265,7 @@ class RenderLayers extends React.Component
 
   addRenderImage( array, data, width, offset )
   {
+    let style_number = this.state.product.details.id.toLowerCase();
     if( data )
     {
       if( Array.isArray( data ) )
@@ -272,13 +273,13 @@ class RenderLayers extends React.Component
         for( let i = 0; i < data.length; i++ )
         {
           let code = data[i].split( '_' )[0];
-          array.push( <img style={{"position":"absolute", width:width, left:offset }} key={data[i]} src={`http://assets.fameandpartners.com/renders/${code}/${data[i]}_${this.state.color}.png`}/> );
+          array.push( <img style={{"position":"absolute", width:width, left:offset }} key={data[i]} src={`http://assets.fameandpartners.com/renders/caddy/${style_number}/${code}/${data[i]}_${this.state.color}.png`}/> );
           //          array.push( <img style={{"position":"absolute", width:width, left:offset }} key={data[i]} src={`/renders/fp-dr1005-102/${data[i]}_0000.png`}/> );
         }
       } else
       {
         let code = data.split( '_' )[0];
-        array.push( <img style={{"position":"absolute", width:width, left:offset}} key={data} src={`http://assets.fameandpartners.com/renders/${code}/${data}_${this.state.color}.png`}/> );      
+        array.push( <img style={{"position":"absolute", width:width, left:offset}} key={data} src={`http://assets.fameandpartners.com/renders/caddy/${style_number}/${code}/${data}_${this.state.color}.png`}/> );      
         //        array.push( <img style={{"position":"absolute", width:width, left:offset}} key={data} src={`/renders/fp-dr1005-102/${data}_0000.png`}/> );
       }
     }
