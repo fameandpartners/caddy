@@ -28,7 +28,8 @@ class UploadProduct extends React.Component
       price_aud: customization.priceAUD,
       group_name: customization.group_name,
       new_silhouette_name: customization.new_silhouette_name,
-      new_neckline_name: customization.new_neckline_name
+      new_neckline_name: customization.new_neckline_name,
+      code: customization.code
     };
   }
   
