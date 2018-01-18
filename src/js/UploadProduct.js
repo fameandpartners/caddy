@@ -37,7 +37,7 @@ class UploadProduct extends React.Component
   {
     if( this.state.product.customizations )
     {
-      return this.state.product.customizations.map( (element) => this.buildCustomization( element ) );
+      return this.addLengthsToCustomiations( this.state.product.customizations, this.state.product.details.lengths).map( (element) => this.buildCustomization( element ) );
     } else
     {
       return [];
@@ -51,7 +51,7 @@ class UploadProduct extends React.Component
     toReturn = toReturn.concat( customizations );
     for( let i = 0; i < lengths.length; i++ )
     {
-      toReturn.push( { code: `L${i}`, id: lengths[i].id, name: `Change to ${lengths[i].name}`, order: toReturn.length, priceAUD: lengths[i].priceAUD, priceUSD: lengths[i].priceUSD } );
+      toReturn.push( { code: `L${i}`, id: lengths[i].id, name: `Change to ${lengths[i].name}`, order: toReturn.length, priceAUD: lengths[i].priceAUD, priceUSD: lengths[i].priceUSD, group_name: 'Lengths' } );
     }
 
     return toReturn;
@@ -143,7 +143,9 @@ class UploadProduct extends React.Component
   buildLength( length )
   {
     return { name: length.name,
-             required_customizations: length.requiredCustomizations ? length.requiredCustomizations : []
+             required_customizations: length.requiredCustomizations ? length.requiredCustomizations : [],
+             price_usd: length.priceUSD,
+             price_aud: length.priceAUD
            } ;
   }
 
