@@ -60,7 +60,7 @@ export default class CustomizationCombinations
         {
           temp = temp.concat( [validCombinations[j].name] );
           tempIds = tempIds.concat( [validCombinations[j].id] );
-          tempCodes = tempCodes.concat( [validCombinations[j].code] );
+          tempCodes = tempCodes.concat( [validCombinations[j].code.toLowerCase()] );
           
           if (validCombinations[j].new_silhouette_name) {
               
@@ -74,7 +74,7 @@ export default class CustomizationCombinations
       }
       
       if( temp.length > 0 )
-      {
+     { 
 
         if( !this._containsInvalidCombinations( tempIds ) )
         {
@@ -95,6 +95,7 @@ export default class CustomizationCombinations
           }
           result.push( {
             customization_ids: tempIds,
+            customization_codes: tempCodes.sort(),
             neckline: tempNeckline,
             silhouette: tempSilhouette,
             lengths: [ { name: this.lengthName, incompatability_list: Array.from( incompatibilySet ) }]
