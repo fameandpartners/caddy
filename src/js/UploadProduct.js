@@ -77,13 +77,13 @@ class UploadProduct extends React.Component
   {
     let toReturn = {};
     toReturn = Object.assign({},toReturn,  invalidCombinations );
-    // for( let i = 0; i < allLengths.length; i++ )
-    // {
-    //   if( allLengths[i] !== currentLength )
-    //   {
-    //     toReturn[allLengths[i].id] = true;
-    //   }
-    // }
+    for( let i = 0; i < allLengths.length; i++ )
+    {
+      if( allLengths[i] !== currentLength )
+      {
+        toReturn[allLengths[i].id] = true;
+      }
+    }
 
     return toReturn;
   }
