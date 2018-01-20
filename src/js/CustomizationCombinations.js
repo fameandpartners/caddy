@@ -11,9 +11,41 @@ export default class CustomizationCombinations
     this.listOfCombinations = listOfCombinations;
     this.listOfInvalidCombinationToCombination = listOfInvalidCombinationToCombination;
     this.listOfInvalidCombinationsForLength = listOfInvalidCombinationsForLength;
+    this.biDirectionListOfInvalidCombinationToCombination = this.buildBiDirectionalList( listOfInvalidCombinationToCombination );
     this.resultsList = null;
   }
 
+  buildBiDirectionalList( list )
+  {
+    let toReturn = {};
+    if( list )
+    {
+      let topLevelKeys = Object.keys( list );
+      for( let i = 0; i < topLevelKeys.length; i++ )
+      {
+        toReturn[ topLevelKeys[i] ] = this.calculateOnBiDirectional( topLevelKeys[i], list );
+      }
+    }
+    return toReturn;
+  }
+
+  calculateOnBiDirectional( key, list )
+  {
+    let toReturn = {};
+    toReturn = Object.assign({},toReturn, list[key]);
+    let topLevelKeys = Object.keys( list );
+    for( let i = 0; i < topLevelKeys.length; i++ )
+    {
+      if( topLevelKeys[i] != key )
+      {
+        if( list[topLevelKeys[i]][key] == false )
+        {
+          toReturn[topLevelKeys[i]] = false;
+        }
+      }
+    }
+    return toReturn;
+  }
   list()
   {
     if( this.resultsList == null )
@@ -76,29 +108,35 @@ export default class CustomizationCombinations
       if( temp.length > 0 )
      { 
 
+
         if( !this._containsInvalidCombinations( tempIds ) )
-        {
-          let incompatibilySet = new Set();
+       {
+         
+          let incompatibilySet = [];
 
           for( let i = 0; i < tempIds.length; i++ )
-          {
-            if( this.listOfInvalidCombinationToCombination && this.listOfInvalidCombinationToCombination[ tempIds[i] ] )
-            {
-              incompatibilySet =  new Set([...incompatibilySet, ...this.listOfInvalidCombinationToCombination[ tempIds[i] ] ]);
+         {
+
+            if( this.biDirectionListOfInvalidCombinationToCombination && this.biDirectionListOfInvalidCombinationToCombination[ tempIds[i] ] )
+           {
+             let invalids = this.biDirectionListOfInvalidCombinationToCombination[ tempIds[i] ];
+             
+             incompatibilySet =  incompatibilySet.concat( Object.keys( invalids ).filter( function( key ) { return !invalids[key]; } ) );
             }
             if( this.listOfInvalidCombinationsForLength )
             {
 
               let self = this;
-              incompatibilySet = new Set([...incompatibilySet, ...Object.keys( this.listOfInvalidCombinationsForLength ).filter( function( key ) { return self.listOfInvalidCombinationsForLength[ key]; }  ) ]);
+              incompatibilySet = incompatibilySet.concat( Object.keys( this.listOfInvalidCombinationsForLength ).filter( function( key ) { return self.listOfInvalidCombinationsForLength[ key]; }  ) );
             }
-          }
+         }
+         
           result.push( {
             customization_ids: tempIds,
             customization_codes: tempCodes.sort(),
             neckline: tempNeckline,
             silhouette: tempSilhouette,
-            lengths: [ { name: this.lengthName, incompatability_list: Array.from( incompatibilySet ) }]
+            lengths: [ { name: this.lengthName, incompatability_list: [...new Set(incompatibilySet)] }]
           });
         }
 
