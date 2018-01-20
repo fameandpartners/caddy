@@ -57,7 +57,7 @@ class UploadProduct extends React.Component
     return toReturn;
   }
 
-  addOtherLengthsAsInvalid( validCombinations, currentLength, allLengths )
+  addOtherLengthsAsInvalid( validCombinations, currentLength, allLengths ) //not used
   {
     let toReturn = {};
     toReturn = Object.assign({},toReturn,  validCombinations );
