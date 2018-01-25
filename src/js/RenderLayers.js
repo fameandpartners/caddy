@@ -304,7 +304,8 @@ class RenderLayers extends React.Component
                       return customizationA.order - customizationB.order;
                     }
                   );
-
+    console.log( "code array" );
+    console.log( codeArray );
     return codeArray;
   }
   mapGUIDsToCodes( arrayOfGUIDs )
@@ -333,7 +334,7 @@ class RenderLayers extends React.Component
       let defaults = renders['default'];
       
       let renderSet = (new RenderSet( renders, this.mapGUIDsToCodes(this.state.selectedItems ) ) ).combinedRenderSet;
-      
+      console.log( renderSet );
       front = this.addRenderImage( front, renderSet['front']['behind'], 600, 0 );            
       front = this.addRenderImage( front, renderSet['front']['bottom'], 600, 0 );
       front = this.addRenderImage( front, renderSet['front']['behindbelt'], 600, 0 );                  

@@ -57,9 +57,13 @@ export default class RenderSet
       let itemCode = itemCodesToAdd[i].toLowerCase();
       if( renders[itemCode] )
       {
+        console.log( itemCode );
         let itemRenders = this.findItemToRender( renders[itemCode], itemCodesToAdd );
-        toReturn['front'] = this.combineRenders( toReturn['front'], itemRenders['front'] );
-        toReturn['back'] = this.combineRenders( toReturn['back'], itemRenders['back'] );
+        if( itemRenders ) // Sometimes deeply nested renders don't have a default
+        {
+          toReturn['front'] = this.combineRenders( toReturn['front'], itemRenders['front'] );
+          toReturn['back'] = this.combineRenders( toReturn['back'], itemRenders['back'] );
+        }
         
       }
     }
@@ -70,8 +74,10 @@ export default class RenderSet
   findItemToRender( renders, combinationCodes )
   {
     let toReturn = renders['default'];
+
     for( let i = 0; combinationCodes && i < combinationCodes.length; i++ )
     {
+      
       let code = combinationCodes[i].toLowerCase();
       if( renders[code] )
       {
