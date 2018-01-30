@@ -3,6 +3,9 @@ export default class RenderSet
   constructor( renders, customizationCodes )
   {
     this.combinedRenderSet = this.combineRenderSets( renders, customizationCodes );
+    console.log( "Render set renders" );
+    console.log( renders );
+    
   }
 
   back()
