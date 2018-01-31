@@ -17,7 +17,8 @@ class ThemePage extends React.Component
       colors:  [],
       products: {},
       selectedProducts: [],
-      length: null
+      length: null,
+      loadedProducts: {}
     };
   }
 
@@ -101,10 +102,24 @@ class ThemePage extends React.Component
     return toReturn;
   }
 
+  loadProduct( styleNumber )
+  {
+    if( this.state.loadedProducts[styleNumber] == null )
+    {
+      let loadedProducts = this.state.loadedProducts;
+      loadedProducts[styleNumber] = this.props.load( styleNumber, this.state.products[styleNumber].version );
+      this.setState( {
+        loadedProducts: loadedProducts
+      });
+    }
+  }
+  
   addProduct( styleNumber, version )
   {
     let selectedProducts = this.state.selectedProducts;
     selectedProducts.push( styleNumber );
+    this.loadProduct( styleNumber);
+    
     this.setState( {
       selectedProducts: selectedProducts
     } );
@@ -181,9 +196,28 @@ class ThemePage extends React.Component
       <option key="knee" value="knee">Knee</option>
       <option key="midi" value="midi">Midi</option>      
       <option key="ankle" value="ankle">Ankle</option>
-      <option key="Maxi" value="maxi">Maxi</option>
+      <option key="maxi" value="maxi">Maxi</option>
       </select>;
   }
+  
+  renderProductCustomizations()
+  {
+    let toReturn = [];
+    
+    for( let i = 0; i < this.state.selectedProducts.length; i++ )
+    {
+      console.log( this.state.loadedProducts );
+      let product = this.state.loadedProducts[ this.state.selectedProducts[i] ];
+      if( product )
+      {
+        console.log( "Got Product" );
+        product.customizations.forEach( (item, index) => toReturn.push( <div>{item.code}</div>  ) );
+      }
+      
+    }
+    return toReturn;
+  }
+  
   render()  
   {
     return (
@@ -210,6 +244,17 @@ class ThemePage extends React.Component
             {this.renderProducts()}
           </div>          
         </div>
+        <div className="row">
+          <div className="col-md-12">
+            <h2>Select Customizations</h2>
+          </div>          
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            {this.renderProductCustomizations()}
+          </div>          
+        </div>
+        
         <div className="row">
           <div className="col-md-2">
             <span>
