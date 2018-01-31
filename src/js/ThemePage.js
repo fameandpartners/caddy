@@ -5,6 +5,7 @@ import autoBind from 'react-autobind';
 import request from 'superagent';
 import { connect } from 'react-redux';
 import * as AppActions from './actions/AppActions';
+const FIREBASE_URL = process.env.FIREBASE_URL;
 
 class ThemePage extends React.Component
 {
@@ -13,7 +14,10 @@ class ThemePage extends React.Component
     super( props );
     autoBind( this );
     this.state = {
-      colors:  []
+      colors:  [],
+      products: {},
+      selectedProducts: [],
+      length: null
     };
   }
 
@@ -36,10 +40,32 @@ class ThemePage extends React.Component
     );
   }
   
+  updateLength()
+  {
+    this.setState(
+      {
+        length: this.lengthCopy.value
+      }
+    );
+  }
+
+  componentWillMount()
+  {
+    let url = FIREBASE_URL + '/products.json';
+    request.get( url ).end((error, response) => {
+      this.setState(
+        {
+          products:  JSON.parse( response.text )
+        }
+      );
+    } );
+  }
+  
   renderColor( colorCode, colorName )
   {
     return <span key={colorCode}><input type="checkbox" name={colorCode} onChange={this.updateCheckState}/>{colorName}</span>;
   }
+  
   renderColors()
   {
     let colors = [["0000", "Bright Turquoise"],  ["0001","Pale Blue"], ["0002","Blush"], ["0003", "Guava/Bright Blush"], ["0004","Burgundy"], ["0005","Champagne"],
@@ -74,15 +100,118 @@ class ThemePage extends React.Component
     };
     return toReturn;
   }
-  
-  render()
+
+  addProduct( styleNumber, version )
+  {
+    let selectedProducts = this.state.selectedProducts;
+    selectedProducts.push( styleNumber );
+    this.setState( {
+      selectedProducts: selectedProducts
+    } );
+  }
+
+  removeProduct( styleNumber )
+  {
+    let selectedProducts = this.state.selectedProducts;
+    selectedProducts.splice( selectedProducts.indexOf( styleNumber ), 1 );
+    this.setState( {
+      selectedProducts: selectedProducts
+    } );
+                   
+  }
+  renderProductButton( styleNumber )
+  {
+    let context = this;
+    if( this.state.selectedProducts.indexOf( styleNumber ) == -1 )
+    {
+      return( 
+          <span>
+          <button onClick={() => context.addProduct( styleNumber )}>Add Product</button>
+          </span>
+      );
+    } else
+    {
+      return( 
+          <span>
+          <button onClick={() => context.removeProduct( styleNumber )}>Remove Product</button>
+          </span>
+      );
+    }
+    
+  }
+  renderProducts()
+  {
+    let productsJSON = this.state.products;
+    
+    let toReturn = [];
+    let context = this;
+    if( productsJSON )
+    {
+      Object.keys(productsJSON).map(function(styleNumber, keyIndex) {
+        toReturn.push(
+          <li key={styleNumber}>
+            <div className="container product-list-entry">
+              <div className="row">
+                <div className="col-md-2">
+                  <span>{styleNumber}</span>
+                </div>
+                <div className="col-md-2">
+                  <span>{productsJSON[styleNumber].name}</span>
+                </div>
+                <div className="col-md-2">
+                  {context.renderProductButton( styleNumber)}
+                </div>
+              </div>
+
+            </div>
+          </li> );
+      });
+      return toReturn;
+    } else
+    {
+      return "";
+    }
+  }
+  renderLengths()
+  {
+    return <select ref={ (ref) => this.lengthCopy = ref} onChange={this.updateLength} id="length-set">
+      <option key="default" disabled="true" selected="true">select</option>
+      <option key="micro_mini" value="micro_mini">Micro Mini</option>
+      <option key="mini" value="mini">Mini</option>
+      <option key="knee" value="knee">Knee</option>
+      <option key="midi" value="midi">Midi</option>      
+      <option key="ankle" value="ankle">Ankle</option>
+      <option key="Maxi" value="maxi">Maxi</option>
+      </select>;
+  }
+  render()  
   {
     return (
       <div className="container">
         <h2>Select Colors</h2>
-        {this.renderColors()}        
+        {this.renderColors()}
         <div className="row">
-          <div className="copl-md-2">
+          <div className="col-md-12">
+            <h2>Select Length</h2>
+          </div>          
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            {this.renderLengths()}
+          </div>          
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            <h2>Select Products</h2>
+          </div>          
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            {this.renderProducts()}
+          </div>          
+        </div>
+        <div className="row">
+          <div className="col-md-2">
             <span>
               <button onClick={() => this.props.changeCurrentPage( 'list' )}>Back</button>
             </span>
