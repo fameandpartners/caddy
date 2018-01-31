@@ -12,6 +12,7 @@ import CombinationGrid from './CombinationGrid';
 import RenderLayers from './RenderLayers';
 import ProductImages from './ProductImages';
 import UploadProduct from './UploadProduct';
+import ThemePageList from './ThemePageList';
 
 class Home extends React.Component
 {
@@ -53,7 +54,8 @@ class Home extends React.Component
   generateTabs()
   {
     let toReturn = [];
-    toReturn.push( this.generateTab( 0, "Load Product" )  );
+    toReturn.push( this.generateTab( 0, "Theme Pages" ) );
+    toReturn.push( this.generateTab( 1, "Load Product" )  );
     if( this.props.showProductDetails )
     {
       let name = "Product Details";
@@ -61,23 +63,23 @@ class Home extends React.Component
       {
         name = this.props.product.details.name;
       }
-      toReturn.push( this.generateTab( 1, name )  );
-      toReturn.push( this.generateTab( 2, "Product Images" )  );
+      toReturn.push( this.generateTab( 2, name )  );
+      toReturn.push( this.generateTab( 3, "Product Images" )  );
       
     }
 
     if( this.props.showCustomizations )
     {
-      toReturn.push( this.generateTab( 3, "Customizations" )  );
+      toReturn.push( this.generateTab( 4, "Customizations" )  );
 
       let i = 0;
       for(; this.props.product && i < this.props.product.details.lengths.length; i++ )
       {
-        toReturn.push( this.generateTab( 4 + i, this.props.product.details.lengths[i].name ) );
+        toReturn.push( this.generateTab( 5 + i, this.props.product.details.lengths[i].name ) );
       }
-      toReturn.push( this.generateTab( 4 + i, "Renders" )  );      
-      toReturn.push( this.generateTab( 5 + i, "Combinations Test" )  );          
-      toReturn.push( this.generateTab( 6 + i, "Upload" )  );          
+      toReturn.push( this.generateTab( 6 + i, "Renders" )  );      
+      toReturn.push( this.generateTab( 7 + i, "Combinations Test" )  );          
+      toReturn.push( this.generateTab( 8 + i, "Upload" )  );          
       
     }
     return toReturn;
@@ -91,29 +93,29 @@ class Home extends React.Component
   generateAllTabContent()
   {
     let toReturn = [];
-    toReturn.push( this.generateSingleTabContent( 0, <ProductsList /> ) );
+    toReturn.push( this.generateSingleTabContent( 0, <ThemePageList /> ) );
+    
+    toReturn.push( this.generateSingleTabContent( 1, <ProductsList /> ) );
     if( this.props.showProductDetails )
     {
-      toReturn.push( this.generateSingleTabContent( 1, <ProductDetails /> ) );
-      toReturn.push( this.generateSingleTabContent( 2, <ProductImages /> ) );
+      toReturn.push( this.generateSingleTabContent( 2, <ProductDetails /> ) );
+      toReturn.push( this.generateSingleTabContent( 3, <ProductImages /> ) );
       
     }
 
     if( this.props.showCustomizations )
     {
-      toReturn.push( this.generateSingleTabContent( 3, <CustomizationList updateCustomizations={this.updateCustomizationList} customizationList={this.state.customizationList} />) );
+      toReturn.push( this.generateSingleTabContent( 4, <CustomizationList updateCustomizations={this.updateCustomizationList} customizationList={this.state.customizationList} />) );
 
       let i = 0;
       for( ; this.props.product && i < this.props.product.details.lengths.length; i++ )
       {
-        toReturn.push( this.generateSingleTabContent( 4 + i, <CombinationGrid customizationList={this.state.customizationList} forLength={this.props.product.details.lengths[i].name }/> ) );
+        toReturn.push( this.generateSingleTabContent( 5 + i, <CombinationGrid customizationList={this.state.customizationList} forLength={this.props.product.details.lengths[i].name }/> ) );
       }
       
-      toReturn.push( this.generateSingleTabContent( 4 + i, <RenderLayers/> ) );
-      toReturn.push( this.generateSingleTabContent( 5 + i, <CombinationList/> ) );
-      toReturn.push( this.generateSingleTabContent( 6 + i, <UploadProduct/> ) );
-
-      
+      toReturn.push( this.generateSingleTabContent( 6 + i, <RenderLayers/> ) );
+      toReturn.push( this.generateSingleTabContent( 7 + i, <CombinationList/> ) );
+      toReturn.push( this.generateSingleTabContent( 8 + i, <UploadProduct/> ) );
     }
     
     return toReturn;
