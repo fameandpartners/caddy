@@ -13,12 +13,32 @@ class ThemePage extends React.Component
     super( props );
     autoBind( this );
     this.state = {
+      colors:  []
     };
-
   }
+
+  updateCheckState( event )
+  {
+    const colorCode = event.target.name;
+    let colors = this.state.colors;
+    
+    if( colors.indexOf( colorCode ) == -1 )
+    {
+      colors.push( colorCode );
+    } else
+    {
+      colors.splice( colors.indexOf( colorCode ), 1 );
+    }
+    this.setState(
+      {
+        colors: colors
+      }
+    );
+  }
+  
   renderColor( colorCode, colorName )
   {
-    return <span>{colorName}</span>;
+    return <span key={colorCode}><input type="checkbox" name={colorCode} onChange={this.updateCheckState}/>{colorName}</span>;
   }
   renderColors()
   {
@@ -30,7 +50,7 @@ class ThemePage extends React.Component
     for( let i = 0; i < 18; i+= 6 )
     {
       toReturn.push(
-        <span>
+        <span key={"colors-" + i}>
           <div className="col-md-2">
             {this.renderColor( colors[i][0], colors[i][1] ) }
           </div>
@@ -59,9 +79,10 @@ class ThemePage extends React.Component
   {
     return (
       <div className="container">
+        <h2>Select Colors</h2>
         {this.renderColors()}        
         <div className="row">
-          <div className="col-md-2">
+          <div className="copl-md-2">
             <span>
               <button onClick={() => this.props.changeCurrentPage( 'list' )}>Back</button>
             </span>
