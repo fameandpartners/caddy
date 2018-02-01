@@ -27,7 +27,6 @@ class ThemePage extends React.Component
   updateSelectedCustomizations( event )
   {
     const styleAndCode  = event.target.name.split( '/' );
-    console.log( "Style and code " + styleAndCode );
     let styleNumber = styleAndCode[0];
     let customizationCode  = styleAndCode[1];
     let productCustomizations = this.state.productCustomizations;
@@ -152,7 +151,6 @@ class ThemePage extends React.Component
     {
       let versionNumber = this.state.products[styleNumber].version;
       let url = FIREBASE_URL + '/product/' + styleNumber + "/versions/" + versionNumber + ".json";
-      console.log( "loading url " + url );
       request.get( url ).end((error, response) => {
         let productJson = JSON.parse( response.text );
         let loadedProducts = this.state.loadedProducts;
@@ -312,7 +310,7 @@ class ThemePage extends React.Component
     for( let i = 0; customizationList && i < customizationList.length; i++ )
     {
       let customizationCode = customizationList[i];
-      toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/800x800/${customizationCode}-${length}-front-${color}.png`.toLowerCase() );
+      toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/142x142/${customizationCode}-${length}-front-${color}.png`.toLowerCase() );
       
     }
     
@@ -326,9 +324,7 @@ class ThemePage extends React.Component
     for( let i = 0; i < this.state.selectedProducts.length; i++ )
     {
       let styleNumber = this.state.selectedProducts[i];
-      console.log( "Style Number " + styleNumber );
       let customizations = this.state.productCustomizations[ styleNumber ];
-      console.log( this.state.productCustomizations );
       for( let j = 0; j < this.state.colors.length; j++ )
       {
         let colorCode = this.state.colors[j];
@@ -337,14 +333,39 @@ class ThemePage extends React.Component
     }
     return toReturn;
   }
+
+  renderImage( images, position )
+  {
+    if( position < images.length )
+    {
+      return <img key={position} src={images[position]} width="284" />;
+    } else
+    {
+      return "";
+    }
+  }
+  renderImageRow( images, startingPosition )
+  {
+    return ( <div key={"row-" + startingPosition} className="row">
+             <div className="col-md-3">{this.renderImage( images, startingPosition )}</div>
+             <div className="col-md-3">{this.renderImage( images, startingPosition + 1 )}</div>
+             <div className="col-md-3">{this.renderImage( images, startingPosition + 2 )}</div>
+             <div className="col-md-3">{this.renderImage( images, startingPosition + 3)}</div>
+             </div> );
+  }
+  
   renderSamplePage()
   {
 
     if( this.state.colors.length > 0 && this.state.selectedProducts.length > 0 && this.state.length != null && Object.keys( this.state.productCustomizations ).length > 0 )
     {
+      let toReturn = [];
       let imagesToRender = this.buildSetOfImagesToRender();
-      console.log( imagesToRender );
-      return <div>Sample</div>;
+      for( let i = 0; i < imagesToRender.length + 3; i += 4 )
+      {
+        toReturn.push( this.renderImageRow( imagesToRender, i ) );
+      }
+      return toReturn;
     } else
     {
       return <div></div>;
