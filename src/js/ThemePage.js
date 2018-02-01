@@ -211,14 +211,31 @@ class ThemePage extends React.Component
     if( customizationIndex < customizations.length )
     {
       let item = customizations[ customizationIndex ];
-      return <div style={{'background-color': 'gray'}} key={product.id + "-" + item.code}><input type="checkbox" name={product.id + "-" + item.code} onChange={this.updateSelectedCustomizations}/> {item.code} - {item.name} </div>;
+      return <div key={product.id + "-" + item.code}><input type="checkbox" name={product.id + "-" + item.code} onChange={this.updateSelectedCustomizations}/> {item.code} - {item.name} </div>;
       
     } else
     {
       return <div></div>;
     }
   }
-  
+
+  generateCustomizationRows( product )
+  {
+    let toReturn =[];
+     for( let j = 0; j < product.customizations.length; j+= 6 )
+        {
+          toReturn.push( <tr>
+                         <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, product.customizations, j)}</td>
+                         <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, product.customizations, j+1)}</td>
+                         <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, product.customizations, j+2)}</td>
+                         <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, product.customizations, j+3)}</td>
+                         <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, product.customizations, j+4)}</td>
+                         <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, product.customizations, j+5)}</td>
+                         </tr> );
+        }
+   
+    return toReturn;
+  }
   renderProductCustomizations()
   {
     let toReturn = [];
@@ -231,18 +248,7 @@ class ThemePage extends React.Component
 
       if( product )
       {
-        toReturn.push( <h4 key={"header-" + product.details.id}><u>{product.details.id} - {product.details.name}</u></h4> );
-        for( let j = 0; j < product.customizations.length; j+= 6 )
-        {
-          toReturn.push( <div key={"row-" + product.details.id + "-" + j} className="row">
-                         <div className="col-md-2">{this.renderCustomizationCheckbox( product, product.customizations, j)}</div>
-                         <div className="col-md-2">{this.renderCustomizationCheckbox( product, product.customizations, j+1)}</div>
-                         <div className="col-md-2">{this.renderCustomizationCheckbox( product, product.customizations, j+2)}</div>
-                         <div className="col-md-2">{this.renderCustomizationCheckbox( product, product.customizations, j+3)}</div>
-                         <div className="col-md-2">{this.renderCustomizationCheckbox( product, product.customizations, j+4)}</div>
-                         <div className="col-md-2">{this.renderCustomizationCheckbox( product, product.customizations, j+5)}</div>
-                         </div> );
-        }
+        toReturn.push( <div key={"customizations-" + product.details.id}><h4><u>{product.details.id} - {product.details.name}</u></h4><table>{this.generateCustomizationRows(product)}</table></div> );
       }
       
     }
