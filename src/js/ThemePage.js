@@ -18,8 +18,45 @@ class ThemePage extends React.Component
       products: {},
       selectedProducts: [],
       length: null,
-      loadedProducts: {}
+      loadedProducts: {},
+      productCustomizations: {}
+      
     };
+  }
+
+  updateSelectedCustomizations( event )
+  {
+    const styleAndCode  = event.target.name.split( '-' );
+    let styleNumber = styleAndCode[0];
+    let customizationCode  = styleAndCode[1];
+    let productCustomizations = this.state.productCustomizations;
+    let styleCustomizations = productCustomizations[styleNumber] || [];
+    if( styleCustomizations.indexOf( customizationCode ) == -1 )
+    {
+      styleCustomizations.push( customizationCode );
+    } else
+    {
+      styleCustomizations.splice( styleCustomizations.indexOf( customizationCode ), 1 );
+    }
+  }
+  
+  updateCheckState( event )
+  {
+    const colorCode = event.target.name;
+    let colors = this.state.colors;
+    
+    if( colors.indexOf( colorCode ) == -1 )
+    {
+      colors.push( colorCode );
+    } else
+    {
+      colors.splice( colors.indexOf( colorCode ), 1 );
+    }
+    this.setState(
+      {
+        colors: colors
+      }
+    );
   }
 
   updateCheckState( event )
@@ -140,6 +177,7 @@ class ThemePage extends React.Component
     } );
                    
   }
+  
   renderProductButton( styleNumber )
   {
     let context = this;
@@ -160,6 +198,7 @@ class ThemePage extends React.Component
     }
     
   }
+  
   renderProducts()
   {
     let productsJSON = this.state.products;
@@ -193,6 +232,7 @@ class ThemePage extends React.Component
       return "";
     }
   }
+  
   renderLengths()
   {
     return <select ref={ (ref) => this.lengthCopy = ref} onChange={this.updateLength} id="length-set">
@@ -224,7 +264,7 @@ class ThemePage extends React.Component
     let toReturn =[];
      for( let j = 0; j < product.customizations.length; j+= 6 )
         {
-          toReturn.push( <tr>
+          toReturn.push( <tr key={"customization-row-" + product.id + "-" + j}>
                          <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, product.customizations, j)}</td>
                          <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, product.customizations, j+1)}</td>
                          <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, product.customizations, j+2)}</td>
