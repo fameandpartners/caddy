@@ -26,11 +26,12 @@ class ThemePage extends React.Component
 
   updateSelectedCustomizations( event )
   {
-    const styleAndCode  = event.target.name.split( '-' );
+    const styleAndCode  = event.target.name.split( '/' );
+    console.log( "Style and code " + styleAndCode );
     let styleNumber = styleAndCode[0];
     let customizationCode  = styleAndCode[1];
     let productCustomizations = this.state.productCustomizations;
-    let styleCustomizations = productCustomizations[styleNumber] || [];
+    let styleCustomizations = productCustomizations[styleNumber] || ['default'];
     if( styleCustomizations.indexOf( customizationCode ) == -1 )
     {
       styleCustomizations.push( customizationCode );
@@ -38,6 +39,12 @@ class ThemePage extends React.Component
     {
       styleCustomizations.splice( styleCustomizations.indexOf( customizationCode ), 1 );
     }
+    
+    productCustomizations[styleNumber] = styleCustomizations;
+
+    this.setState( {
+      productCustomizations: productCustomizations
+    } );
   }
   
   updateCheckState( event )
@@ -251,7 +258,7 @@ class ThemePage extends React.Component
     if( customizationIndex < customizations.length )
     {
       let item = customizations[ customizationIndex ];
-      return <div key={product.id + "-" + item.code}><input type="checkbox" name={product.id + "-" + item.code} onChange={this.updateSelectedCustomizations}/> {item.code} - {item.name} </div>;
+      return <div key={product.details.id + "-" + item.code}><input type="checkbox" name={product.details.id + "/" + item.code} onChange={this.updateSelectedCustomizations}/> {item.code} - {item.name} </div>;
       
     } else
     {
@@ -288,17 +295,75 @@ class ThemePage extends React.Component
 
       if( product )
       {
-        toReturn.push( <div key={"customizations-" + product.details.id}><h4><u>{product.details.id} - {product.details.name}</u></h4><table>{this.generateCustomizationRows(product)}</table></div> );
+        toReturn.push( <div key={"customizations-" + product.details.id}>
+                       <h4><u>{product.details.id} - {product.details.name}</u></h4>
+                       <table>{this.generateCustomizationRows(product)}</table>
+                       </div> );
       }
       
     }
     return toReturn;
   }
+
+  buildDressImageUrls( length, color, styleNumber, customizationList )
+  {
+    let toReturn = [];
+
+    for( let i = 0; customizationList && i < customizationList.length; i++ )
+    {
+      let customizationCode = customizationList[i];
+      toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/800x800/${customizationCode}-${length}-front-${color}.png`.toLowerCase() );
+      
+    }
+    
+    return toReturn;
+  }
   
+  buildSetOfImagesToRender()
+  {
+    let toReturn = [];
+    
+    for( let i = 0; i < this.state.selectedProducts.length; i++ )
+    {
+      let styleNumber = this.state.selectedProducts[i];
+      console.log( "Style Number " + styleNumber );
+      let customizations = this.state.productCustomizations[ styleNumber ];
+      console.log( this.state.productCustomizations );
+      for( let j = 0; j < this.state.colors.length; j++ )
+      {
+        let colorCode = this.state.colors[j];
+        toReturn = toReturn.concat( this.buildDressImageUrls( this.state.length, colorCode, styleNumber, customizations ) );
+      }
+    }
+    return toReturn;
+  }
+  renderSamplePage()
+  {
+
+    if( this.state.colors.length > 0 && this.state.selectedProducts.length > 0 && this.state.length != null && Object.keys( this.state.productCustomizations ).length > 0 )
+    {
+      let imagesToRender = this.buildSetOfImagesToRender();
+      console.log( imagesToRender );
+      return <div>Sample</div>;
+    } else
+    {
+      return <div></div>;
+    }
+  }
   render()  
   {
     return (
       <div className="container">
+        <div className="row">
+          <div className="col-md-2">
+            <span>
+              <button onClick={() => this.props.changeCurrentPage( 'list' )}>Back</button>
+            </span>
+            <span>
+              <button>Save</button>
+            </span>
+          </div>
+        </div>        
         <h2>Select Colors</h2>
         {this.renderColors()}
         <div className="row">
@@ -333,12 +398,16 @@ class ThemePage extends React.Component
         </div>
         
         <div className="row">
-          <div className="col-md-2">
-            <span>
-              <button onClick={() => this.props.changeCurrentPage( 'list' )}>Back</button>
-            </span>
-          </div>
-        </div>        
+          <div className="col-md-12">
+            <h2>Sample Page</h2>
+          </div>          
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            {this.renderSamplePage()}
+          </div>          
+        </div>
+        
       </div>
     );
   }
