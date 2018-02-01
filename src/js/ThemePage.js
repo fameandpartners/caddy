@@ -106,11 +106,17 @@ class ThemePage extends React.Component
   {
     if( this.state.loadedProducts[styleNumber] == null )
     {
-      let loadedProducts = this.state.loadedProducts;
-      loadedProducts[styleNumber] = this.props.load( styleNumber, this.state.products[styleNumber].version );
-      this.setState( {
-        loadedProducts: loadedProducts
-      });
+      let versionNumber = this.state.products[styleNumber].version;
+      let url = FIREBASE_URL + '/product/' + styleNumber + "/versions/" + versionNumber + ".json";
+      console.log( "loading url " + url );
+      request.get( url ).end((error, response) => {
+        let productJson = JSON.parse( response.text );
+        let loadedProducts = this.state.loadedProducts;
+        loadedProducts[styleNumber] = productJson;
+        this.setState( {
+          loadedProducts: loadedProducts
+        });
+      } );
     }
   }
   
@@ -199,6 +205,19 @@ class ThemePage extends React.Component
       <option key="maxi" value="maxi">Maxi</option>
       </select>;
   }
+
+  renderCustomizationCheckbox( product, customizations, customizationIndex )
+  {
+    if( customizationIndex < customizations.length )
+    {
+      let item = customizations[ customizationIndex ];
+      return <div style={{'background-color': 'gray'}} key={product.id + "-" + item.code}><input type="checkbox" name={product.id + "-" + item.code} onChange={this.updateSelectedCustomizations}/> {item.code} - {item.name} </div>;
+      
+    } else
+    {
+      return <div></div>;
+    }
+  }
   
   renderProductCustomizations()
   {
@@ -206,12 +225,24 @@ class ThemePage extends React.Component
     
     for( let i = 0; i < this.state.selectedProducts.length; i++ )
     {
-      console.log( this.state.loadedProducts );
+
+
       let product = this.state.loadedProducts[ this.state.selectedProducts[i] ];
+
       if( product )
       {
-        console.log( "Got Product" );
-        product.customizations.forEach( (item, index) => toReturn.push( <div>{item.code}</div>  ) );
+        toReturn.push( <h4 key={"header-" + product.details.id}><u>{product.details.id} - {product.details.name}</u></h4> );
+        for( let j = 0; j < product.customizations.length; j+= 6 )
+        {
+          toReturn.push( <div key={"row-" + product.details.id + "-" + j} className="row">
+                         <div className="col-md-2">{this.renderCustomizationCheckbox( product, product.customizations, j)}</div>
+                         <div className="col-md-2">{this.renderCustomizationCheckbox( product, product.customizations, j+1)}</div>
+                         <div className="col-md-2">{this.renderCustomizationCheckbox( product, product.customizations, j+2)}</div>
+                         <div className="col-md-2">{this.renderCustomizationCheckbox( product, product.customizations, j+3)}</div>
+                         <div className="col-md-2">{this.renderCustomizationCheckbox( product, product.customizations, j+4)}</div>
+                         <div className="col-md-2">{this.renderCustomizationCheckbox( product, product.customizations, j+5)}</div>
+                         </div> );
+        }
       }
       
     }
