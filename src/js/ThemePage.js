@@ -98,12 +98,11 @@ class ThemePage extends React.Component
     {
       let json = props.pageJSON;
       this.setState( {
-        
         colors:  json.colors,
         selectedProducts: json.selectedProducts,
         length: json.length,
         productCustomizations: json.productCustomizations,
-        id: uuidv4(),
+        id: json.id,
         pageName: json.pageName,
         pageUrl: json.pageUrl
       } );
@@ -114,6 +113,13 @@ class ThemePage extends React.Component
       {
         this.colorCheckBoxes[json.colors[i]].checked = true;
       }
+
+      
+      if( json.length )
+      {
+        this.lengthCopy.value = json.length;
+      }
+
     }
     
   }
@@ -175,7 +181,7 @@ class ThemePage extends React.Component
 
   loadProduct( styleNumber )
   {
-    if( this.state.loadedProducts[styleNumber] == null )
+    if( this.state.products[styleNumber] && this.state.loadedProducts[styleNumber] == null )
     {
       let versionNumber = this.state.products[styleNumber].version;
       let url = FIREBASE_URL + '/product/' + styleNumber + "/versions/" + versionNumber + ".json";
@@ -312,10 +318,12 @@ class ThemePage extends React.Component
     
     for( let i = 0; i < this.state.selectedProducts.length; i++ )
     {
-
-
       let product = this.state.loadedProducts[ this.state.selectedProducts[i] ];
 
+      if( !product && this.state.products )
+      {
+        this.loadProduct( this.state.selectedProducts[i] );
+      }
       if( product )
       {
         toReturn.push( <div key={"customizations-" + product.details.id}>
@@ -404,7 +412,7 @@ class ThemePage extends React.Component
       selectedProducts: this.state.selectedProducts,
       length: this.state.length,
       productCustomizations: this.state.productCustomizations,
-      id: uuidv4(),
+      id: this.state.id,
       pageName: this.state.pageName,
       pageUrl: this.state.pageUrl
       
@@ -454,7 +462,7 @@ class ThemePage extends React.Component
             Page Name:
           </div>
           <div className="col-md-2">
-            <input type="text" ref={(input) => { this.pageName = input;  }} onChange={this.upadetPageName}/>
+            <input type="text" ref={(input) => { this.pageName = input;  }} onChange={this.updatePageName}/>
           </div>
         </div>
         <div className="row">
