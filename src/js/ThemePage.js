@@ -117,10 +117,10 @@ class ThemePage extends React.Component
                   ["0013", "Royal Blue"], ["0014", "Black"], ["0015", "Sage Green"], ["0016", "Berry"], ["0017", "Navy"] ];
 
     let toReturn = [];
-    for( let i = 0; i < 18; i+= 6 )
+    for( let i = 0; i < 18; i+= 3 )
     {
       toReturn.push(
-        <span key={"colors-" + i}>
+        <div className="row" key={"colors-" + i}>
           <div className="col-md-2">
             {this.renderColor( colors[i][0], colors[i][1] ) }
           </div>
@@ -130,16 +130,7 @@ class ThemePage extends React.Component
           <div className="col-md-2">
             {this.renderColor( colors[i + 2][0], colors[i + 2][1] ) }
           </div>
-          <div className="col-md-2">
-            {this.renderColor( colors[i + 3][0], colors[i + 3][1] ) }
-          </div>
-          <div className="col-md-2">
-            {this.renderColor( colors[i + 4][0], colors[i + 4][1] ) }
-          </div>
-          <div className="col-md-2">
-            {this.renderColor( colors[i + 5 ][0], colors[i + 5][1] ) }
-          </div>
-        </span>        
+        </div>        
       );
     };
     return toReturn;
@@ -267,15 +258,12 @@ class ThemePage extends React.Component
   generateCustomizationRows( product )
   {
     let toReturn =[];
-     for( let j = 0; j < product.customizations.length; j+= 6 )
+     for( let j = 0; j < product.customizations.length; j+= 3 )
         {
           toReturn.push( <tr key={"customization-row-" + product.id + "-" + j}>
                          <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, product.customizations, j)}</td>
                          <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, product.customizations, j+1)}</td>
                          <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, product.customizations, j+2)}</td>
-                         <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, product.customizations, j+3)}</td>
-                         <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, product.customizations, j+4)}</td>
-                         <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, product.customizations, j+5)}</td>
                          </tr> );
         }
    
@@ -371,10 +359,11 @@ class ThemePage extends React.Component
       return <div></div>;
     }
   }
-  render()  
+
+  renderConfiguration()
   {
-    return (
-      <div className="container">
+    return(
+      <div className="container">      
         <div className="row">
           <div className="col-md-2">
             <span>
@@ -413,22 +402,38 @@ class ThemePage extends React.Component
           </div>          
         </div>
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-6">
             {this.renderProductCustomizations()}
           </div>          
         </div>
         
+    </div>        
+    );
+  }
+  
+  render()  
+  {
+    return (
+      <div className="container">
         <div className="row">
-          <div className="col-md-12">
-            <h2>Sample Page</h2>
-          </div>          
+          <div className="col-md-6">
+            {this.renderConfiguration()}
+          </div>
+          <div className="col-md-6">
+            <div className="container">
+              <div className="row">
+                <div className="col-md-12">
+                  <h2>Sample Page</h2>
+                </div>          
+              </div>
+              <div className="row">
+                <div className="col-md-6">
+                  {this.renderSamplePage()}
+                </div>          
+              </div>
+            </div>            
+          </div>
         </div>
-        <div className="row">
-          <div className="col-md-12">
-            {this.renderSamplePage()}
-          </div>          
-        </div>
-        
       </div>
     );
   }
