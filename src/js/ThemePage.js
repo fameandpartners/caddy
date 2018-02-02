@@ -26,6 +26,7 @@ class ThemePage extends React.Component
       pageName: null,
       pageUrl: null
     };
+    this.colorCheckBoxes = {};
   }
 
   updateSelectedCustomizations( event )
@@ -68,25 +69,6 @@ class ThemePage extends React.Component
       }
     );
   }
-
-  updateCheckState( event )
-  {
-    const colorCode = event.target.name;
-    let colors = this.state.colors;
-    
-    if( colors.indexOf( colorCode ) == -1 )
-    {
-      colors.push( colorCode );
-    } else
-    {
-      colors.splice( colors.indexOf( colorCode ), 1 );
-    }
-    this.setState(
-      {
-        colors: colors
-      }
-    );
-  }
   
   updateLength()
   {
@@ -97,6 +79,19 @@ class ThemePage extends React.Component
     );
   }
 
+  clean( value )
+  {
+    if( value )
+    {
+      return value;
+    }
+    else
+    {
+      return '';
+    }
+    
+  }
+  
   updateWithLatestState( props )
   {
     if( props.pageJSON )
@@ -112,6 +107,13 @@ class ThemePage extends React.Component
         pageName: json.pageName,
         pageUrl: json.pageUrl
       } );
+
+      this.pageUrl.value = this.clean( json.pageUrl );
+      this.pageName.value = this.clean( json.pageName );
+      for( let i = 0 ; i < json.colors.length; i++ )
+      {
+        this.colorCheckBoxes[json.colors[i]].checked = true;
+      }
     }
     
   }
@@ -142,7 +144,7 @@ class ThemePage extends React.Component
   
   renderColor( colorCode, colorName )
   {
-    return <span key={colorCode}><input type="checkbox" name={colorCode} onChange={this.updateCheckState}/>{colorName}</span>;
+    return <span key={colorCode}><input type="checkbox" ref={(input) => { this.colorCheckBoxes[colorCode] = input ; }} name={colorCode} onChange={this.updateCheckState}/>{colorName}</span>;
   }
   
   renderColors()
