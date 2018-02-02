@@ -24,7 +24,7 @@ class ThemeList extends React.Component
   
   componentWillMount()
   {
-    let url = FIREBASE_URL + '/theme_pages.json';
+    let url = FIREBASE_URL + '/themePages.json';
     request.get( url ).end((error, response) => {
       this.setState(
         {
@@ -42,8 +42,12 @@ class ThemeList extends React.Component
   renderThemes( themesJSON )
   {
     let toReturn = [];
-    let context = this;
-    return "";
+    let keys = Object.keys( themesJSON );
+    for( let i = 0; i < keys.length; i++ )
+    {
+      toReturn.push( <li key={keys[i]} >{themesJSON[keys[i]].pageName} <button onClick={ () => this.props.changeCurrentPage( 'load', themesJSON[keys[i]] )}>Load</button></li> );
+    }
+    return toReturn;
   }
   
   render()

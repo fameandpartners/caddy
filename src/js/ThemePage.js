@@ -5,6 +5,8 @@ import autoBind from 'react-autobind';
 import request from 'superagent';
 import { connect } from 'react-redux';
 import * as AppActions from './actions/AppActions';
+import uuidv4 from 'uuid/v4';
+
 const FIREBASE_URL = process.env.FIREBASE_URL;
 
 class ThemePage extends React.Component
@@ -19,8 +21,10 @@ class ThemePage extends React.Component
       selectedProducts: [],
       length: null,
       loadedProducts: {},
-      productCustomizations: {}
-      
+      productCustomizations: {},
+      id: uuidv4(),
+      pageName: null,
+      pageUrl: null
     };
   }
 
@@ -93,6 +97,37 @@ class ThemePage extends React.Component
     );
   }
 
+  updateWithLatestState( props )
+  {
+    if( props.pageJSON )
+    {
+      let json = props.pageJSON;
+      this.setState( {
+        
+        colors:  json.colors,
+        selectedProducts: json.selectedProducts,
+        length: json.length,
+        productCustomizations: json.productCustomizations,
+        id: uuidv4(),
+        pageName: json.pageName,
+        pageUrl: json.pageUrl
+      } );
+    }
+    
+  }
+
+  componentDidMount()
+  {
+
+    this.updateWithLatestState( this.props );
+  }
+  
+  componentWillReceiveProps( nextProps )
+  {
+
+    this.updateWithLatestState( nextProps );
+  }
+  
   componentWillMount()
   {
     let url = FIREBASE_URL + '/products.json';
@@ -308,7 +343,6 @@ class ThemePage extends React.Component
   buildSetOfImagesToRender()
   {
     let toReturn = [];
-    
     for( let i = 0; i < this.state.selectedProducts.length; i++ )
     {
       let styleNumber = this.state.selectedProducts[i];
@@ -360,20 +394,75 @@ class ThemePage extends React.Component
     }
   }
 
+  save()
+  {
+    let url = FIREBASE_URL + '/themePages/' + this.state.id + ".json";
+    let themePage = {
+      colors:  this.state.colors,
+      selectedProducts: this.state.selectedProducts,
+      length: this.state.length,
+      productCustomizations: this.state.productCustomizations,
+      id: uuidv4(),
+      pageName: this.state.pageName,
+      pageUrl: this.state.pageUrl
+      
+    };
+    
+    request.put( url )
+      .type( 'application/json' )
+      .send( themePage )
+      .end((error, response) =>
+           {
+             console.log( response );
+           } );
+    
+  }
+
+  updatePageName()
+  {
+    this.setState( {
+      pageName: this.pageName.value
+    });
+      
+  }
+
+  updatePageUrl()
+  {
+    this.setState( {
+      pageUrl: this.pageUrl.value
+    });
+    
+  }
   renderConfiguration()
   {
     return(
-      <div className="container">      
+      <div className="container">
         <div className="row">
           <div className="col-md-2">
             <span>
               <button onClick={() => this.props.changeCurrentPage( 'list' )}>Back</button>
             </span>
             <span>
-              <button>Save</button>
+              <button onClick={() => this.save()}>Save</button>
             </span>
           </div>
         </div>        
+        <div className="row">
+          <div className="col-md-2">
+            Page Name:
+          </div>
+          <div className="col-md-2">
+            <input type="text" ref={(input) => { this.pageName = input;  }} onChange={this.upadetPageName}/>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-2">
+            Page Url:
+          </div>
+          <div className="col-md-2">
+            <input type="text" ref={(input) => { this.pageUrl = input;  }} onChange={this.updatePageUrl} />
+          </div>
+        </div>
         <h2>Select Colors</h2>
         {this.renderColors()}
         <div className="row">

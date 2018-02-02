@@ -17,15 +17,17 @@ class ThemePageList extends React.Component
     super( props );
     autoBind( this );
     this.state = {
-      currentPage: 'list'
+      currentPage: 'list',
+      pageState: null
     };
 
   }
 
-  changeCurrentPage( newState )
+  changeCurrentPage( newState, pageState )
   {
     this.setState( {
-      currentPage: newState
+      currentPage: newState,
+      pageState: pageState
     } );
   }
 
@@ -37,7 +39,11 @@ class ThemePageList extends React.Component
     } else if( this.state.currentPage == 'new' )
     {
       return <ThemePage changeCurrentPage={this.changeCurrentPage}/>;
-    } else
+    } else if( this.state.currentPage == 'load' )
+    {
+      return <ThemePage changeCurrentPage={this.changeCurrentPage} pageJSON={this.state.pageState}/>;
+    }
+    else
     {
       return <div></div>;
     }
