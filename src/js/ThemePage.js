@@ -326,7 +326,7 @@ class ThemePage extends React.Component
   {
     if( position < images.length )
     {
-      return <img key={position} src={images[position]} width="284" />;
+      return <img key={position} src={images[position]} width="284" height="284" />;
     } else
     {
       return "";
@@ -427,7 +427,7 @@ class ThemePage extends React.Component
                 </div>          
               </div>
               <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-12">
                   {this.renderSamplePage()}
                 </div>          
               </div>
