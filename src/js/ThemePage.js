@@ -188,6 +188,7 @@ class ThemePage extends React.Component
       let url = FIREBASE_URL + '/product/' + styleNumber + "/versions/" + versionNumber + ".json";
       request.get( url ).end((error, response) => {
         let productJson = JSON.parse( response.text );
+        productJson.customizations.sort().reverse();
         let loadedProducts = this.state.loadedProducts;
         loadedProducts[styleNumber] = productJson;
         this.setState( {
@@ -305,12 +306,13 @@ class ThemePage extends React.Component
   generateCustomizationRows( product )
   {
     let toReturn =[];
-     for( let j = 0; j < product.customizations.length; j+= 3 )
+    let customizations = product.customizations;
+    for( let j = 0; j < customizations.length; j+= 3 )
         {
           toReturn.push( <tr key={"customization-row-" + product.id + "-" + j}>
-                         <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, product.customizations, j)}</td>
-                         <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, product.customizations, j+1)}</td>
-                         <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, product.customizations, j+2)}</td>
+                         <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, customizations, j)}</td>
+                         <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, customizations, j+1)}</td>
+                         <td style={{'border': '1px solid black'}}>{this.renderCustomizationCheckbox( product, customizations, j+2)}</td>
                          </tr> );
         }
    
