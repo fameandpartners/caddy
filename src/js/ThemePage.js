@@ -10,6 +10,31 @@ import DraggableList from 'react-draggable-list';
 
 const FIREBASE_URL = process.env.FIREBASE_URL;
 
+class CustomizationsSortedItem extends React.Component
+{
+
+  constructor( props )
+  {
+    super( props );
+    autoBind( this );
+    this.state = {
+      item: null
+    };        
+  }
+  
+  render()
+  {
+    let customization = this.props.commonProps.customizations.find( (item) => item.code == this.props.item ) || { name: '' };
+    return (
+      <div key={this.props.item}>
+        <div className="row">
+          <div className="col-md-12">{this.props.dragHandle(<div className="dragHandle" />)} <b>{this.props.item}</b> - {customization.name}</div>
+        </div>
+        </div>        
+    );
+  }
+}
+
 class ProductSortedItem extends React.Component
 {
 
@@ -454,6 +479,25 @@ class ThemePage extends React.Component
                        <h4><u>{product.details.id} - {product.details.name}</u> <span style={{'font-size': 'normal'}}><button onClick={ () => this.checkAllCustomizationCheckBoxes( product.details.id )}>select all</button></span></h4>
                        <table>{this.generateCustomizationRows(product)}</table>
                        </div> );
+
+        let customizations = this.state.productCustomizations[ product.details.id ];
+        if( customizations  && customizations.length  > 0 )
+        {
+          let context = this;
+          toReturn.push( <h3 key={"sort-customizations-title-for" + product.details.id}>Sort Customizations</h3> );
+          toReturn.push(
+            <div className="row" key={"customizations-sort-" + product.details.id}>
+              <div className="col-md-6">
+                <DraggableList itemKey={(code) => code}
+                  template={CustomizationsSortedItem}
+                  list={this.state.productCustomizations[product.details.id]}
+                  commonProps={product}
+                  onMoveEnd ={ function( newList) { context.state.productCustomizations[product.details.id] = newList ; context.setState( { productCustomizations: context.state.productCustomizations }); } }/>
+               </div>          
+            </div>
+          );
+        }
+        
       }
       
     }
