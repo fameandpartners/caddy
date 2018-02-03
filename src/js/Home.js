@@ -54,8 +54,9 @@ class Home extends React.Component
   generateTabs()
   {
     let toReturn = [];
-    toReturn.push( this.generateTab( 0, "Theme Pages" ) );
-    toReturn.push( this.generateTab( 1, "Load Product" )  );
+    toReturn.push( this.generateTab( 0, "Load Product" )  );
+    toReturn.push( this.generateTab( 1, "Theme Pages" ) );
+    
     if( this.props.showProductDetails )
     {
       let name = "Product Details";
@@ -93,9 +94,9 @@ class Home extends React.Component
   generateAllTabContent()
   {
     let toReturn = [];
-    toReturn.push( this.generateSingleTabContent( 0, <ThemePageList /> ) );
-    
-    toReturn.push( this.generateSingleTabContent( 1, <ProductsList /> ) );
+    toReturn.push( this.generateSingleTabContent( 0, <ProductsList /> ) );    
+    toReturn.push( this.generateSingleTabContent( 1, <ThemePageList /> ) );
+
     if( this.props.showProductDetails )
     {
       toReturn.push( this.generateSingleTabContent( 2, <ProductDetails /> ) );
