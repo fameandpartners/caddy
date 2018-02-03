@@ -287,7 +287,7 @@ class ThemePage extends React.Component
 
   shouldCheck( styleNumber, customizationCode )
   {
-    return this.state.productCustomizations[ styleNumber ].indexOf( customizationCode ) != -1;
+    return this.state.productCustomizations[ styleNumber ] && this.state.productCustomizations[ styleNumber ].indexOf( customizationCode ) != -1;
   }
   
   renderCustomizationCheckbox( product, customizations, customizationIndex )
@@ -375,7 +375,7 @@ class ThemePage extends React.Component
   {
     if( position < images.length )
     {
-      return <img key={position} src={images[position]} width="284" height="284" />;
+      return <img key={position} src={images[position]} width="200" height="200" />;
     } else
     {
       return "";
@@ -384,10 +384,10 @@ class ThemePage extends React.Component
   renderImageRow( images, startingPosition )
   {
     return ( <div key={"row-" + startingPosition} className="row">
-             <div className="col-md-3">{this.renderImage( images, startingPosition )}</div>
-             <div className="col-md-3">{this.renderImage( images, startingPosition + 1 )}</div>
-             <div className="col-md-3">{this.renderImage( images, startingPosition + 2 )}</div>
-             <div className="col-md-3">{this.renderImage( images, startingPosition + 3)}</div>
+             <div className="col-md-2">{this.renderImage( images, startingPosition )}</div>
+             <div className="col-md-2">{this.renderImage( images, startingPosition + 1 )}</div>
+             <div className="col-md-2">{this.renderImage( images, startingPosition + 2 )}</div>
+             <div className="col-md-2">{this.renderImage( images, startingPosition + 3)}</div>
              </div> );
   }
   
@@ -570,7 +570,7 @@ class ThemePage extends React.Component
             <div className="container">
               <div className="row">
                 <div className="col-md-12">
-                  <h2>Sample Page</h2>
+                  <h2>{this.state.pageName}</h2>
                 </div>          
               </div>
               <div className="row">
