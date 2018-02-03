@@ -448,19 +448,62 @@ class ThemePage extends React.Component
     });
     
   }
+  downcaseCustomizationCodes( customizations )
+  {
+    return customizations.map( (code) => code.toLowerCase() );
+  }
+  
+  buildProductsJson( customizations )
+  {
+    let styleNumbers = Object.keys( customizations );
+    let toReturn = [];
+
+    for( let i = 0; i < styleNumbers.length; i++ )
+    {
+      toReturn.push( { style_number: styleNumbers[i].toLowerCase(), customization_ids: this.downcaseCustomizationCodes( customizations[styleNumbers[i]])} );
+    }
+    return toReturn;
+  }
+  
+  exportJson()
+  {
+    let exportJson = {
+      title: this.state.pageName,
+      url: this.state.pageUrl,
+      colors: this.state.colors,
+      length: this.state.length,
+      products: this.buildProductsJson( this.state.productCustomizations )
+    };
+    
+    var blobdata = new Blob([JSON.stringify(exportJson)],{type : 'application/json'});
+    let link = document.createElement("a");
+    link.setAttribute("href",  window.URL.createObjectURL(blobdata));
+    link.setAttribute("download", "theme.json");
+    link.click();
+    
+  }
+  
   renderConfiguration()
   {
     return(
       <div className="container">
         <div className="row">
-          <div className="col-md-2">
+          <div className="col-md-1">
             <span>
               <button onClick={() => this.props.changeCurrentPage( 'list' )}>Back</button>
             </span>
+          </div>
+          <div className="col-md-1">
             <span>
               <button onClick={() => this.save()}>Save</button>
             </span>
           </div>
+          <div className="col-md-1">
+            <span>
+              <button onClick={() => this.exportJson()}>JSON</button>
+            </span>
+          </div>
+
         </div>        
         <div className="row">
           <div className="col-md-2">
