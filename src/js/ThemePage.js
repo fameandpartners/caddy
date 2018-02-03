@@ -235,7 +235,6 @@ class ThemePage extends React.Component
           </span>
       );
     }
-    
   }
   
   renderProducts()
@@ -317,6 +316,25 @@ class ThemePage extends React.Component
    
     return toReturn;
   }
+  checkAllCustomizationCheckBoxes( styleNumber )
+  {
+    let selectedCustomizations = this.state.productCustomizations[styleNumber] || ['default'];
+    let product = this.state.loadedProducts[ styleNumber];
+    for( let i = 0; i < product.customizations.length; i++ )
+    {
+      if( selectedCustomizations.indexOf( product.customizations[i].code ) == -1 )
+      {
+        selectedCustomizations.push( product.customizations[i].code );
+      }
+    }
+    
+    this.state.productCustomizations[styleNumber] = selectedCustomizations;
+    this.setState(
+      {
+        productCustomizations: this.state.productCustomizations
+      } );
+  }
+  
   renderProductCustomizations()
   {
     let toReturn = [];
@@ -332,7 +350,7 @@ class ThemePage extends React.Component
       if( product )
       {
         toReturn.push( <div key={"customizations-" + product.details.id}>
-                       <h4><u>{product.details.id} - {product.details.name}</u></h4>
+                       <h4><u>{product.details.id} - {product.details.name}</u> <span style={{'font-size': 'normal'}}><button onClick={ () => this.checkAllCustomizationCheckBoxes( product.details.id )}>select all</button></span></h4>
                        <table>{this.generateCustomizationRows(product)}</table>
                        </div> );
       }
