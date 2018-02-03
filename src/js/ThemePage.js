@@ -27,6 +27,7 @@ class ThemePage extends React.Component
       pageUrl: null
     };
     this.colorCheckBoxes = {};
+    this.customizationCheckBoxes = {};
   }
 
   updateSelectedCustomizations( event )
@@ -201,7 +202,6 @@ class ThemePage extends React.Component
     let selectedProducts = this.state.selectedProducts;
     selectedProducts.push( styleNumber );
     this.loadProduct( styleNumber);
-    
     this.setState( {
       selectedProducts: selectedProducts
     } );
@@ -285,12 +285,17 @@ class ThemePage extends React.Component
       </select>;
   }
 
+  shouldCheck( styleNumber, customizationCode )
+  {
+    return this.state.productCustomizations[ styleNumber ].indexOf( customizationCode ) != -1;
+  }
+  
   renderCustomizationCheckbox( product, customizations, customizationIndex )
   {
     if( customizationIndex < customizations.length )
     {
       let item = customizations[ customizationIndex ];
-      return <div key={product.details.id + "-" + item.code}><input type="checkbox" name={product.details.id + "/" + item.code} onChange={this.updateSelectedCustomizations}/> {item.code} - {item.name} </div>;
+      return <div key={product.details.id + "-" + item.code}><input ref={ (ref) => this.customizationCheckBoxes[product.details.id + "/" + item.code] = ref }  type="checkbox" name={product.details.id + "/" + item.code} onChange={this.updateSelectedCustomizations} checked={this.shouldCheck( product.details.id, item.code )}/> {item.code} - {item.name} </div>;
       
     } else
     {
