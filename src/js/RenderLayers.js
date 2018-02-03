@@ -77,8 +77,6 @@ class RenderLayerItem extends React.Component
     this.updateWithLatestState( nextProps );
   }
 
-  componentD
-
   setSelected( selected )
   {
     this.setState(

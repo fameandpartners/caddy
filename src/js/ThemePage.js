@@ -6,8 +6,39 @@ import request from 'superagent';
 import { connect } from 'react-redux';
 import * as AppActions from './actions/AppActions';
 import uuidv4 from 'uuid/v4';
+import DraggableList from 'react-draggable-list';
 
 const FIREBASE_URL = process.env.FIREBASE_URL;
+
+class SortedItem extends React.Component
+{
+
+  constructor( props )
+  {
+    super( props );
+    autoBind( this );
+    this.state = {
+      item: null
+    };        
+  }
+
+  findColorName( code )
+  {
+    return this.props.commonProps.find( ( element ) => element[0] == code );
+  }
+  
+  render()
+  {
+    return (
+      <div key={this.props.item}>
+        <div className="row">
+          <div className="col-md-12">{this.props.dragHandle(<div className="dragHandle" />)} <b>{this.findColorName( this.props.item )[1]} </b></div>
+        </div>
+      </div>        
+    );
+  }
+}
+
 
 class ThemePage extends React.Component
 {
@@ -177,6 +208,25 @@ class ThemePage extends React.Component
         </div>        
       );
     };
+    let context = this;
+    if( this.state.colors.length > 0 )
+    {
+      toReturn.push( <h3>Sort Colors</h3> );
+      toReturn.push(
+        <div className="row" key="color-sort">
+          <div className="col-md-6">
+            <DraggableList itemKey={(code) => code}
+              template={SortedItem}
+              list={this.state.colors}
+              commonProps={colors}
+              onMoveEnd ={ newList => context.setState( { colors: newList}) }                  
+              />
+          </div>          
+        </div>
+      );
+    }
+
+
     return toReturn;
   }
 
