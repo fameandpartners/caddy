@@ -42,7 +42,7 @@ class ThemeList extends React.Component
   renderThemes( themesJSON )
   {
     let toReturn = [];
-    let keys = Object.keys( themesJSON );
+    let keys = Object.keys( themesJSON || {});
     for( let i = 0; i < keys.length; i++ )
     {
       toReturn.push( <li key={keys[i]} ><div className="row"><div className="col-md-2" >{themesJSON[keys[i]].pageName}</div><div className="col-md-2" ><button onClick={ () => this.props.changeCurrentPage( 'load', themesJSON[keys[i]] )}>Load</button></div></div></li> );
