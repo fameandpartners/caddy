@@ -10,7 +10,38 @@ import DraggableList from 'react-draggable-list';
 
 const FIREBASE_URL = process.env.FIREBASE_URL;
 
-class SortedItem extends React.Component
+class ProductSortedItem extends React.Component
+{
+
+  constructor( props )
+  {
+    super( props );
+    autoBind( this );
+    this.state = {
+      item: null
+    };        
+  }
+  
+  render()
+  {
+
+    if( this.props.commonProps[this.props.item] )
+    {
+      return (
+        <div key={this.props.item}>
+          <div className="row">
+            <div className="col-md-12">{this.props.dragHandle(<div className="dragHandle" />)} <b>{this.props.item}</b> - {this.props.commonProps[this.props.item].name}</div>
+          </div>
+          </div>        
+      );
+    } else
+    {
+      return null;
+    }
+  }
+}
+
+class ColorSortedItem extends React.Component
 {
 
   constructor( props )
@@ -211,12 +242,12 @@ class ThemePage extends React.Component
     let context = this;
     if( this.state.colors.length > 0 )
     {
-      toReturn.push( <h3>Sort Colors</h3> );
+      toReturn.push( <h3 key="sort-colors-key">Sort Colors</h3> );
       toReturn.push(
         <div className="row" key="color-sort">
           <div className="col-md-6">
             <DraggableList itemKey={(code) => code}
-              template={SortedItem}
+              template={ColorSortedItem}
               list={this.state.colors}
               commonProps={colors}
               onMoveEnd ={ newList => context.setState( { colors: newList}) }                  
@@ -315,6 +346,24 @@ class ThemePage extends React.Component
             </div>
           </li> );
       });
+
+      if( this.state.colors.length > 0 )
+      {
+        toReturn.push( <h3 key="sort-products-title">Sort Products</h3> );
+        toReturn.push(
+          <div className="row" key="color-sort">
+            <div className="col-md-6">
+              <DraggableList itemKey={(code) => code}
+                template={ProductSortedItem}
+                list={this.state.selectedProducts}
+                commonProps={productsJSON}
+                onMoveEnd ={ newList => context.setState( { selectedProducts: newList}) }
+                />
+            </div>          
+          </div>
+        );
+    }
+      
       return toReturn;
     } else
     {
