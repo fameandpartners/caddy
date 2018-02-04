@@ -518,6 +518,11 @@ class ThemePage extends React.Component
     return toReturn;
   }
 
+  translateJumpsuitLength( length )
+  {
+    return { micro_mini: 'cheeky', mini: 'short', midi: 'midi', ankle: 'ankle', maxi: 'full' }[length.toLowerCase()];
+  }
+  
   buildJumpsuitImageUrls( length, color, styleNumber, customizationList )
   {
     let toReturn = [];
@@ -527,11 +532,11 @@ class ThemePage extends React.Component
       let customizationCode = customizationList[i];
       if( customizationCode.toLowerCase().charAt( 0 ) == 't' )
       {
-        toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/800x800/b6-${customizationCode}-${length}-front-${color}.png`.toLowerCase() );
-        toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/800x800/b7-${customizationCode}-${length}-front-${color}.png`.toLowerCase() );
+        toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/800x800/b6-${customizationCode}-${this.translateJumpsuitLength(length)}-front-${color}.png`.toLowerCase() );
+        toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/800x800/b7-${customizationCode}-${this.translateJumpsuitLength(length)}-front-${color}.png`.toLowerCase() );
       } else
       {
-        toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/800x800/${customizationCode}-${length}-front-${color}.png`.toLowerCase() );
+        toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/800x800/${customizationCode}-${this.translateJumpsuitLength(length)}-front-${color}.png`.toLowerCase() );
       }
       
     }
