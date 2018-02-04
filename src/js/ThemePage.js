@@ -511,7 +511,7 @@ class ThemePage extends React.Component
     for( let i = 0; customizationList && i < customizationList.length; i++ )
     {
       let customizationCode = customizationList[i];
-      toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/142x142/${customizationCode}-${length}-front-${color}.png`.toLowerCase() );
+      toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/800x800/${customizationCode}-${length}-front-${color}.png`.toLowerCase() );
       
     }
     
@@ -527,11 +527,11 @@ class ThemePage extends React.Component
       let customizationCode = customizationList[i];
       if( customizationCode.toLowerCase().charAt( 0 ) == 't' )
       {
-        toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/142x142/b6-${customizationCode}-${length}-front-${color}.png`.toLowerCase() );
-        toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/142x142/b7-${customizationCode}-${length}-front-${color}.png`.toLowerCase() );
+        toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/800x800/b6-${customizationCode}-${length}-front-${color}.png`.toLowerCase() );
+        toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/800x800/b7-${customizationCode}-${length}-front-${color}.png`.toLowerCase() );
       } else
       {
-        toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/142x142/${customizationCode}-${length}-front-${color}.png`.toLowerCase() );
+        toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/800x800/${customizationCode}-${length}-front-${color}.png`.toLowerCase() );
       }
       
     }
