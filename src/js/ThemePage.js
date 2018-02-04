@@ -517,6 +517,32 @@ class ThemePage extends React.Component
     
     return toReturn;
   }
+
+  buildJumpsuitImageUrls( length, color, styleNumber, customizationList )
+  {
+    let toReturn = [];
+
+    for( let i = 0; customizationList && i < customizationList.length; i++ )
+    {
+      let customizationCode = customizationList[i];
+      if( customizationCode.toLowerCase().charAt( 0 ) == 't' )
+      {
+        toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/142x142/b6-${customizationCode}-${length}-front-${color}.png`.toLowerCase() );
+        toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/142x142/b7-${customizationCode}-${length}-front-${color}.png`.toLowerCase() );
+      } else
+      {
+        toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/142x142/${customizationCode}-${length}-front-${color}.png`.toLowerCase() );
+      }
+      
+    }
+    
+    return toReturn;
+  }
+  
+  isJumpSuit( styleNumber )
+  {
+    return styleNumber.toLowerCase().indexOf( "-js" ) != -1;
+  }
   
   buildSetOfImagesToRender()
   {
@@ -528,7 +554,14 @@ class ThemePage extends React.Component
       for( let j = 0; j < this.state.colors.length; j++ )
       {
         let colorCode = this.state.colors[j];
-        toReturn = toReturn.concat( this.buildDressImageUrls( this.state.length, colorCode, styleNumber, customizations ) );
+        if( this.isJumpSuit( styleNumber ) )
+        {
+          toReturn = toReturn.concat( this.buildJumpsuitImageUrls( this.state.length, colorCode, styleNumber, customizations ) );
+          
+        } else
+        {
+          toReturn = toReturn.concat( this.buildDressImageUrls( this.state.length, colorCode, styleNumber, customizations ) );
+        }
       }
     }
     return toReturn;
