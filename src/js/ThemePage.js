@@ -648,7 +648,26 @@ class ThemePage extends React.Component
   {
     return customizations.map( (code) => code.toLowerCase() );
   }
-  
+
+  addJumpsuitCustomizations( customizations )
+  {
+    let toReturn = [];
+    for( let i = 0; i < customizations.length; i++ )
+    {
+      let customization = customizations[i].toLowerCase();
+
+      if( customization.charAt( 0 ) == 't' )
+      {
+        toReturn.push( 'b6-' + customization );
+        toReturn.push( 'b7-' + customization );
+      } else
+      {
+        toReturn.push( customization );
+      }
+    }
+
+    return toReturn;
+  }
   buildProductsJson( customizations )
   {
     let styleNumbers = Object.keys( customizations );
@@ -656,7 +675,14 @@ class ThemePage extends React.Component
 
     for( let i = 0; i < styleNumbers.length; i++ )
     {
-      toReturn.push( { style_number: styleNumbers[i].toLowerCase(), customization_ids: this.downcaseCustomizationCodes( customizations[styleNumbers[i]])} );
+      if( this.isJumpSuit( styleNumbers[i] ) )
+      {
+        toReturn.push( { style_number: styleNumbers[i].toLowerCase(), customization_ids: this.downcaseCustomizationCodes( this.addJumpsuitCustomizations( customizations[styleNumbers[i]]))}  );
+        
+      } else
+      {
+        toReturn.push( { style_number: styleNumbers[i].toLowerCase(), customization_ids: this.downcaseCustomizationCodes( customizations[styleNumbers[i]])} );
+      }
     }
     return toReturn;
   }
