@@ -701,11 +701,17 @@ class ThemePage extends React.Component
       length: this.state.length,
       products: this.buildProductsJson( this.state.productCustomizations )
     };
-    
+
+    let filename= 'theme.json';
+    if( this.state.pageName )
+    {
+      filename = this.state.pageName.toLowerCase().replace(/[^a-z]/g, ' ') .split(/\s+/).join('-') + ".json";
+
+    }
     var blobdata = new Blob([JSON.stringify(exportJson)],{type : 'application/json'});
     let link = document.createElement("a");
     link.setAttribute("href",  window.URL.createObjectURL(blobdata));
-    link.setAttribute("download", "theme.json");
+    link.setAttribute("download", filename);
     link.click();
     
   }
