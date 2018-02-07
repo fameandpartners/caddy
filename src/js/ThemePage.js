@@ -427,10 +427,28 @@ class ThemePage extends React.Component
     }
   }
 
+  uppercaseLengthName( lowercaseLengthName )
+  {
+    return lowercaseLengthName.split( "_" ).map( length => (length.charAt(0).toUpperCase() + length.slice(1)) ).join( "-" );
+  }
+  
+  filterOutInvalidCustomizations( product, customizations, length )
+  {
+    let invalidCombinations = product.invalidCombinations[this.uppercaseLengthName( length )];
+    if( invalidCombinations )
+    {
+      return customizations.filter( customization => invalidCombinations[customization.id] != true );
+    } else
+    {
+      return customizations;
+    }
+
+    
+  }
   generateCustomizationRows( product )
   {
     let toReturn =[];
-    let customizations = product.customizations;
+    let customizations = this.filterOutInvalidCustomizations( product, product.customizations, this.state.length );
     for( let j = 0; j < customizations.length; j+= 3 )
         {
           toReturn.push( <tr key={"customization-row-" + product.id + "-" + j}>
