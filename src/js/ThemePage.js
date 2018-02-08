@@ -599,7 +599,7 @@ class ThemePage extends React.Component
 
   translateJumpsuitLength( length )
   {
-    return { micro_mini: 'cheeky', mini: 'short', midi: 'midi', ankle: 'ankle', maxi: 'full' }[length.toLowerCase()];
+    return { micro_mini: 'cheeky', mini: 'short', midi: 'midi', knee: 'midi', ankle: 'ankle', maxi: 'full' }[length.toLowerCase()];
   }
 
   jumpsuitLengthHasPants()
