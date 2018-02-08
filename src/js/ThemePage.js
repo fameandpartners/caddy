@@ -429,7 +429,6 @@ class ThemePage extends React.Component
 
   uppercaseLengthName( lowercaseLengthName, product )
   {
-    console.log( lowercaseLengthName );
     if( this.isJumpSuit( product.details.id ) )
     {
       lowercaseLengthName = this.translateJumpsuitLength( lowercaseLengthName );
@@ -469,7 +468,7 @@ class ThemePage extends React.Component
           } else
           {
             let fullCustomization = product.customizations.find( customization => customization.code == code );
-            if( invalidCombinations[fullCustomization.id] != true )
+            if( fullCustomization && invalidCombinations[fullCustomization.id] != true )
             {
               toReturn.push( code );
             }
