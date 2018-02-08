@@ -452,27 +452,33 @@ class ThemePage extends React.Component
   
   filterOutInvalidCustomizationsByCode( product, customizationsAsCode, length )
   {
-    let invalidCombinations = product.invalidCombinations[this.uppercaseLengthName( length, product )];
-    if( invalidCombinations )
-    {    
-      let toReturn = [];
+    if( length && product )
+    {
+      let invalidCombinations = product.invalidCombinations[this.uppercaseLengthName( length, product )];
+      if( invalidCombinations )
+      {    
+        let toReturn = [];
 
-      for( let i = 0; i < customizationsAsCode.length; i++ )
-      {
-        let code = customizationsAsCode[i];
-        if( code == 'default' )
+        for( let i = 0; i < customizationsAsCode.length; i++ )
         {
-          toReturn.push( code );
-        } else
-        {
-          let fullCustomization = product.customizations.find( customization => customization.code == code );
-          if( invalidCombinations[fullCustomization.id] != true )
+          let code = customizationsAsCode[i];
+          if( code == 'default' )
           {
             toReturn.push( code );
+          } else
+          {
+            let fullCustomization = product.customizations.find( customization => customization.code == code );
+            if( invalidCombinations[fullCustomization.id] != true )
+            {
+              toReturn.push( code );
+            }
           }
         }
+        return toReturn;
+      } else
+      {
+        return customizationsAsCode;
       }
-      return toReturn;
     } else
     {
       return customizationsAsCode;
@@ -481,10 +487,16 @@ class ThemePage extends React.Component
 
   filterOutInvalidCustomizations( product, customizations, length )
   {
-    let invalidCombinations = product.invalidCombinations[this.uppercaseLengthName( length, product )];
-    if( invalidCombinations )
+    if( length && product )
     {
-      return customizations.filter( customization => invalidCombinations[customization.id] != true );
+      let invalidCombinations = product.invalidCombinations[this.uppercaseLengthName( length, product )];
+      if( invalidCombinations )
+      {
+        return customizations.filter( customization => invalidCombinations[customization.id] != true );
+      } else
+      {
+        return customizations;
+      }
     } else
     {
       return customizations;
