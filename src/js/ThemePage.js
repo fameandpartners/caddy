@@ -429,6 +429,7 @@ class ThemePage extends React.Component
 
   uppercaseLengthName( lowercaseLengthName, product )
   {
+    console.log( lowercaseLengthName );
     if( this.isJumpSuit( product.details.id ) )
     {
       lowercaseLengthName = this.translateJumpsuitLength( lowercaseLengthName );
