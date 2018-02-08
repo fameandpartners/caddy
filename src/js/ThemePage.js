@@ -427,14 +427,61 @@ class ThemePage extends React.Component
     }
   }
 
-  uppercaseLengthName( lowercaseLengthName )
+  uppercaseLengthName( lowercaseLengthName, product )
   {
+    if( this.isJumpSuit( product.details.id ) )
+    {
+      lowercaseLengthName = this.translateJumpsuitLength( lowercaseLengthName );
+    }
+    
     return lowercaseLengthName.split( "_" ).map( length => (length.charAt(0).toUpperCase() + length.slice(1)) ).join( "-" );
+
+  }
+
+  filterOutAllInvalidProductCustomizationsByCode( productCustomizations, length)
+  {
+    let productStyleNumbers = Object.keys( productCustomizations );
+    for( let i = 0; i < productStyleNumbers.length; i++ )
+    {
+      let styleNumber = productStyleNumbers[i];
+      productCustomizations[styleNumber] = this.filterOutInvalidCustomizationsByCode( this.state.loadedProducts[ styleNumber ],
+                                                                                 productCustomizations[styleNumber], length );
+    }
+    return productCustomizations;
   }
   
+  filterOutInvalidCustomizationsByCode( product, customizationsAsCode, length )
+  {
+    let invalidCombinations = product.invalidCombinations[this.uppercaseLengthName( length, product )];
+    if( invalidCombinations )
+    {    
+      let toReturn = [];
+
+      for( let i = 0; i < customizationsAsCode.length; i++ )
+      {
+        let code = customizationsAsCode[i];
+        if( code == 'default' )
+        {
+          toReturn.push( code );
+        } else
+        {
+          let fullCustomization = product.customizations.find( customization => customization.code == code );
+          if( invalidCombinations[fullCustomization.id] != true )
+          {
+            toReturn.push( code );
+          }
+        }
+      }
+      return toReturn;
+    } else
+    {
+      return customizationsAsCode;
+    }
+  }
+
   filterOutInvalidCustomizations( product, customizations, length )
   {
-    let invalidCombinations = product.invalidCombinations[this.uppercaseLengthName( length )];
+    let invalidCombinations = product.invalidCombinations[this.uppercaseLengthName( length, product )];
     if( invalidCombinations )
     {
       return customizations.filter( customization => invalidCombinations[customization.id] != true );
@@ -464,11 +511,13 @@ class ThemePage extends React.Component
   {
     let selectedCustomizations = this.state.productCustomizations[styleNumber] || ['default'];
     let product = this.state.loadedProducts[ styleNumber];
-    for( let i = 0; i < product.customizations.length; i++ )
+    let validCustomizations = this.filterOutInvalidCustomizations( product, product.customizations, this.state.length );
+    
+    for( let i = 0; i < validCustomizations.length; i++ )
     {
-      if( selectedCustomizations.indexOf( product.customizations[i].code ) == -1 )
+      if( selectedCustomizations.indexOf( validCustomizations[i].code ) == -1 )
       {
-        selectedCustomizations.push( product.customizations[i].code );
+        selectedCustomizations.push( validCustomizations[i].code );
       }
     }
     
@@ -540,7 +589,11 @@ class ThemePage extends React.Component
   {
     return { micro_mini: 'cheeky', mini: 'short', midi: 'midi', ankle: 'ankle', maxi: 'full' }[length.toLowerCase()];
   }
-  
+
+  jumpsuitLengthHasPants()
+  {
+    return this.state.length == 'midi' || this.state.length == 'ankle' || this.state.length == 'maxi'; 
+  }
   buildJumpsuitImageUrls( length, color, styleNumber, customizationList )
   {
     let toReturn = [];
@@ -548,7 +601,7 @@ class ThemePage extends React.Component
     for( let i = 0; customizationList && i < customizationList.length; i++ )
     {
       let customizationCode = customizationList[i];
-      if( customizationCode.toLowerCase().charAt( 0 ) == 't' )
+      if( customizationCode.toLowerCase().charAt( 0 ) == 't' && this.jumpsuitLengthHasPants() )
       {
         toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/800x800/b6-${customizationCode}-${this.translateJumpsuitLength(length)}-front-${color}.png`.toLowerCase() );
         toReturn.push( `http://marketing.fameandpartners.com/renders/composites/${styleNumber}/800x800/b7-${customizationCode}-${this.translateJumpsuitLength(length)}-front-${color}.png`.toLowerCase() );
@@ -635,7 +688,7 @@ class ThemePage extends React.Component
       colors:  this.state.colors,
       selectedProducts: this.state.selectedProducts,
       length: this.state.length,
-      productCustomizations: this.state.productCustomizations,
+      productCustomizations: this.filterOutAllInvalidProductCustomizationsByCode( this.state.productCustomizations, this.state.length) ,
       id: this.state.id,
       pageName: this.state.pageName,
       pageUrl: this.state.pageUrl
@@ -679,7 +732,7 @@ class ThemePage extends React.Component
     {
       let customization = customizations[i].toLowerCase();
 
-      if( customization.charAt( 0 ) == 't' )
+      if( customization.charAt( 0 ) == 't' && this.jumpsuitLengthHasPants() )
       {
         toReturn.push( 'b6-' + customization );
         toReturn.push( 'b7-' + customization );
