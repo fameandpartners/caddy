@@ -95,7 +95,6 @@ class UploadProduct extends React.Component
     for( let i = 0; i < this.state.product.details.lengths.length; i++ )
     {
       let length = this.state.product.details.lengths[i];
-      console.log( "Working on: " + length.name );
       this.setState( {
         workingOn: length.name
       } );
@@ -176,17 +175,21 @@ class UploadProduct extends React.Component
   {
     return this.state.product.version;
   }
-  
-  post()
+
+  jsonToSave()
   {
-    console.log( 'Posting to ' + this.url.value );
-    let toPost = {
+    return {
       details: this.buildDetails(),
       style_number: this.buildStyleNumber(),
       version: this.buildVersion(),
       customization_list: this.buildCustomizationList(),
       customization_visualization_list: this.buildCustomizationVisualizationList()
     };
+  }
+  post()
+  {
+    console.log( 'Posting to ' + this.url.value );
+    let toPost = this.jsonToSave();
     console.log( "ToPost = " );
     console.log(  toPost );    
     request.put( this.url.value )
@@ -203,6 +206,23 @@ class UploadProduct extends React.Component
   }
 
 
+  exportJson()
+  {
+    let exportJson = this.jsonToSave();
+    let filename= 'product.json';
+    if( this.state.product.details )
+    {
+      filename = this.state.product.details.id.toLowerCase() + ".json";
+
+    }
+    var blobdata = new Blob([JSON.stringify(exportJson)],{type : 'application/json'});
+    let link = document.createElement("a");
+    link.setAttribute("href",  window.URL.createObjectURL(blobdata));
+    link.setAttribute("download", filename);
+    link.click();
+    
+  }
+  
   updateWithLatestState( props )
   {
     this.setState( {
@@ -249,6 +269,10 @@ class UploadProduct extends React.Component
           <div className="col-md-2">
             <button onClick={this.post}>Post</button>
           </div>
+          <div className="col-md-2">
+            <button onClick={this.exportJson}>Save JSON</button>
+          </div>
+          
         </div>
         <div className="row">
           <div className="col-md-2">
