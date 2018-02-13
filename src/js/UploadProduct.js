@@ -163,7 +163,6 @@ class UploadProduct extends React.Component
     }
 
     return toReturn;
-      
   }
   
   buildStyleNumber()
