@@ -1,0 +1,29 @@
+.heirarchy-row
+{
+    min-height: 150px;
+    background-color: #f1f1f1;
+}
+
+.heirarchy-button
+{
+    display: table;
+    height: 140px;
+    margin-top: 5px;
+    min-width: 100px;
+    overflow: hidden;
+    border-width: 1px;
+    border-color: #b9b9b9;
+    border-style: solid;
+    border-radius:  10px;
+    &:hover
+    {
+        background-color: #c6c6c6;
+        cursor: pointer;
+    }
+    
+    .heirarchy-button-text
+    {
+        display: table-cell;
+        vertical-align: middle;
+    }
+}

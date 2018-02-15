@@ -13,6 +13,7 @@ import RenderLayers from './RenderLayers';
 import ProductImages from './ProductImages';
 import UploadProduct from './UploadProduct';
 import ThemePageList from './ThemePageList';
+import ProductAdventure from './ProductAdventure.js';
 
 class Home extends React.Component
 {
@@ -54,7 +55,8 @@ class Home extends React.Component
   generateTabs()
   {
     let toReturn = [];
-    toReturn.push( this.generateTab( 0, "Load Product" )  );
+    toReturn.push( this.generateTab( 0, "CYOA" ) );    
+//    toReturn.push( this.generateTab( 0, "Load Product" )  );
     toReturn.push( this.generateTab( 1, "Theme Pages" ) );
     
     if( this.props.showProductDetails )
@@ -71,73 +73,56 @@ class Home extends React.Component
 
     if( this.props.showCustomizations )
     {
-      toReturn.push( this.generateTab( 4, "Customizations" )  );
-
-      let i = 0;
-      for(; this.props.product && i < this.props.product.details.lengths.length; i++ )
-      {
-        toReturn.push( this.generateTab( 5 + i, this.props.product.details.lengths[i].name ) );
-      }
-      toReturn.push( this.generateTab( 6 + i, "Renders" )  );      
-      toReturn.push( this.generateTab( 7 + i, "Combinations Test" )  );          
-      toReturn.push( this.generateTab( 8 + i, "Upload" )  );          
-      
+      toReturn.push( this.generateTab( 4, "CYOA" ) );
     }
-    return toReturn;
-  }
+  
+  return toReturn;
+}
 
-  generateSingleTabContent( index, object )
+generateSingleTabContent( index, object )
+{
+  return( <div key={"tab-content-" + index} className={this.state.activeTab == index ? "tab-pane active" : "tab-pane"} id={index}>{object}</div> );
+  
+}
+generateAllTabContent()
+{
+  let toReturn = [];
+  toReturn.push( this.generateSingleTabContent( 0, <ProductAdventure /> ) );  
+//  toReturn.push( this.generateSingleTabContent( 0, <ProductsList /> ) );    
+  toReturn.push( this.generateSingleTabContent( 1, <ThemePageList /> ) );
+
+  if( this.props.showProductDetails )
   {
-    return( <div key={"tab-content-" + index} className={this.state.activeTab == index ? "tab-pane active" : "tab-pane"} id={index}>{object}</div> );
+    toReturn.push( this.generateSingleTabContent( 2, <ProductDetails /> ) );
+    toReturn.push( this.generateSingleTabContent( 3, <ProductImages /> ) );
     
   }
-  generateAllTabContent()
+
+  if( this.props.showCustomizations )
   {
-    let toReturn = [];
-    toReturn.push( this.generateSingleTabContent( 0, <ProductsList /> ) );    
-    toReturn.push( this.generateSingleTabContent( 1, <ThemePageList /> ) );
-
-    if( this.props.showProductDetails )
-    {
-      toReturn.push( this.generateSingleTabContent( 2, <ProductDetails /> ) );
-      toReturn.push( this.generateSingleTabContent( 3, <ProductImages /> ) );
-      
-    }
-
-    if( this.props.showCustomizations )
-    {
-      toReturn.push( this.generateSingleTabContent( 4, <CustomizationList updateCustomizations={this.updateCustomizationList} customizationList={this.state.customizationList} />) );
-
-      let i = 0;
-      for( ; this.props.product && i < this.props.product.details.lengths.length; i++ )
-      {
-        toReturn.push( this.generateSingleTabContent( 5 + i, <CombinationGrid customizationList={this.state.customizationList} forLength={this.props.product.details.lengths[i].name }/> ) );
-      }
-      
-      toReturn.push( this.generateSingleTabContent( 6 + i, <RenderLayers/> ) );
-      toReturn.push( this.generateSingleTabContent( 7 + i, <CombinationList/> ) );
-      toReturn.push( this.generateSingleTabContent( 8 + i, <UploadProduct/> ) );
-    }
+    toReturn.push( this.generateSingleTabContent( 4, <ProductAdventure /> ) );
     
-    return toReturn;
   }
   
-  render() {
-    return (
-      <div>
-        <div id="exTab2" className="container">	
-          <ul className="nav nav-tabs">
-            {this.generateTabs()}
-	  </ul>
+  return toReturn;
+}
 
-	  <div className="tab-content ">
-            {this.generateAllTabContent()}
-	  </div>
-        </div>
-        
+render() {
+  return (
+    <div>
+      <div id="exTab2" className="container">	
+        <ul className="nav nav-tabs">
+          {this.generateTabs()}
+	</ul>
+
+	<div className="tab-content ">
+          {this.generateAllTabContent()}
+	</div>
       </div>
-    );
-  }
+      
+    </div>
+  );
+}
 }
 
 function stateToProps(state)
