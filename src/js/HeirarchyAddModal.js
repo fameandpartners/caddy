@@ -16,9 +16,16 @@ class HeirarchyAddModal extends React.Component
   render()
   {
     return (
-        <div>
-          Modal
+      <div className="heirarchy-add-modal">
+        <div className="heirarchy-add-modal-close" onClick={this.props.closeModal}>
+          close
+        </div>            
+        <div className="container">
+          <div className="row">
+          </div>
         </div>
+
+      </div>
     );
   }
 }

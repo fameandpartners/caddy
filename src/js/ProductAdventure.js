@@ -18,7 +18,7 @@ class ProductAdventure extends React.Component
   render()
   {
     return (
-      <div className="container">
+      <div className="container heirarchy">
         <div className="row top-margin">
           <div className="col-md-2">
             Base Top
@@ -30,10 +30,11 @@ class ProductAdventure extends React.Component
             Front
           </div>
         </div>
+        <HeirarchyRow name="Front"/>
         
         <div className="row top-margin">
           <div className="col-md-2">
-            Strops & Sleeves 
+            Straps & Sleeves 
           </div>
         </div>
         <div className="row top-margin">

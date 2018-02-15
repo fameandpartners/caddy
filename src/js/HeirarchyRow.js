@@ -22,7 +22,7 @@ class HeirarchyRow extends React.Component
   {
     if( this.state.showAddModal )
     {
-      return <HeirarchyAddModal/>;
+      return <HeirarchyAddModal closeModal={() => this.setState( { showAddModal:false } )} />;
     } else
     {
       return "";
