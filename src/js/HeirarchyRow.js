@@ -3,6 +3,7 @@ import React from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import '../css/components/HeirarchyRow.scss';
+import HeirarchyAddModal from './HeirarchyAddModal';
 
 class HeirarchyRow extends React.Component
 {
@@ -11,19 +12,35 @@ class HeirarchyRow extends React.Component
   {
     super( props );
     autoBind(this);
+    this.state = {
+      showAddModal: false,
+      components: []
+    };
   }
 
+  renderAddModal()
+  {
+    if( this.state.showAddModal )
+    {
+      return <HeirarchyAddModal/>;
+    } else
+    {
+      return "";
+    }
+  }
   render()
   {
     return (
         <div className="row top-margin heirarchy-row">
-          <div className="col-md-2 heirarchy-button">
+          <div className="col-md-2 heirarchy-button" onClick={ () => this.setState( { showAddModal: true } ) }>
             <div className="heirarchy-button-text">
               <div>
                 <center>Add</center>
               </div>
             </div>
           </div>
+
+          {this.renderAddModal()};
         </div>
     );
   }
