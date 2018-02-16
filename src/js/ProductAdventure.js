@@ -18,7 +18,6 @@ class ProductAdventure extends React.Component
       {
         heirarchy: {}
       };
- 
   }
 
   updateHeirarchy(  name ,data )
@@ -27,7 +26,6 @@ class ProductAdventure extends React.Component
     let heirarchy = this.state.heirarchy;
     
     heirarchy[name] = data;
-    console.log( heirarchy );
     this.setState( {
       heirarchy: heirarchy
     } );
@@ -66,7 +64,38 @@ class ProductAdventure extends React.Component
 
     this.updateWithLatestState( nextProps );
   }
-  
+
+
+  addLevel()
+  {
+    let levelName = this.levelName.value.trim();
+    if( levelName != "" )
+    {
+      let heirarchy = this.state.heirarchy;
+      heirarchy[levelName] = {
+        'order': Object.keys( this.state.heirarchy ).length + 1,
+        'name' : levelName,
+        'customizations': {}
+      };
+
+      this.setState( {
+        heirarchy: heirarchy
+      } );
+    }
+  }
+
+  renderHeirarchyRow( name )
+  {
+
+    return <div key={"heirarchy-row-" + name}>
+        <div className="row top-margin">
+          <div className="col-md-2">
+            {name}
+          </div>
+        </div>
+        <HeirarchyRow name={name} data={this.state.heirarchy} update={this.updateHeirarchy}/>
+    </div>;    
+  }
   render()
   {
     return (
@@ -75,36 +104,16 @@ class ProductAdventure extends React.Component
           <div className="col-md-2">
             <button onClick={this.save}>Save</button>
           </div>
-        </div>        
+        </div>
+        {Object.keys( this.state.heirarchy ).map( this.renderHeirarchyRow ) }
         <div className="row top-margin">
           <div className="col-md-2">
-            Base Top
+            <input type="text" placeholder="Level Name" ref={(input) => { this.levelName = input;  }}/>
+          </div>
+          <div className="col-md-2 text-left">
+            <button onClick={this.addLevel}>Add Level</button>
           </div>
         </div>
-        <HeirarchyRow name="Base Top" data={this.state.heirarchy} update={this.updateHeirarchy}/>
-        <div className="row top-margin">
-          <div className="col-md-2">
-            Front
-          </div>
-        </div>
-        <HeirarchyRow name="Front" data={this.state.heirarchy} update={this.updateHeirarchy}/>
-        
-        <div className="row top-margin">
-          <div className="col-md-2">
-            Straps & Sleeves 
-          </div>
-        </div>
-        <div className="row top-margin">
-          <div className="col-md-2">
-            Back
-          </div>
-        </div>
-        <div className="row top-margin">
-          <div className="col-md-2">
-            Extras
-          </div>
-        </div>
-        
       </div>
     );
   }

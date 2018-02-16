@@ -105,7 +105,7 @@ class HeirarchyRow extends React.Component
               </div>
             </div>
           </div>
-          {this.renderCustomizationSet()};
+          {this.renderCustomizationSet()}
         </div>
     );
   }
