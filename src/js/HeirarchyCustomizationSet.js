@@ -6,6 +6,7 @@ import '../css/components/HeirarchyAddModal.scss';
 import HeirarchyAddModal from './HeirarchyAddModal';
 import {createArrayGroups} from './Utils';
 import uuidv4 from 'uuid/v4';
+import CanvasImage from './CanvasImage';
 
 class HeirarchyCustomizationSet extends React.Component
 {
@@ -67,6 +68,7 @@ class HeirarchyCustomizationSet extends React.Component
     return <div key={uuid}className="col-md-2 col-md-offset-1 heirarchy-button">
             <div className="heirarchy-button-text">
               <div>
+                 <CanvasImage imageData={customizationJSON['image']} width={150} height={150}/>      
                  <center>{customizationJSON['code']}</center>
               </div>
             </div>
