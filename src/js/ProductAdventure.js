@@ -13,8 +13,25 @@ class ProductAdventure extends React.Component
   {
     super( props );
     autoBind(this);
+    this.state =
+      {
+        heirarchy: {}
+      };
+ 
   }
 
+  updateHeirarchy(  name ,data )
+  {
+    console.log( 'updating' );
+    let heirarchy = this.state.heirarchy;
+    
+    heirarchy[name] = data;
+    console.log( heirarchy );
+    this.setState( {
+      heirarchy: heirarchy
+    } );
+    
+  }
   render()
   {
     return (
@@ -24,13 +41,13 @@ class ProductAdventure extends React.Component
             Base Top
           </div>
         </div>
-        <HeirarchyRow name="Base Top"/>
+        <HeirarchyRow name="Base Top" data={this.state.heirarchy} update={this.updateHeirarchy}/>
         <div className="row top-margin">
           <div className="col-md-2">
             Front
           </div>
         </div>
-        <HeirarchyRow name="Front"/>
+        <HeirarchyRow name="Front" data={this.state.heirarchy} update={this.updateHeirarchy}/>
         
         <div className="row top-margin">
           <div className="col-md-2">

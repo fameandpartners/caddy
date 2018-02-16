@@ -16,43 +16,72 @@ class HeirarchyRow extends React.Component
     this.state = {
       showAddModal: false,
       customizations: {},
-      selectedCustomizations: []
+      selectedCustomizations: [],
+      data: {}
     };
   }
 
   addCustomizationToCustomizationSet( customizationId, json )
   {
-    let customizations = this.state.customizations;
+    let data = this.state.data;
     if( customizationId == null )
     {
       customizationId = uuidv4();
     }
-    customizations[customizationId] = json;
-
-    this.setState(
-      {
-        customizations: customizations
-      }
-    );
+    data.customizations[customizationId] = json;
+    this.setState( {
+      customizations: data.customizations
+    } );
+                   
+    this.props.update( this.props.name, data );
     
   }
 
   toggleSelectedCustomization( uuid )
   {
-    let selectedCustomizations = this.state.selectedCustomizations;
-    if( selectedCustomizations.indexOf( uuid ) == -1 )
+    let data  = this.state.data;
+    if( data.selectedCustomizations.indexOf( uuid ) == -1 )
     {
-      selectedCustomizations.push( uuid );
+      data.selectedCustomizations.push( uuid );
     } else
     {
-      selectedCustomizations.splice( selectedCustomizations.indexOf( uuid ), 1 );
+      data.selectedCustomizations.splice( data.selectedCustomizations.indexOf( uuid ), 1 );
     }
 
     this.setState( {
-      selectedCustomizations: selectedCustomizations
+      selectedCustomizations: data.selectedCustomizations
     } );
-    
+    this.props.update( this.props.name, data );
   }
+
+    
+  componentWillReceiveProps(nextProps)
+  {
+    let data = nextProps.data[nextProps.name];
+    
+    if( data == null )
+    {
+      this.setState(
+        {
+          data: { name: nextProps.name, customizations: {}, selectedCustomizations: [] }
+        } );
+    } else
+    {
+      let selectedCustomizations = data.selectedCustomizations ;
+      let customizations = data.customizations;
+      this.setState( {
+        selectedCustomizations: selectedCustomizations,
+        customizations: customizations,
+        data: data
+      } );
+    }
+
+  }
+
+    componentDidMount()
+    {
+        this.componentWillReceiveProps( this.props );
+    }
   
   renderCustomizationSet()
   {
