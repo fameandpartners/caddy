@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import CustomizationCombinations from './CustomizationCombinations';
 import RenderedCustomizationCombinationList from './RenderedCustomizationCombinationList';
 import HeirarchyRow from './HeirarchyRow';
+import * as AppActions from './actions/AppActions';
 
 class ProductAdventure extends React.Component
 {
@@ -32,10 +33,49 @@ class ProductAdventure extends React.Component
     } );
     
   }
+
+  save()
+  {
+    let product = this.state.product;
+    product.heirarchy = this.state.heirarchy;
+    
+    this.setState(
+      {
+        product
+      }
+    );
+    this.props.save( product );
+  }
+
+  updateWithLatestState( props )
+  {
+    this.setState( {
+      product: props.product,
+      heirarchy: props.heirarchy
+    } );
+  }
+
+  componentDidMount()
+  {
+
+    this.updateWithLatestState( this.props );
+  }
+  
+  componentWillReceiveProps( nextProps )
+  {
+
+    this.updateWithLatestState( nextProps );
+  }
+  
   render()
   {
     return (
       <div className="container heirarchy">
+        <div className="row top-margin">
+          <div className="col-md-2">
+            <button onClick={this.save}>Save</button>
+          </div>
+        </div>        
         <div className="row top-margin">
           <div className="col-md-2">
             Base Top
@@ -73,23 +113,19 @@ class ProductAdventure extends React.Component
 function stateToProps(state)
 {
 
-  if( state.product.details )
-  {
-    if( state.product.details.lengths == null )
-    {
-      state.product.details.lengths = [];
-    }
-  }
   return { 
-    showProductDetails: state.product && state.product.version != null,
-    showCustomizations: state.product && state.product.version != null && state.product.version > 0,
-    product: state.product
+    product: state.product,
+    heirarchy: state.product.heirarchy || {}
   };
 }
 
 function dispatchToProps(dispatch)
 {
   return {
+    save: ( value ) =>
+      {
+        dispatch(AppActions.updateProductDetails( value ));
+      }
   };
 }
 

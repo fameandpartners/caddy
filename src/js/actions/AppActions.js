@@ -58,7 +58,8 @@ export function updateProductDetails( product )
                            validCombinations: product.validCombinations,
                            invalidCombinations: product.invalidCombinations,
                            renders: product.renders,
-                           version: product.version
+                           version: product.version,
+                           heirarchy: product.heirarchy
                          } );
                        
                      } );
@@ -89,7 +90,8 @@ export function loadProduct( styleNumber, versionNumber )
           validCombinations: productJson.validCombinations,
           invalidCombinations: productJson.invalidCombinations,
           renders: productJson.renders,
-          version: versionNumber
+          version: versionNumber,
+          heirarchy: productJson.heirarchy
         } );
     } );
   };

@@ -67,8 +67,8 @@ class HeirarchyRow extends React.Component
         } );
     } else
     {
-      let selectedCustomizations = data.selectedCustomizations ;
-      let customizations = data.customizations;
+      let selectedCustomizations = data.selectedCustomizations || [];
+      let customizations = data.customizations || {};
       this.setState( {
         selectedCustomizations: selectedCustomizations,
         customizations: customizations,

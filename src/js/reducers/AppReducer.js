@@ -15,7 +15,8 @@ export default function AppReducer($$state = { details: {}, customizations: [] }
           validCombinations: action.validCombinations,
           invalidCombinations: action.invalidCombinations,
           renders: action.renders,
-          version: action.version
+          version: action.version,
+          heirarchy: action.heirarchy
         };
       }
       case 'LOAD_PRODUCT':
@@ -26,7 +27,8 @@ export default function AppReducer($$state = { details: {}, customizations: [] }
           validCombinations: action.validCombinations,
           invalidCombinations: action.invalidCombinations,
           renders: action.renders,
-          version: action.version
+          version: action.version,
+          heirarchy: action.heirarchy
         };
       }
       case 'NEW_PRODUCT':
@@ -37,7 +39,8 @@ export default function AppReducer($$state = { details: {}, customizations: [] }
           validCombinations: {},
           invalidCombinations: {},
           renders: {},
-          version: 0
+          version: 0,
+          heirarchy: {}
         };
       }
     default:
