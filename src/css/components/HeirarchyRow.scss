@@ -23,7 +23,7 @@
     
     &:hover
     {
-        background-color: #c6c6c6;
+        border-color: red;
         cursor: pointer;
     }
     .heirarchy-button-text
@@ -32,4 +32,9 @@
         vertical-align: middle;
         width: 100%;
     }
+}
+
+.heirarchy-button-has-image
+{
+    background-color: white;
 }

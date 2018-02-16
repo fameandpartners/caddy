@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import '../css/components/HeirarchyRow.scss';
 import HeirarchyCustomizationSet from './HeirarchyCustomizationSet';
 import uuidv4 from 'uuid/v4';
+import CanvasImage from './CanvasImage';
 
 class HeirarchyRow extends React.Component
 {
@@ -98,14 +99,26 @@ class HeirarchyRow extends React.Component
     }
   }
 
+  renderCanvas( customizationJSON )
+  {
+    if( customizationJSON && customizationJSON['image'] )
+    {
+      return <CanvasImage imageData={customizationJSON['image']} width={150} height={150}/>;
+    } else
+    {
+      return "";
+    }
+  }
+  
   renderSelectedCustomizations( name )
   {
 
     
-    return <div key={"select-" + name} className="col-md-2 heirarchy-button">
+    return <div key={"select-" + name} className="col-md-2 heirarchy-button heirarchy-button-has-image">
             <div className="heirarchy-button-text">
-              <div>
-                 <center>{this.state.data.customizations[name].code}</center>
+            <div>
+                {this.renderCanvas( this.state.data.customizations[name] )}
+                 <center>{this.state.data.customizations[name].name}</center>
               </div>
             </div>
       </div>;

@@ -80,12 +80,11 @@ class HeirarchyCustomizationSet extends React.Component
   
   generateCustomizationButton( uuid, customizationJSON )
   {
-    return <div key={uuid} className="col-md-2 col-md-offset-1 heirarchy-button" onClick={ () => this.props.toggleSelected( uuid ) }>
+    return <div key={uuid} className="col-md-2 col-md-offset-1 heirarchy-button heirarchy-button-has-image" onClick={ () => this.props.toggleSelected( uuid ) }>
       { this.renderSelectedCheckbox( uuid ) }
             <div className="heirarchy-button-text">
               <div>
                 {this.renderCanvas( customizationJSON )}
-
                  <center>{customizationJSON['code']}</center>
               </div>
             </div>
@@ -104,7 +103,7 @@ class HeirarchyCustomizationSet extends React.Component
     
     toRender.push( this.generateAddButton() );
     let toReturn = [];
-    let withRows = createArrayGroups( toRender, 4 );
+    let withRows = createArrayGroups( toRender, 3 );
 
     for( let i = 0; i < withRows.length; i++ )
     {
