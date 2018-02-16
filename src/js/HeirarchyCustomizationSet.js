@@ -81,7 +81,7 @@ class HeirarchyCustomizationSet extends React.Component
   generateCustomizationButton( uuid, customizationJSON )
   {
     return <div key={uuid} className="col-md-2 col-md-offset-1 heirarchy-button" onClick={ () => this.props.toggleSelected( uuid ) }>
-      { this.renderSelectedCheckbox( uuid ) };
+      { this.renderSelectedCheckbox( uuid ) }
             <div className="heirarchy-button-text">
               <div>
                 {this.renderCanvas( customizationJSON )}

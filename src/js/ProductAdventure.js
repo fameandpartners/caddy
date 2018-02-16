@@ -123,9 +123,10 @@ class ProductAdventure extends React.Component
 function stateToProps(state)
 {
 
+  let heirarchy = state.product.heirarchy || {};
   return { 
     product: state.product,
-    heirarchy: state.product.heirarchy || {}
+    heirarchy: heirarchy
   };
 }
 

@@ -57,25 +57,18 @@ class HeirarchyRow extends React.Component
     
   componentWillReceiveProps(nextProps)
   {
-    let data = nextProps.data[nextProps.name];
-    
-    if( data == null )
-    {
-      this.setState(
-        {
-          data: { name: nextProps.name, customizations: {}, selectedCustomizations: [] }
-        } );
-    } else
-    {
-      let selectedCustomizations = data.selectedCustomizations || [];
-      let customizations = data.customizations || {};
-      this.setState( {
-        selectedCustomizations: selectedCustomizations,
-        customizations: customizations,
-        data: data
-      } );
-    }
+    let data = nextProps.data[nextProps.name] || {};
 
+    data.customizations = data.customizations || {};
+    data.selectedCustomizations = data.selectedCustomizations || [];
+    
+    let selectedCustomizations = data.selectedCustomizations || [];
+    let customizations = data.customizations || {};
+    this.setState( {
+      selectedCustomizations: selectedCustomizations,
+      customizations: customizations,
+      data: data
+    } );
   }
 
     componentDidMount()
@@ -96,7 +89,6 @@ class HeirarchyRow extends React.Component
 
   renderDisabled()
   {
-    console.log( "disabled - " + this.props.disabled );
     if( this.props.disabled )
     {
       return <span>Disabled</span>;
@@ -105,11 +97,27 @@ class HeirarchyRow extends React.Component
       return "";
     }
   }
+
+  renderSelectedCustomizations( name )
+  {
+
+    
+    return <div key={"select-" + name} className="col-md-2 heirarchy-button">
+            <div className="heirarchy-button-text">
+              <div>
+                 <center>{this.state.data.customizations[name].code}</center>
+              </div>
+            </div>
+      </div>;
+    
+    
+  }
   render()
   {
     return (
       <div className="row top-margin heirarchy-row">
         {this.renderDisabled()}
+        {(this.state.data.selectedCustomizations || []).map(this.renderSelectedCustomizations)}
           <div className="col-md-2 heirarchy-button" onClick={ () => this.setState( { showAddModal: true } ) }>
             <div className="heirarchy-button-text">
               <div>
