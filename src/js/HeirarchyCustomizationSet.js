@@ -17,7 +17,8 @@ class HeirarchyCustomizationSet extends React.Component
     autoBind(this);
     this.state = {
       showAddModal: false,
-      customizations: {}
+      customizations: {},
+      selectedCustomizations: []
     };
   }
 
@@ -63,12 +64,50 @@ class HeirarchyCustomizationSet extends React.Component
 
   }
 
+  toggleSelected( uuid )
+  {
+    let selectedCustomizations = this.state.selectedCustomizations;
+    if( selectedCustomizations.indexOf( uuid ) == -1 )
+    {
+      selectedCustomizations.push( uuid );
+    } else
+    {
+      selectedCustomizations.splice( selectedCustomizations.indexOf( uuid ), 1 );
+    }
+
+    this.setState( {
+      selectedCustomizations: selectedCustomizations
+    } );
+  }
+
+  renderSelectedCheckbox( uuid )
+  {
+    if( this.state.selectedCustomizations.indexOf( uuid ) == -1 )
+    {
+      return "";
+    } else
+    {
+      return <img className="selected-check-box" src="/check.png" height="25" width="25" />;
+    }
+  }
+  renderCanvas( customizationJSON )
+  {
+    if( customizationJSON && customizationJSON['image'] )
+    {
+      return <CanvasImage imageData={customizationJSON['image']} width={150} height={150}/>;
+    } else
+    {
+      return "";
+    }
+  }
   generateCustomizationButton( uuid, customizationJSON )
   {
-    return <div key={uuid}className="col-md-2 col-md-offset-1 heirarchy-button">
+    return <div key={uuid} className="col-md-2 col-md-offset-1 heirarchy-button" onClick={ () => this.toggleSelected( uuid ) }>
+      { this.renderSelectedCheckbox( uuid ) };
             <div className="heirarchy-button-text">
               <div>
-                 <CanvasImage imageData={customizationJSON['image']} width={150} height={150}/>      
+                {this.renderCanvas( customizationJSON )}
+
                  <center>{customizationJSON['code']}</center>
               </div>
             </div>
