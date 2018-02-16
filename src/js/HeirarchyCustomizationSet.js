@@ -16,9 +16,7 @@ class HeirarchyCustomizationSet extends React.Component
     super( props );
     autoBind(this);
     this.state = {
-      showAddModal: false,
-      customizations: {},
-      selectedCustomizations: []
+      showAddModal: false
     };
   }
 
@@ -26,19 +24,13 @@ class HeirarchyCustomizationSet extends React.Component
 
   addCustomization( customizationId, json )
   {
-    let customizations = this.state.customizations;
-    if( customizationId == null )
-    {
-      customizationId = uuidv4();
-    }
-    customizations[customizationId] = json;
-
+    this.props.addCustomization( customizationId, json );
     this.setState(
       {
-        customizations: customizations,
         showAddModal: false
       }
     );
+    
   }
   
   renderAddModal()
@@ -64,25 +56,10 @@ class HeirarchyCustomizationSet extends React.Component
 
   }
 
-  toggleSelected( uuid )
-  {
-    let selectedCustomizations = this.state.selectedCustomizations;
-    if( selectedCustomizations.indexOf( uuid ) == -1 )
-    {
-      selectedCustomizations.push( uuid );
-    } else
-    {
-      selectedCustomizations.splice( selectedCustomizations.indexOf( uuid ), 1 );
-    }
-
-    this.setState( {
-      selectedCustomizations: selectedCustomizations
-    } );
-  }
 
   renderSelectedCheckbox( uuid )
   {
-    if( this.state.selectedCustomizations.indexOf( uuid ) == -1 )
+    if( this.props.selectedCustomizations.indexOf( uuid ) == -1 )
     {
       return "";
     } else
@@ -100,9 +77,10 @@ class HeirarchyCustomizationSet extends React.Component
       return "";
     }
   }
+  
   generateCustomizationButton( uuid, customizationJSON )
   {
-    return <div key={uuid} className="col-md-2 col-md-offset-1 heirarchy-button" onClick={ () => this.toggleSelected( uuid ) }>
+    return <div key={uuid} className="col-md-2 col-md-offset-1 heirarchy-button" onClick={ () => this.props.toggleSelected( uuid ) }>
       { this.renderSelectedCheckbox( uuid ) };
             <div className="heirarchy-button-text">
               <div>
@@ -118,10 +96,10 @@ class HeirarchyCustomizationSet extends React.Component
   renderCustomizations()
   {
     let toRender = [];
-    let customizationIds = Object.keys( this.state.customizations );
+    let customizationIds = Object.keys( this.props.customizations );
     for( let i = 0; i < customizationIds.length; i++ )
     {
-      toRender.push( this.generateCustomizationButton( customizationIds[i], this.state.customizations[customizationIds[i]] ) );
+      toRender.push( this.generateCustomizationButton( customizationIds[i], this.props.customizations[customizationIds[i]] ) );
     }
     
     toRender.push( this.generateAddButton() );

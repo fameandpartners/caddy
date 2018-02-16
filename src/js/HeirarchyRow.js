@@ -15,15 +15,50 @@ class HeirarchyRow extends React.Component
     autoBind(this);
     this.state = {
       showAddModal: false,
-      customizations: {}
+      customizations: {},
+      selectedCustomizations: []
     };
   }
 
+  addCustomizationToCustomizationSet( customizationId, json )
+  {
+    let customizations = this.state.customizations;
+    if( customizationId == null )
+    {
+      customizationId = uuidv4();
+    }
+    customizations[customizationId] = json;
+
+    this.setState(
+      {
+        customizations: customizations
+      }
+    );
+    
+  }
+
+  toggleSelectedCustomization( uuid )
+  {
+    let selectedCustomizations = this.state.selectedCustomizations;
+    if( selectedCustomizations.indexOf( uuid ) == -1 )
+    {
+      selectedCustomizations.push( uuid );
+    } else
+    {
+      selectedCustomizations.splice( selectedCustomizations.indexOf( uuid ), 1 );
+    }
+
+    this.setState( {
+      selectedCustomizations: selectedCustomizations
+    } );
+    
+  }
+  
   renderCustomizationSet()
   {
     if( this.state.showAddModal )
     {
-      return <HeirarchyCustomizationSet closeModal={() => this.setState( { showAddModal:false } )} />;
+      return <HeirarchyCustomizationSet customizations={this.state.customizations} selectedCustomizations={this.state.selectedCustomizations} addCustomization={this.addCustomizationToCustomizationSet} toggleSelected={this.toggleSelectedCustomization} closeModal={() => this.setState( { showAddModal:false } )} />;
     } else
     {
       return "";
