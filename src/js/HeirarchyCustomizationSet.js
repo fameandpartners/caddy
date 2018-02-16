@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import '../css/components/HeirarchyAddModal.scss';
 import HeirarchyAddModal from './HeirarchyAddModal';
 import {createArrayGroups} from './Utils';
+import uuidv4 from 'uuid/v4';
 
 class HeirarchyCustomizationSet extends React.Component
 {
@@ -15,7 +16,7 @@ class HeirarchyCustomizationSet extends React.Component
     autoBind(this);
     this.state = {
       showAddModal: false,
-      customizations: []
+      customizations: {}
     };
   }
 
@@ -23,6 +24,19 @@ class HeirarchyCustomizationSet extends React.Component
 
   addCustomization( customizationId, json )
   {
+    let customizations = this.state.customizations;
+    if( customizationId == null )
+    {
+      customizationId = uuidv4();
+    }
+    customizations[customizationId] = json;
+
+    this.setState(
+      {
+        customizations: customizations,
+        showAddModal: false
+      }
+    );
   }
   
   renderAddModal()
@@ -38,7 +52,7 @@ class HeirarchyCustomizationSet extends React.Component
 
   generateAddButton()
   {
-    return <div className="col-md-2 heirarchy-button" onClick={ () => this.setState( { showAddModal: true } ) }>
+    return <div key="add-button" className="col-md-2 col-md-offset-1 heirarchy-button" onClick={ () => this.setState( { showAddModal: true } ) }>
             <div className="heirarchy-button-text">
               <div>
                 <center>New</center>
@@ -47,15 +61,35 @@ class HeirarchyCustomizationSet extends React.Component
       </div>;
 
   }
+
+  generateCustomizationButton( uuid, customizationJSON )
+  {
+    return <div key={uuid}className="col-md-2 col-md-offset-1 heirarchy-button">
+            <div className="heirarchy-button-text">
+              <div>
+                 <center>{customizationJSON['code']}</center>
+              </div>
+            </div>
+      </div>;
+    
+  }
+  
   renderCustomizations()
   {
-    let toRender = [this.generateAddButton() ];
+    let toRender = [];
+    let customizationIds = Object.keys( this.state.customizations );
+    for( let i = 0; i < customizationIds.length; i++ )
+    {
+      toRender.push( this.generateCustomizationButton( customizationIds[i], this.state.customizations[customizationIds[i]] ) );
+    }
+    
+    toRender.push( this.generateAddButton() );
     let toReturn = [];
-    let withRows = createArrayGroups( toRender, 3 );
+    let withRows = createArrayGroups( toRender, 4 );
 
     for( let i = 0; i < withRows.length; i++ )
     {
-      toReturn.push( <div className="row">
+      toReturn.push( <div key={"customization-set-row" + i} className="row">
                      {withRows[i]}
                      </div> );
     }
