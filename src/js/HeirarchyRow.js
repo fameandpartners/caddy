@@ -93,11 +93,23 @@ class HeirarchyRow extends React.Component
       return "";
     }
   }
-  
+
+  renderDisabled()
+  {
+    console.log( "disabled - " + this.props.disabled );
+    if( this.props.disabled )
+    {
+      return <span>Disabled</span>;
+    } else
+    {
+      return "";
+    }
+  }
   render()
   {
     return (
-        <div className="row top-margin heirarchy-row">
+      <div className="row top-margin heirarchy-row">
+        {this.renderDisabled()}
           <div className="col-md-2 heirarchy-button" onClick={ () => this.setState( { showAddModal: true } ) }>
             <div className="heirarchy-button-text">
               <div>

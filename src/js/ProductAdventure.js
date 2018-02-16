@@ -16,7 +16,8 @@ class ProductAdventure extends React.Component
     autoBind(this);
     this.state =
       {
-        heirarchy: {}
+        heirarchy: {},
+        selectedPath: []
       };
   }
 
@@ -93,7 +94,7 @@ class ProductAdventure extends React.Component
             {name}
           </div>
         </div>
-        <HeirarchyRow name={name} data={this.state.heirarchy} update={this.updateHeirarchy}/>
+      <HeirarchyRow name={name} data={this.state.heirarchy} update={this.updateHeirarchy} disabled={this.state.heirarchy[name].order > (this.state.selectedPath.length + 1)}/>
     </div>;    
   }
   render()
