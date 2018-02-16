@@ -48,7 +48,7 @@ class HeirarchyAddModal extends React.Component
 
   save()
   {
-    this.props.save( {
+    this.props.save( null, {
       image: this.state.image,
       name: this.name.value,
       code: this.code.value,

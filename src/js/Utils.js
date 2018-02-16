@@ -18,9 +18,21 @@ export const sortCustomizations = ( a, b ) => {
   {
     return splitFirst[0] > splitSecond[0] ? -1 : splitFirst[0] < splitSecond[0] ? 1 : 0 ;                                                                                             
   }
-}
+};
+
+export const createArrayGroups = ( array, size ) => {
+  let toReturn = [];
+
+  while (array.length > 0)
+  {
+    toReturn.push(array.splice(0, size));
+  }
+
+  return toReturn;
+};
 
 export default  {
   getBase64,
-  sortCustomizations
+  sortCustomizations,
+  createArrayGroups
 };

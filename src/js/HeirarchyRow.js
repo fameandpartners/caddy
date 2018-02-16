@@ -3,7 +3,8 @@ import React from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import '../css/components/HeirarchyRow.scss';
-import HeirarchyAddModal from './HeirarchyAddModal';
+import HeirarchyCustomizationSet from './HeirarchyCustomizationSet';
+import uuidv4 from 'uuid/v4';
 
 class HeirarchyRow extends React.Component
 {
@@ -14,27 +15,19 @@ class HeirarchyRow extends React.Component
     autoBind(this);
     this.state = {
       showAddModal: false,
-      components: []
+      customizations: {}
     };
   }
 
-  renderAddModal()
+  renderCustomizationSet()
   {
     if( this.state.showAddModal )
     {
-      return <HeirarchyAddModal save={this.addCustomization} closeModal={() => this.setState( { showAddModal:false } )} />;
+      return <HeirarchyCustomizationSet closeModal={() => this.setState( { showAddModal:false } )} />;
     } else
     {
       return "";
     }
-  }
-  addCustomization( json )
-  {
-    this.setState(
-      {
-        showAddModal: false
-      }
-    );
   }
   
   render()
@@ -48,8 +41,7 @@ class HeirarchyRow extends React.Component
               </div>
             </div>
           </div>
-
-          {this.renderAddModal()};
+          {this.renderCustomizationSet()};
         </div>
     );
   }
