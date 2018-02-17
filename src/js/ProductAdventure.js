@@ -85,6 +85,35 @@ class ProductAdventure extends React.Component
     }
   }
 
+  toggleInSelectedPath( customizationId, heirarchyData )
+  {
+    let selectedPath = this.state.selectedPath;
+    let pathIndex = selectedPath.indexOf( customizationId );
+    if(  pathIndex == -1 )
+    {
+      selectedPath = selectedPath.slice( 0, heirarchyData.order - 1 );
+      selectedPath.push( customizationId );
+    } else
+    {
+      selectedPath = selectedPath.slice( 0, pathIndex );
+    }
+
+    this.setState( {
+      selectedPath: selectedPath
+    } );
+  }
+
+  findSelectedItemForRow( heirarchyData )
+  {
+    if( heirarchyData.order > this.state.selectedPath.length )
+    {
+      return null;
+    } else
+    {
+      return this.state.selectedPath[heirarchyData.order - 1];
+    }
+      
+  }
   renderHeirarchyRow( name )
   {
 
@@ -94,7 +123,7 @@ class ProductAdventure extends React.Component
             {name}
           </div>
         </div>
-      <HeirarchyRow name={name} data={this.state.heirarchy} update={this.updateHeirarchy} disabled={this.state.heirarchy[name].order > (this.state.selectedPath.length + 1)}/>
+      <HeirarchyRow name={name} data={this.state.heirarchy} selectedItem={this.findSelectedItemForRow( this.state.heirarchy[name] )}update={this.updateHeirarchy} toggleInSelectedPath={this.toggleInSelectedPath} disabled={this.state.heirarchy[name].order > (this.state.selectedPath.length + 1)}/>
     </div>;    
   }
   render()
