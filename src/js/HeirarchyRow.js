@@ -99,13 +99,8 @@ class HeirarchyRow extends React.Component
 
   renderDisabled()
   {
-    if( this.props.disabled )
-    {
-      return <span>Disabled</span>;
-    } else
-    {
-      return "";
-    }
+    return <div key="disabled-text" className="col-md-12 text-center heirarchy-disabled-text" >Choose Item Above</div>;
+
   }
 
   renderCanvas( customizationJSON )
@@ -143,20 +138,36 @@ class HeirarchyRow extends React.Component
     
     
   }
+
+  renderContents()
+  {
+    let toReturn = [];
+
+    if( this.props.disabled )
+    {
+      toReturn.push( this.renderDisabled() );
+    } else
+    {
+      toReturn.push((this.state.selectedCustomizations || []).map(this.renderSelectedCustomizations) );
+      toReturn.push(
+        <div key="heirarchy-row-add-new" className="col-md-2 heirarchy-button" onClick={ () => this.setState( { showAddModal: true } ) }>
+          <div className="heirarchy-button-text">
+            <div>
+              <center>Add</center>
+            </div>
+          </div>
+        </div> );
+      toReturn.push(this.renderCustomizationSet() );
+    }
+    
+    return toReturn;
+    
+  }
   render()
   {
     return (
       <div className="row top-margin heirarchy-row">
-        {this.renderDisabled()}
-        {(this.state.selectedCustomizations || []).map(this.renderSelectedCustomizations)}
-          <div className="col-md-2 heirarchy-button" onClick={ () => this.setState( { showAddModal: true } ) }>
-            <div className="heirarchy-button-text">
-              <div>
-                <center>Add</center>
-              </div>
-            </div>
-          </div>
-          {this.renderCustomizationSet()}
+        {this.renderContents()}
         </div>
     );
   }
