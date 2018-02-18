@@ -40,18 +40,24 @@ class HeirarchyRow extends React.Component
 
   toggleSelectedCustomization( uuid )
   {
-    let data  = this.state.data;
-    if( data.selectedCustomizations.indexOf( uuid ) == -1 )
+    
+    let selectedCustomizations  = this.state.selectedCustomizations;
+    let data = this.state.data;
+    
+    if( selectedCustomizations.indexOf( uuid ) == -1 )
     {
-      data.selectedCustomizations.push( uuid );
+      selectedCustomizations.push( uuid );
     } else
     {
-      data.selectedCustomizations.splice( data.selectedCustomizations.indexOf( uuid ), 1 );
+      selectedCustomizations.splice( selectedCustomizations.indexOf( uuid ), 1 );
     }
 
+    data.selectedCustomizations[this.state.selectedPath] = selectedCustomizations;
+
     this.setState( {
-      selectedCustomizations: data.selectedCustomizations
+      selectedCustomizations: selectedCustomizations
     } );
+    
     this.props.update( this.props.name, data );
   }
 
@@ -60,22 +66,25 @@ class HeirarchyRow extends React.Component
   {
     let data = nextProps.data[nextProps.name] || {};
     data.customizations = data.customizations || {};
-    data.selectedCustomizations = data.selectedCustomizations || [];
-    
-    let selectedCustomizations = data.selectedCustomizations || [];
+    data.selectedCustomizations = data.selectedCustomizations || {};
+
+    let path = "path:" + nextProps.selectedPath.slice( 0, data.order -1  ).join( "," );
+    let selectedCustomizations = data.selectedCustomizations[path] || [];
     let customizations = data.customizations || {};
+    
     this.setState( {
       selectedCustomizations: selectedCustomizations,
       customizations: customizations,
       selectedItem: nextProps.selectedItem,
+      selectedPath: path,
       data: data
     } );
   }
 
-    componentDidMount()
-    {
-        this.componentWillReceiveProps( this.props );
-    }
+  componentDidMount()
+  {
+    this.componentWillReceiveProps( this.props );
+  }
   
   renderCustomizationSet()
   {
@@ -139,7 +148,7 @@ class HeirarchyRow extends React.Component
     return (
       <div className="row top-margin heirarchy-row">
         {this.renderDisabled()}
-        {(this.state.data.selectedCustomizations || []).map(this.renderSelectedCustomizations)}
+        {(this.state.selectedCustomizations || []).map(this.renderSelectedCustomizations)}
           <div className="col-md-2 heirarchy-button" onClick={ () => this.setState( { showAddModal: true } ) }>
             <div className="heirarchy-button-text">
               <div>
