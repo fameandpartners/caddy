@@ -59,8 +59,6 @@ class HeirarchyRow extends React.Component
   componentWillReceiveProps(nextProps)
   {
     let data = nextProps.data[nextProps.name] || {};
-
-    console.log( "Selected item - " + nextProps.selectedItem );
     data.customizations = data.customizations || {};
     data.selectedCustomizations = data.selectedCustomizations || [];
     
@@ -69,6 +67,7 @@ class HeirarchyRow extends React.Component
     this.setState( {
       selectedCustomizations: selectedCustomizations,
       customizations: customizations,
+      selectedItem: nextProps.selectedItem,
       data: data
     } );
   }
@@ -111,10 +110,20 @@ class HeirarchyRow extends React.Component
     }
   }
 
+  customizationSelectedClass( customizationId )
+  {
+    if( customizationId == this.state.selectedItem )
+    {
+      return "heirarchy-button-selected";
+    } else
+    {
+      return "";
+    }
+  }
   
   renderSelectedCustomizations( customizationId )
   {
-    return <div key={"select-" + customizationId} className="col-md-2 heirarchy-button heirarchy-button-has-image" onClick={ () => this.props.toggleInSelectedPath( customizationId, this.state.data ) } >
+    return <div key={"select-" + customizationId} className={"col-md-2 heirarchy-button heirarchy-button-has-image " + this.customizationSelectedClass( customizationId )} onClick={ () => this.props.toggleInSelectedPath( customizationId, this.state.data ) } >
             <div className="heirarchy-button-text">
             <div>
                 {this.renderCanvas( this.state.data.customizations[customizationId] )}
