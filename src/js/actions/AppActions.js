@@ -74,8 +74,24 @@ export function newProduct()
     type: 'NEW_PRODUCT'
   };
 }
+
+export function loadLatestProduct( styleNumber )
+{
+  return function( dispatch )
+  {
+    let url = FIREBASE_URL + '/products/' + styleNumber + '/version.json';
+    
+    request.get( url ).end((error, response) => {
+      let version = parseInt( response.text );
+      loadProduct( styleNumber, version )(dispatch);
+    } );
+    
+  };
+}
+
 export function loadProduct( styleNumber, versionNumber )
 {
+
   return function( dispatch )
   {
     let url = FIREBASE_URL + '/product/' + styleNumber + "/versions/" + versionNumber + ".json";

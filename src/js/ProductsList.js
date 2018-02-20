@@ -5,14 +5,15 @@ import autoBind from 'react-autobind';
 import request from 'superagent';
 import { connect } from 'react-redux';
 import * as AppActions from './actions/AppActions';
+import { Link } from 'react-router-dom';
 
 const FIREBASE_URL = process.env.FIREBASE_URL;
 
 class ProductsList extends React.Component
 {
-  constructor( props )
+  constructor( props, context )
   {
-    super( props );
+    super( props, context );
     autoBind( this );
     this.state = {
       products: {
@@ -36,6 +37,7 @@ class ProductsList extends React.Component
   loadProduct( styleNumber, versionNumber )
   {
     this.props.load( styleNumber, versionNumber );
+    this.context.router.history.push( "/" + styleNumber );
   }
   
   renderProducts( productsJSON )
@@ -57,7 +59,7 @@ class ProductsList extends React.Component
                 </div>
                 <div className="col-md-2">
                   <span>
-                    <button onClick={() => context.loadProduct( styleNumber, productsJSON[styleNumber].version )}>Load Product</button>
+                    <Link to={{pathname: '/product/' + styleNumber}}>Load Product</Link>
                   </span>
                 </div>
               </div>

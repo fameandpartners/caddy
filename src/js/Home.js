@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
+import * as AppActions from './actions/AppActions';
 
 import CustomizationList from './CustomizationList';
 import CombinationList from './CombinationList';
@@ -25,7 +26,8 @@ class Home extends React.Component
       {
         activeTab: 0,
         customizationList: [],
-        product: null
+        product: null,
+        loadedProductId: null
       };
   }
 
@@ -74,54 +76,80 @@ class Home extends React.Component
     {
       toReturn.push( this.generateTab( 4, "CYOA" ) );
     }
-  
-  return toReturn;
-}
-
-generateSingleTabContent( index, object )
-{
-  return( <div key={"tab-content-" + index} className={this.state.activeTab == index ? "tab-pane active" : "tab-pane"} id={index}>{object}</div> );
-  
-}
-generateAllTabContent()
-{
-  let toReturn = [];
-  
-  toReturn.push( this.generateSingleTabContent( 0, <ProductsList /> ) );    
-  toReturn.push( this.generateSingleTabContent( 1, <ThemePageList /> ) );
-
-  if( this.props.showProductDetails )
-  {
-    toReturn.push( this.generateSingleTabContent( 2, <ProductDetails /> ) );
-    toReturn.push( this.generateSingleTabContent( 3, <ProductImages /> ) );
     
+    return toReturn;
   }
 
-  if( this.props.showCustomizations )
+  generateSingleTabContent( index, object )
   {
-    toReturn.push( this.generateSingleTabContent( 4, <ProductAdventure /> ) );
+    return( <div key={"tab-content-" + index} className={this.state.activeTab == index ? "tab-pane active" : "tab-pane"} id={index}>{object}</div> );
     
   }
   
-  return toReturn;
-}
+  generateAllTabContent()
+  {
+    let toReturn = [];
+    
+    toReturn.push( this.generateSingleTabContent( 0, <ProductsList /> ) );    
+    toReturn.push( this.generateSingleTabContent( 1, <ThemePageList /> ) );
 
-render() {
-  return (
-    <div>
-      <div id="exTab2" className="container">	
-        <ul className="nav nav-tabs">
-          {this.generateTabs()}
-	</ul>
-
-	<div className="tab-content ">
-          {this.generateAllTabContent()}
-	</div>
-      </div>
+    if( this.props.showProductDetails )
+    {
+      toReturn.push( this.generateSingleTabContent( 2, <ProductDetails /> ) );
+      toReturn.push( this.generateSingleTabContent( 3, <ProductImages /> ) );
       
-    </div>
-  );
-}
+    }
+
+    if( this.props.showCustomizations )
+    {
+      toReturn.push( this.generateSingleTabContent( 4, <ProductAdventure /> ) );
+      
+    }
+    
+    return toReturn;
+  }
+
+  updateWithLatestState( props )
+  {
+    console.log( props );
+    if( ( this.state.loadedProductId != props.productToLoad ) && props.productToLoad != null  )
+    {
+      this.props.load( props.productToLoad );
+      this.setState( {
+        loadedProductId: props.productToLoad
+      } );
+      
+    }
+  }
+
+  componentDidMount()
+  {
+
+    this.updateWithLatestState( this.props );
+  }
+  
+  componentWillReceiveProps( nextProps )
+  {
+
+    this.updateWithLatestState( nextProps );
+  }
+  
+  render() {
+    return (
+      <div>
+        <div id="exTab2" className="container">	
+          <ul className="nav nav-tabs">
+            {this.generateTabs()}
+	  </ul>
+
+	  <div className="tab-content ">
+            {this.generateAllTabContent()}
+	  </div>
+        </div>
+        
+      </div>
+    );
+  }
 }
 
 function stateToProps(state)
@@ -144,6 +172,10 @@ function stateToProps(state)
 function dispatchToProps(dispatch)
 {
   return {
+    load: ( styleNumber ) =>
+      {
+        dispatch( AppActions.loadLatestProduct( styleNumber ) );
+      }
   };
 }
 
