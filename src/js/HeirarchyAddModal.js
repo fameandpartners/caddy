@@ -14,7 +14,8 @@ class HeirarchyAddModal extends React.Component
     super( props );
     autoBind(this);
     this.state = {
-      image: null
+      image: null,
+      customizationId: null
     };
   }
 
@@ -48,7 +49,7 @@ class HeirarchyAddModal extends React.Component
 
   save()
   {
-    this.props.save( null, {
+    this.props.save( this.state.customizationId, {
       image: this.state.image,
       name: this.name.value,
       code: this.code.value,
@@ -56,6 +57,38 @@ class HeirarchyAddModal extends React.Component
       audPrice: this.audPrice.value
     } );
   }
+
+  updateWithLatestState( props )
+  {
+    if( props.data )
+    {
+      this.setState( {
+        customizationId: props.data.id,
+        image: props.data.image
+      } );
+
+      this.name.value = props.data.name || "";
+      this.code.value = props.data.code || "";
+      this.usdPrice.value = props.data.usdPrice || "";
+      this.audPrice.value = props.data.audPrice || "";
+
+      
+      
+    }
+  }
+
+  componentDidMount()
+  {
+
+    this.updateWithLatestState( this.props );
+  }
+  
+  componentWillReceiveProps( nextProps )
+  {
+
+    this.updateWithLatestState( nextProps );
+  }
+  
   render()
   {
     return (

@@ -16,7 +16,9 @@ class HeirarchyCustomizationSet extends React.Component
     super( props );
     autoBind(this);
     this.state = {
-      showAddModal: false
+      showAddModal: false,
+      modalJson: {}
+      
     };
   }
 
@@ -27,7 +29,8 @@ class HeirarchyCustomizationSet extends React.Component
     this.props.addCustomization( customizationId, json );
     this.setState(
       {
-        showAddModal: false
+        showAddModal: false,
+        modalJson: {}
       }
     );
     
@@ -37,7 +40,7 @@ class HeirarchyCustomizationSet extends React.Component
   {
     if( this.state.showAddModal )
     {
-      return <HeirarchyAddModal save={this.addCustomization} closeModal={() => this.setState( { showAddModal:false } )} />;
+      return <HeirarchyAddModal save={this.addCustomization} data={this.state.modalJson} closeModal={() => this.setState( { showAddModal:false, modalJson: {} })} />;
     } else
     {
       return "";
@@ -46,7 +49,7 @@ class HeirarchyCustomizationSet extends React.Component
 
   generateAddButton()
   {
-    return <div key="add-button" className="col-md-2 col-md-offset-1 heirarchy-button" onClick={ () => this.setState( { showAddModal: true } ) }>
+    return <div key="add-button" className="col-md-2 col-md-offset-1 heirarchy-button" onClick={ () => this.setState( { showAddModal: true, modalJson: {} } ) }>
             <div className="heirarchy-button-text">
               <div>
                 <center>New</center>
@@ -77,12 +80,19 @@ class HeirarchyCustomizationSet extends React.Component
       return "";
     }
   }
-  
+
+  edit( uuid, customizationJSON )
+  {
+    customizationJSON['id'] = uuid;
+    this.setState( { showAddModal: true, modalJson: customizationJSON  } );
+    return false;
+  }
   generateCustomizationButton( uuid, customizationJSON )
   {
-    return <div key={uuid} className="col-md-2 col-md-offset-1 heirarchy-button heirarchy-button-has-image" onClick={ () => this.props.toggleSelected( uuid ) }>
+    return <div key={uuid} className="col-md-2 col-md-offset-1 heirarchy-button heirarchy-button-has-image" >
       { this.renderSelectedCheckbox( uuid ) }
-            <div className="heirarchy-button-text">
+      <div className="text-left"><center><a onClick={() => this.edit( uuid, customizationJSON ) }>Edit</a></center></div>    
+            <div className="heirarchy-button-text" onClick={ () => this.props.toggleSelected( uuid ) }>
               <div>
                 {this.renderCanvas( customizationJSON )}
                 <center>{customizationJSON['name']} {customizationJSON['code'] == '' ? '' :  '/'} <b>{customizationJSON['code']}</b></center>
