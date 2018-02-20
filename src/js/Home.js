@@ -33,6 +33,7 @@ class Home extends React.Component
 
   swapToTab(index)
   {
+    console.log( "swapping to tab " + index );
     this.setState(
       {
         activeTab: index
@@ -51,7 +52,7 @@ class Home extends React.Component
 
   generateTab( index, text )
   {
-    return( <li key={"tab-" + index} className={this.state.activeTab == index ? 'active' : ''}><a onClick={() => this.swapToTab(index)} href={"#" + index}>{text}</a></li>);
+    return( <li key={"tab-" + index} ><Link className={this.state.activeTab == index ? 'active' : ''} to={{pathname: '/product/' + this.state.loadedProductId + "/" + index}}>{text}</Link></li>);
   }
   
   generateTabs()
@@ -118,7 +119,11 @@ class Home extends React.Component
       this.setState( {
         loadedProductId: props.productToLoad
       } );
-      
+    }
+
+    if( props.currentTab != null )
+    {
+      this.swapToTab( props.currentTab );
     }
   }
 

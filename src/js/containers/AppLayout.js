@@ -22,7 +22,7 @@ class AppLayout extends Component
   loadHome(props)
   {
     
-    return (<Home productToLoad={props.match.params.productId}/>);
+    return (<Home productToLoad={props.match.params.productId} currentTab={props.match.params.tab}/>);
   }
 
   render()
@@ -30,7 +30,9 @@ class AppLayout extends Component
     return (
       <Switch>
         <Route exact path="/" component={this.loadHome} />
-        <Route path="/product/:productId" component={this.loadHome} />
+        <Route exact path="/product/:productId/:tab" component={this.loadHome} />        
+        <Route exact path="/product/:productId" component={this.loadHome} />
+
         
       </Switch>
     );
