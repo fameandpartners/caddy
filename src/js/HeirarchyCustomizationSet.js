@@ -56,7 +56,6 @@ class HeirarchyCustomizationSet extends React.Component
 
   }
 
-
   renderSelectedCheckbox( uuid )
   {
     if( this.props.selectedCustomizations.indexOf( uuid ) == -1 )
@@ -67,6 +66,7 @@ class HeirarchyCustomizationSet extends React.Component
       return <img className="selected-check-box" src="/check.png" height="25" width="25" />;
     }
   }
+  
   renderCanvas( customizationJSON )
   {
     if( customizationJSON && customizationJSON['image'] )
@@ -85,7 +85,7 @@ class HeirarchyCustomizationSet extends React.Component
             <div className="heirarchy-button-text">
               <div>
                 {this.renderCanvas( customizationJSON )}
-                 <center>{customizationJSON['code']}</center>
+                <center>{customizationJSON['name']} {customizationJSON['code'] == '' ? '' :  '/'} <b>{customizationJSON['code']}</b></center>
               </div>
             </div>
       </div>;
@@ -125,7 +125,7 @@ class HeirarchyCustomizationSet extends React.Component
         <div className="container">
           <div className="row top-margin">
             <div className="col-md-4 col-md-push-4 text-center">
-              Customization Sets
+              <h2>Customization Set</h2>
             </div>
           </div>
           {this.renderCustomizations()}

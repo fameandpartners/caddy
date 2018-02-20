@@ -126,6 +126,7 @@ class ProductAdventure extends React.Component
       <HeirarchyRow name={name} data={this.state.heirarchy} selectedItem={this.findSelectedItemForRow( this.state.heirarchy[name] )} selectedPath={this.state.selectedPath} update={this.updateHeirarchy} toggleInSelectedPath={this.toggleInSelectedPath} disabled={this.state.heirarchy[name].order > (this.state.selectedPath.length + 1)}/>
     </div>;    
   }
+  
   render()
   {
     return (
