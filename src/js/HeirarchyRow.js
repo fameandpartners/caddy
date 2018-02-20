@@ -90,7 +90,7 @@ class HeirarchyRow extends React.Component
   {
     if( this.state.showAddModal )
     {
-      return <HeirarchyCustomizationSet customizations={this.state.customizations} selectedCustomizations={this.state.selectedCustomizations} addCustomization={this.addCustomizationToCustomizationSet} toggleSelected={this.toggleSelectedCustomization} closeModal={() => this.setState( { showAddModal:false } )} />;
+      return <HeirarchyCustomizationSet key={"customization-set-" + this } customizations={this.state.customizations} selectedCustomizations={this.state.selectedCustomizations} addCustomization={this.addCustomizationToCustomizationSet} toggleSelected={this.toggleSelectedCustomization} closeModal={() => this.setState( { showAddModal:false } )} />;
     } else
     {
       return "";
