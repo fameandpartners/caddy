@@ -59,7 +59,7 @@ class ProductsList extends React.Component
                 </div>
                 <div className="col-md-2">
                   <span>
-                    <Link to={{pathname: '/product/' + styleNumber}}>Load Product</Link>
+                    <Link to={{pathname: '/product/' + styleNumber + "/2" } }>Load Product</Link>
                   </span>
                 </div>
               </div>
