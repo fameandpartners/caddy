@@ -78,7 +78,7 @@ class ProductsList extends React.Component
   {
     return (
       <div>
-        Products To Load
+        <div className="bottom-margin">Products To Load</div>
         <ol>
           {this.renderProducts( this.state.products )}
         </ol>
