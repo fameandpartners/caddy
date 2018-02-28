@@ -130,7 +130,7 @@ class HeirarchyAddModal extends React.Component
               <input type="text" ref={(input) => { this.audPrice = input;  }}/>
             </div>
           </div>
-          <div className="row top-margin">
+          <div className="row top-margin bottom-margin">
             <div className="col-md-4 col-md-push-4 text-center">
               <button onClick={this.save}>Save</button>
             </div>

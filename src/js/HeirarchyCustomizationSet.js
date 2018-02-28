@@ -134,13 +134,13 @@ class HeirarchyCustomizationSet extends React.Component
         </div>            
         <div className="container">
           <div className="row top-margin">
-            <div className="col-md-4 col-md-push-4 text-center">
+            <div className="col-md-4 col-md-push-4">
               <h2>Customization Set</h2>
             </div>
           </div>
           {this.renderCustomizations()}
-          <div className="row top-margin">
-            <div className="col-md-4 col-md-push-4 text-center">
+          <div className="row top-margin bottom-margin">
+            <div className="col-md-4 col-md-push-4">
               <button onClick={this.props.closeModal}>Done</button>
             </div>
           </div>
