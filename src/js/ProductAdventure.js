@@ -136,9 +136,9 @@ class ProductAdventure extends React.Component
             <button onClick={this.save}>Save</button>
           </div>
         </div>
-        {Object.keys( this.state.heirarchy ).map( this.renderHeirarchyRow ) }
+        {Object.keys( this.state.heirarchy ).sort( (a,b) => this.state.heirarchy[a].order- this.state.heirarchy[b].order ).map( this.renderHeirarchyRow ) }
         <div className="row top-margin">
-          <div className="col-md-2">
+          <div className="col-md-2"> 
             <input type="text" placeholder="Level Name" ref={(input) => { this.levelName = input;  }}/>
           </div>
           <div className="col-md-2 text-left">
