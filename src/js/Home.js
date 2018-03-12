@@ -74,7 +74,7 @@ class Home extends React.Component
 
     if( this.props.showCustomizations )
     {
-      toReturn.push( this.generateTab( 4, "CYOA" ) );
+      toReturn.push( this.generateTab( 4, "Heirarchy" ) );
     }
     
     return toReturn;
