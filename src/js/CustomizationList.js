@@ -172,6 +172,23 @@ class CustomizationList extends React.Component
     );
     
   }
+
+  exportCSV()
+  {
+    let csvString = "";
+    for( let i = 0; i < this.state.product.customizations.length; i++ )
+    {
+      let element =  this.state.product.customizations[i];
+      csvString  += element.code + "\"" + element.name +  "\"\n";
+    }
+    var blobdata = new Blob([csvString],{type : 'text/csv'});
+    let link = document.createElement("a");
+    link.setAttribute("href",  window.URL.createObjectURL(blobdata));
+    link.setAttribute("download", this.state.product.details.id.toLowerCase() + "-customizations.csv");
+    link.click();
+
+  }
+  
   renderCustomizationItem( customization, number )
   {
     return (
@@ -274,6 +291,9 @@ class CustomizationList extends React.Component
           </div>
           <div className="col-md-2">
             <button onClick={() => this.props.save(this.state.product) }>Save</button>
+          </div>
+          <div className="col-md-2">
+            <button onClick={this.exportCSV}>Export CSV</button>
           </div>
         </div>
       </div>

@@ -75,6 +75,8 @@ class Home extends React.Component
     if( this.props.showCustomizations )
     {
       toReturn.push( this.generateTab( 4, "Heirarchy" ) );
+      toReturn.push( this.generateTab( 5, "Old Customizations" ) );
+      
     }
     
     return toReturn;
@@ -103,6 +105,8 @@ class Home extends React.Component
     if( this.props.showCustomizations )
     {
       toReturn.push( this.generateSingleTabContent( 4, <ProductAdventure /> ) );
+      toReturn.push( this.generateSingleTabContent( 5, <CustomizationList /> ) );
+      
       
     }
     
