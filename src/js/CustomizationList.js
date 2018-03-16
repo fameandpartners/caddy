@@ -179,7 +179,7 @@ class CustomizationList extends React.Component
     for( let i = 0; i < this.state.product.customizations.length; i++ )
     {
       let element =  this.state.product.customizations[i];
-      csvString  += element.code + "\"" + element.name +  "\"\n";
+      csvString  += element.code + ",\"" + element.name +  "\"\n";
     }
     var blobdata = new Blob([csvString],{type : 'text/csv'});
     let link = document.createElement("a");
