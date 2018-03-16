@@ -18,7 +18,7 @@ class HeirarchyCustomizationSet extends React.Component
     this.state = {
       showAddModal: false,
       modalJson: {}
-      
+
     };
   }
 
@@ -33,9 +33,9 @@ class HeirarchyCustomizationSet extends React.Component
         modalJson: {}
       }
     );
-    
+
   }
-  
+
   renderAddModal()
   {
     if( this.state.showAddModal )
@@ -69,7 +69,7 @@ class HeirarchyCustomizationSet extends React.Component
       return <img className="selected-check-box" src="/check.png" height="25" width="25" />;
     }
   }
-  
+
   renderCanvas( customizationJSON )
   {
     if( customizationJSON && customizationJSON['image'] )
@@ -91,7 +91,7 @@ class HeirarchyCustomizationSet extends React.Component
   {
     return <div key={uuid} className="col-md-2 col-md-offset-1 heirarchy-button heirarchy-button-has-image" >
       { this.renderSelectedCheckbox( uuid ) }
-      <div className="text-left"><center><a onClick={() => this.edit( uuid, customizationJSON ) }>Edit</a></center></div>    
+      <div className="text-left"><center><a onClick={() => this.edit( uuid, customizationJSON ) }>Edit</a></center></div>
             <div className="heirarchy-button-text" onClick={ () => this.props.toggleSelected( uuid ) }>
               <div>
                 {this.renderCanvas( customizationJSON )}
@@ -99,9 +99,9 @@ class HeirarchyCustomizationSet extends React.Component
               </div>
             </div>
       </div>;
-    
+
   }
-  
+
   renderCustomizations()
   {
     let toRender = [];
@@ -110,7 +110,7 @@ class HeirarchyCustomizationSet extends React.Component
     {
       toRender.push( this.generateCustomizationButton( customizationIds[i], this.props.customizations[customizationIds[i]] ) );
     }
-    
+
     toRender.push( this.generateAddButton() );
     let toReturn = [];
     let withRows = createArrayGroups( toRender, 3 );
@@ -123,25 +123,39 @@ class HeirarchyCustomizationSet extends React.Component
     }
     return toReturn;
   }
-  
+
   render()
   {
     return (
-      <div className="heirarchy-add-modal">
-        {this.renderAddModal()};        
-        <div className="heirarchy-add-modal-close" onClick={this.props.closeModal}>
-          close
-        </div>            
-        <div className="container">
-          <div className="row top-margin">
-            <div className="col-md-4 col-md-push-4">
-              <h2>Customization Set</h2>
-            </div>
+      <div
+        id="hierarch-add-modal-overlay"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: "rgba(255, 255, 255, 0.75)",
+          zIndex: 100,
+          overflow: "auto"
+        }}
+      >
+        <div className="heirarchy-add-modal" style={{ position: 'absolute' }}>
+          {this.renderAddModal()}
+          <div className="heirarchy-add-modal-close" onClick={this.props.closeModal}>
+            close
           </div>
-          {this.renderCustomizations()}
-          <div className="row top-margin bottom-margin">
-            <div className="col-md-4 col-md-push-4">
-              <button onClick={this.props.closeModal}>Done</button>
+          <div className="container" style={{ width: '100%' }}>
+            <div className="row top-margin">
+              <div className="col-md-4 col-md-push-4">
+                <h2>Customization Set</h2>
+              </div>
+            </div>
+            {this.renderCustomizations()}
+            <div className="row top-margin bottom-margin">
+              <div className="col-md-4 col-md-push-4">
+                <button onClick={this.props.closeModal}>Done</button>
+              </div>
             </div>
           </div>
         </div>
@@ -160,7 +174,7 @@ function stateToProps(state)
       state.product.details.lengths = [];
     }
   }
-  return { 
+  return {
     showProductDetails: state.product && state.product.version != null,
     showCustomizations: state.product && state.product.version != null && state.product.version > 0,
     product: state.product
