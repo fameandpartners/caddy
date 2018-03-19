@@ -1,43 +1,79 @@
-/* eslint-disable */
-import request from 'superagent';
 import React from 'react';
-import autoBind from 'react-autobind';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import '../css/components/HeirarchyRow.scss';
-import HeirarchyCustomizationSet from './HeirarchyCustomizationSet';
 import uuidv4 from 'uuid/v4';
+import 'css/components/HeirarchyRow.scss';
+import get from 'lodash/get';
+import HeirarchyCustomizationSet from './HeirarchyCustomizationSet';
 import CanvasImage from './CanvasImage';
 
 class HeirarchyRow extends React.Component {
-  constructor(props) {
-    super(props);
-    autoBind(this);
-    this.state = {
-      showAddModal: false,
-      customizations: {},
-      selectedCustomizations: [],
-      data: {},
-    };
+  static propTypes = {
+    data: PropTypes.object.isRequired,
+    name: PropTypes.string.isRequired,
+    selectedPath: PropTypes.array.isRequired,
+    update: PropTypes.func.isRequired,
+    toggleInSelectedPath: PropTypes.func.isRequired,
+    id: PropTypes.string.isRequired,
+    selectedItem: PropTypes.object,
+    disabled: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    selectedItem: null,
+    disabled: false,
+    id: '',
+  };
+
+  state = {
+    showAddModal: false,
+    customizations: {},
+    selectedCustomizations: [],
+    data: {},
+  };
+
+  componentDidMount() {
+    this.componentWillReceiveProps(this.props);
   }
 
-  addCustomizationToCustomizationSet(customizationId, json) {
-    let data = this.state.data;
-    if (customizationId == null) {
-      customizationId = uuidv4();
-    }
-    data.customizations[customizationId] = json;
+  componentWillReceiveProps(nextProps) {
+    const data = nextProps.data[nextProps.name] || {};
+    data.customizations = data.customizations || {};
+    data.selectedCustomizations = data.selectedCustomizations || {};
+
+    const path = `path:${nextProps.selectedPath
+      .slice(0, data.order - 1)
+      .join(',')}`;
+    const selectedCustomizations = data.selectedCustomizations[path] || [];
+    const customizations = data.customizations || {};
+
+    this.setState({
+      selectedCustomizations,
+      customizations,
+      selectedItem: nextProps.selectedItem,
+      selectedPath: path,
+      data,
+    });
+  }
+
+  addCustomizationToCustomizationSet = (customizationId, json) => {
+    const data = this.state.data;
+    const customId = customizationId || uuidv4();
+    const levelId = this.props.id || this.props.name;
+    data.customizations[customId] = json;
     this.setState({
       customizations: data.customizations,
     });
 
-    this.props.update(this.props.name, data);
-  }
+    this.props.update(levelId, data);
+  };
 
-  toggleSelectedCustomization(uuid) {
-    let selectedCustomizations = this.state.selectedCustomizations;
-    let data = this.state.data;
+  toggleSelectedCustomization = (uuid) => {
+    const selectedCustomizations = this.state.selectedCustomizations;
+    const data = this.state.data;
+    const levelId = this.props.id || this.props.name;
 
-    if (selectedCustomizations.indexOf(uuid) == -1) {
+    if (selectedCustomizations.indexOf(uuid) === -1) {
       selectedCustomizations.push(uuid);
     } else {
       selectedCustomizations.splice(selectedCustomizations.indexOf(uuid), 1);
@@ -48,40 +84,25 @@ class HeirarchyRow extends React.Component {
     ] = selectedCustomizations;
 
     this.setState({
-      selectedCustomizations: selectedCustomizations,
+      selectedCustomizations,
     });
 
-    this.props.update(this.props.name, data);
-  }
+    this.props.update(levelId, data);
+  };
 
-  componentWillReceiveProps(nextProps) {
-    let data = nextProps.data[nextProps.name] || {};
-    data.customizations = data.customizations || {};
-    data.selectedCustomizations = data.selectedCustomizations || {};
+  customizationSelectedClass = (customizationId) => {
+    if (customizationId === this.state.selectedItem) {
+      return 'heirarchy-button-selected';
+    } else {
+      return '';
+    }
+  };
 
-    let path =
-      'path:' + nextProps.selectedPath.slice(0, data.order - 1).join(',');
-    let selectedCustomizations = data.selectedCustomizations[path] || [];
-    let customizations = data.customizations || {};
-
-    this.setState({
-      selectedCustomizations: selectedCustomizations,
-      customizations: customizations,
-      selectedItem: nextProps.selectedItem,
-      selectedPath: path,
-      data: data,
-    });
-  }
-
-  componentDidMount() {
-    this.componentWillReceiveProps(this.props);
-  }
-
-  renderCustomizationSet() {
+  renderCustomizationSet = () => {
     if (this.state.showAddModal) {
       return (
         <HeirarchyCustomizationSet
-          key={'customization-set-' + this}
+          key={`customization-set-${this}`}
           customizations={this.state.customizations}
           selectedCustomizations={this.state.selectedCustomizations}
           addCustomization={this.addCustomizationToCustomizationSet}
@@ -92,67 +113,54 @@ class HeirarchyRow extends React.Component {
     } else {
       return '';
     }
-  }
+  };
 
-  renderDisabled() {
+  renderDisabled = () => (
+    <div
+      key="disabled-text"
+      className="col-md-12 text-center heirarchy-disabled-text"
+    >
+      Choose Item Above
+    </div>
+  );
+
+  renderCanvas = (customizationJSON) => {
+    const image = get(customizationJSON, 'image');
     return (
-      <div
-        key="disabled-text"
-        className="col-md-12 text-center heirarchy-disabled-text"
-      >
-        Choose Item Above
-      </div>
-    );
-  }
-
-  renderCanvas(customizationJSON) {
-    if (customizationJSON && customizationJSON['image']) {
-      return (
+      image && (
         <CanvasImage
-          imageData={customizationJSON['image']}
+          imageData={customizationJSON.image}
           width={150}
           height={150}
         />
-      );
-    } else {
-      return '';
-    }
-  }
+      )
+    );
+  };
 
-  customizationSelectedClass(customizationId) {
-    if (customizationId == this.state.selectedItem) {
-      return 'heirarchy-button-selected';
-    } else {
-      return '';
-    }
-  }
-
-  renderSelectedCustomizations(customizationId) {
-    return (
-      <div
-        key={'select-' + customizationId}
-        className={
-          'col-md-2 heirarchy-button heirarchy-button-has-image ' +
-          this.customizationSelectedClass(customizationId)
-        }
-        onClick={() =>
-          this.props.toggleInSelectedPath(customizationId, this.state.data)
-        }
-      >
-        <div className="heirarchy-button-text">
-          <div>
-            {this.renderCanvas(this.state.data.customizations[customizationId])}
-            <center>
-              {this.state.data.customizations[customizationId].name}
-            </center>
-          </div>
+  renderSelectedCustomizations = customizationId => (
+    <div
+      role="presentation"
+      key={`select-${customizationId}`}
+      className={`col-md-2 heirarchy-button heirarchy-button-has-image ${this.customizationSelectedClass(
+        customizationId,
+      )}`}
+      onClick={() =>
+        this.props.toggleInSelectedPath(customizationId, this.state.data)
+      }
+    >
+      <div className="heirarchy-button-text">
+        <div>
+          {this.renderCanvas(this.state.data.customizations[customizationId])}
+          <center>
+            {this.state.data.customizations[customizationId].name}
+          </center>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 
-  renderContents() {
-    let toReturn = [];
+  renderContents = () => {
+    const toReturn = [];
 
     if (this.props.disabled) {
       toReturn.push(this.renderDisabled());
@@ -164,6 +172,7 @@ class HeirarchyRow extends React.Component {
       );
       toReturn.push(
         <div
+          role="presentation"
           key="heirarchy-row-add-new"
           className="col-md-2 heirarchy-button"
           onClick={() => this.setState({ showAddModal: true })}
@@ -179,7 +188,8 @@ class HeirarchyRow extends React.Component {
     }
 
     return toReturn;
-  }
+  };
+
   render() {
     return (
       <div className="row top-margin heirarchy-row">
@@ -192,7 +202,7 @@ class HeirarchyRow extends React.Component {
 function stateToProps(state) {
   if (state.product.details) {
     if (state.product.details.lengths == null) {
-      state.product.details.lengths = [];
+      state.product.details.lengths = []; // eslint-disable-line
     }
   }
   return {
@@ -205,8 +215,4 @@ function stateToProps(state) {
   };
 }
 
-function dispatchToProps(dispatch) {
-  return {};
-}
-
-export default connect(stateToProps, dispatchToProps)(HeirarchyRow);
+export default connect(stateToProps)(HeirarchyRow);
