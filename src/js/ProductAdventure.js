@@ -94,12 +94,13 @@ class ProductAdventure extends React.Component {
     }
   };
 
-  renderHeirarchyRow = (level, i) => (
-    <div key={`heirarchy-row-${level.name + i}`}>
+  renderHeirarchyRow = (key, level) => (
+    <div key={`heirarchy-row-${key}`}>
       <div className="row top-margin">
         <div className="col-md-2">{level.name}</div>
       </div>
       <HeirarchyRow
+        id={key}
         name={level.name}
         data={this.state.heirarchy}
         selectedItem={this.findSelectedItemForRow(level)}
@@ -124,8 +125,8 @@ class ProductAdventure extends React.Component {
             (a, b) =>
               this.state.heirarchy[a].order - this.state.heirarchy[b].order,
           )
-          .map((level, i) =>
-            this.renderHeirarchyRow(this.state.heirarchy[level], i),
+          .map(levelKey =>
+            this.renderHeirarchyRow(levelKey, this.state.heirarchy[levelKey]),
           )}
         <div className="row top-margin">
           <div className="col-md-2">

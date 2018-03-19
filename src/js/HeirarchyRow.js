@@ -59,19 +59,17 @@ class HeirarchyRow extends React.Component {
   addCustomizationToCustomizationSet = (customizationId, json) => {
     const data = this.state.data;
     const customId = customizationId || uuidv4();
-    const levelId = this.props.id || this.props.name;
     data.customizations[customId] = json;
     this.setState({
       customizations: data.customizations,
     });
 
-    this.props.update(levelId, data);
+    this.props.update(this.props.id, data);
   };
 
   toggleSelectedCustomization = (uuid) => {
     const selectedCustomizations = this.state.selectedCustomizations;
     const data = this.state.data;
-    const levelId = this.props.id || this.props.name;
 
     if (selectedCustomizations.indexOf(uuid) === -1) {
       selectedCustomizations.push(uuid);
@@ -87,7 +85,7 @@ class HeirarchyRow extends React.Component {
       selectedCustomizations,
     });
 
-    this.props.update(levelId, data);
+    this.props.update(this.props.id, data);
   };
 
   customizationSelectedClass = (customizationId) => {
