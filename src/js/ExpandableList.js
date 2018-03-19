@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import autoBind from 'react-autobind';
 
@@ -35,9 +36,9 @@ export default class ExpandableList extends React.Component
     {
       this.updateItem( number );
     }
-    
+
   }
-  
+
   renderItem( item, number )
   {
     return (
@@ -56,15 +57,15 @@ export default class ExpandableList extends React.Component
             </div>
           </div>
         </div>
-      </li>      
+      </li>
     );
-    
+
   }
   componentDidMount()
   {
     this.updateWithLatestState( this.props );
   }
-  
+
   updateWithLatestState(props)
   {
 
@@ -84,7 +85,7 @@ export default class ExpandableList extends React.Component
       );
     };
   }
-  
+
   componentWillReceiveProps( nextProps )
   {
     this.updateWithLatestState( nextProps );
@@ -100,7 +101,7 @@ export default class ExpandableList extends React.Component
       }
     );
   }
-  
+
   render()
   {
     return (
@@ -117,7 +118,7 @@ export default class ExpandableList extends React.Component
         </div>
       </div>
     );
-    
+
   }
-  
+
 }

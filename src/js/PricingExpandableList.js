@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import ExpandableList from './ExpandableList';
 
@@ -8,7 +9,7 @@ export default class PricingExpandableList extends ExpandableList
     super( props );
     this.audPriceBoxes = {};
     this.usdPriceBoxes = {};
-    
+
   }
 
   updateItem(number)
@@ -18,11 +19,11 @@ export default class PricingExpandableList extends ExpandableList
     {
       contents[number] = {};
     }
-    
+
     contents[number].name = this.textBoxes[number].value;
     contents[number].priceAUD = this.audPriceBoxes[number].value;
     contents[number].priceUSD = this.usdPriceBoxes[number].value;
-    
+
     this.setState(
       {
         contents: contents
@@ -30,14 +31,14 @@ export default class PricingExpandableList extends ExpandableList
     );
     this.props.contentUpdate( contents );
   }
-  
+
   renderItem( item, number )
   {
     if( item == null )
     {
       item = {};
     }
-    
+
     return (
       <li key={this.props.addType + "-item-" + number}>
         <div className="container">
@@ -52,7 +53,7 @@ export default class PricingExpandableList extends ExpandableList
                      onKeyUp={(e) => this.handleItemUpdate( number, e) }
                 ref={(input) => { this.textBoxes[number] = input; }} />
             </div>
-            
+
             <div className="col-md-1">
               AUD Price
             </div>
@@ -71,13 +72,12 @@ export default class PricingExpandableList extends ExpandableList
                      onKeyUp={(e) => this.handleItemUpdate( number, e) }
                 ref={(input) => { this.usdPriceBoxes[number] = input; }} />
             </div>
-            
+
           </div>
         </div>
-      </li>      
+      </li>
     );
-    
-  }
-  
-}
 
+  }
+
+}

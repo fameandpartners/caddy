@@ -1,3 +1,4 @@
+/* eslint-disable */
 import request from 'superagent';
 import React from 'react';
 import autoBind from 'react-autobind';

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import CustomizationCombinationList from './CustomizationCombinationList';
 
 export default class CustomizationCombinations
@@ -69,7 +70,7 @@ export default class CustomizationCombinations
 
     return toReturn;
   }
-  
+
   _generateCombinations()
   {
     let i, j;
@@ -93,9 +94,9 @@ export default class CustomizationCombinations
           temp = temp.concat( [validCombinations[j].name] );
           tempIds = tempIds.concat( [validCombinations[j].id] );
           tempCodes = tempCodes.concat( [validCombinations[j].code.toLowerCase()] );
-          
+
           if (validCombinations[j].new_silhouette_name) {
-              
+
             tempSilhouette = validCombinations[j].new_silhouette_name;
           }
 
@@ -104,14 +105,14 @@ export default class CustomizationCombinations
           }
         }
       }
-      
+
       if( temp.length > 0 )
-     { 
+     {
 
 
         if( !this._containsInvalidCombinations( tempIds ) )
        {
-         
+
           let incompatibilySet = [];
 
           for( let i = 0; i < tempIds.length; i++ )
@@ -120,7 +121,7 @@ export default class CustomizationCombinations
             if( this.biDirectionListOfInvalidCombinationToCombination && this.biDirectionListOfInvalidCombinationToCombination[ tempIds[i] ] )
            {
              let invalids = this.biDirectionListOfInvalidCombinationToCombination[ tempIds[i] ];
-             
+
              incompatibilySet =  incompatibilySet.concat( Object.keys( invalids ).filter( function( key ) { return !invalids[key]; } ) );
             }
             if( this.listOfInvalidCombinationsForLength )
@@ -130,7 +131,7 @@ export default class CustomizationCombinations
               incompatibilySet = incompatibilySet.concat( Object.keys( this.listOfInvalidCombinationsForLength ).filter( function( key ) { return self.listOfInvalidCombinationsForLength[ key]; }  ) );
             }
          }
-         
+
           result.push( {
             customization_ids: tempIds,
             customization_codes: tempCodes.sort(),
@@ -144,22 +145,22 @@ export default class CustomizationCombinations
     }
 
     return new CustomizationCombinationList( result );
-    
+
   }
 
   _isInvalidRow( customization )
   {
     return this.listOfInvalidCombinationsForLength && this.listOfInvalidCombinationsForLength[customization];
   }
-  
-  
+
+
   _containsInvalidCombinations( toCheck )
   {
     if( this._isInvalidRow( toCheck[0] ) )
     {
       return true;
     }
-        
+
     for( let i = 0; i < toCheck.length; i++ )
     {
       for( let j = i + 1; j < toCheck.length; j++ )
@@ -173,7 +174,7 @@ export default class CustomizationCombinations
 
     return false;
   }
-  
+
   _isValidCombination( first, second )
   {
     let combinations = [first.toString(),second.toString()].sort();
@@ -183,7 +184,7 @@ export default class CustomizationCombinations
     {
       return false;
     }
-    
+
     if( !ic[combinations[0]] )
     {
       return true;
@@ -194,8 +195,8 @@ export default class CustomizationCombinations
       return true;
     }
     return ic[combinations[0]][combinations[1]];
-    
+
   }
-  
-  
+
+
 }

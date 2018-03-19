@@ -1,3 +1,4 @@
+/* eslint-disable */
 import request from 'superagent';
 import React from 'react';
 import autoBind from 'react-autobind';
@@ -25,19 +26,19 @@ class ProductAdventure extends React.Component
   {
     console.log( 'updating' );
     let heirarchy = this.state.heirarchy;
-    
+
     heirarchy[name] = data;
     this.setState( {
       heirarchy: heirarchy
     } );
-    
+
   }
 
   save()
   {
     let product = this.state.product;
     product.heirarchy = this.state.heirarchy;
-    
+
     this.setState(
       {
         product
@@ -59,7 +60,7 @@ class ProductAdventure extends React.Component
 
     this.updateWithLatestState( this.props );
   }
-  
+
   componentWillReceiveProps( nextProps )
   {
 
@@ -112,7 +113,7 @@ class ProductAdventure extends React.Component
     {
       return this.state.selectedPath[heirarchyData.order - 1];
     }
-      
+
   }
   renderHeirarchyRow( name )
   {
@@ -124,9 +125,9 @@ class ProductAdventure extends React.Component
           </div>
         </div>
       <HeirarchyRow name={name} data={this.state.heirarchy} selectedItem={this.findSelectedItemForRow( this.state.heirarchy[name] )} selectedPath={this.state.selectedPath} update={this.updateHeirarchy} toggleInSelectedPath={this.toggleInSelectedPath} disabled={this.state.heirarchy[name].order > (this.state.selectedPath.length + 1)}/>
-    </div>;    
+    </div>;
   }
-  
+
   render()
   {
     return (
@@ -138,7 +139,7 @@ class ProductAdventure extends React.Component
         </div>
         {Object.keys( this.state.heirarchy ).sort( (a,b) => this.state.heirarchy[a].order- this.state.heirarchy[b].order ).map( this.renderHeirarchyRow ) }
         <div className="row top-margin">
-          <div className="col-md-2"> 
+          <div className="col-md-2">
             <input type="text" placeholder="Level Name" ref={(input) => { this.levelName = input;  }}/>
           </div>
           <div className="col-md-2 text-left">
@@ -154,7 +155,7 @@ function stateToProps(state)
 {
 
   let heirarchy = state.product.heirarchy || {};
-  return { 
+  return {
     product: state.product,
     heirarchy: heirarchy
   };
