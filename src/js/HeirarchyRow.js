@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import uuidv4 from 'uuid/v4';
 import 'css/components/HeirarchyRow.scss';
 import get from 'lodash/get';
+import classnames from 'classnames';
 import HeirarchyCustomizationSet from './HeirarchyCustomizationSet';
 import CanvasImage from './CanvasImage';
 
@@ -15,12 +16,12 @@ class HeirarchyRow extends React.Component {
     update: PropTypes.func.isRequired,
     toggleInSelectedPath: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
-    selectedItem: PropTypes.object,
+    selectedItem: PropTypes.string,
     disabled: PropTypes.bool,
   };
 
   static defaultProps = {
-    selectedItem: null,
+    selectedItem: '',
     disabled: false,
     id: '',
   };
@@ -139,9 +140,13 @@ class HeirarchyRow extends React.Component {
     <div
       role="presentation"
       key={`select-${customizationId}`}
-      className={`col-md-2 heirarchy-button heirarchy-button-has-image ${this.customizationSelectedClass(
-        customizationId,
-      )}`}
+      className={classnames(
+        'col-md-2 heirarchy-button heirarchy-button-has-image',
+        {
+          'heirarchy-button-selected':
+            customizationId === this.state.selectedItem,
+        },
+      )}
       onClick={() =>
         this.props.toggleInSelectedPath(customizationId, this.state.data)
       }
@@ -157,41 +162,29 @@ class HeirarchyRow extends React.Component {
     </div>
   );
 
-  renderContents = () => {
-    const toReturn = [];
-
-    if (this.props.disabled) {
-      toReturn.push(this.renderDisabled());
-    } else {
-      toReturn.push(
-        (this.state.selectedCustomizations || []).map(
-          this.renderSelectedCustomizations,
-        ),
-      );
-      toReturn.push(
-        <div
-          role="presentation"
-          key="heirarchy-row-add-new"
-          className="col-md-2 heirarchy-button"
-          onClick={() => this.setState({ showAddModal: true })}
-        >
-          <div className="heirarchy-button-text">
-            <div>
-              <center>Add</center>
-            </div>
+  renderContents = () => (
+    <div>
+      {this.state.selectedCustomizations.map(this.renderSelectedCustomizations)}
+      <div
+        role="presentation"
+        key="heirarchy-row-add-new"
+        className="col-md-2 heirarchy-button"
+        onClick={() => this.setState({ showAddModal: true })}
+      >
+        <div className="heirarchy-button-text">
+          <div>
+            <center>Add</center>
           </div>
-        </div>,
-      );
-      toReturn.push(this.renderCustomizationSet());
-    }
-
-    return toReturn;
-  };
+        </div>
+      </div>
+      {this.renderCustomizationSet()}
+    </div>
+  );
 
   render() {
     return (
       <div className="row top-margin heirarchy-row">
-        {this.renderContents()}
+        {this.props.disabled ? this.renderDisabled() : this.renderContents()}
       </div>
     );
   }
