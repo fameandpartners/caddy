@@ -3,10 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import uuidv4 from 'uuid/v4';
+import * as AppActions from 'actions/AppActions';
 // import CustomizationCombinations from './CustomizationCombinations';
 // import RenderedCustomizationCombinationList from './RenderedCustomizationCombinationList';
 import HeirarchyRow from './HeirarchyRow';
-import * as AppActions from './actions/AppActions';
 
 class ProductAdventure extends React.Component {
   static propTypes = {
