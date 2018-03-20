@@ -1,50 +1,34 @@
-/* eslint-disable */
-
 import React from 'react';
-import autoBind from 'react-autobind';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
+const propTypes = {
+  imageData: PropTypes.string,
+  defaultImageData: PropTypes.string,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+};
 
-export default class CanvasImage extends React.Component
-{
-  constructor( props )
-  {
-    super( props );
-    autoBind( this );
-  }
+const defaultProps = {
+  imageData: '',
+  defaultImageData: '',
+};
 
-  componentWillReceiveProps(nextProps)
-  {
-    
-    const ctx = this.refs.canvas.getContext('2d');
-    ctx.clearRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
-    let image = new Image();
-    image.src = nextProps.defaultImageData;
-    
-    if( nextProps.imageData != null )
-    {
+const CanvasImage = ({ imageData, defaultImageData, width, height }) => {
+  const imgData = imageData || defaultImageData;
+  return (
+    <img
+      alt="Caddy item"
+      src={imgData}
+      style={{ objectFit: 'contain' }}
+      className={classnames({ hidden: !imgData })}
+      width={width}
+      height={height}
+    />
+  );
+};
 
-      image = new Image();
-      image.src = nextProps.imageData;
-    }
+CanvasImage.propTypes = propTypes;
+CanvasImage.defaultProps = defaultProps;
 
-    if( image.height > image.width )
-    {
-      image.onload = () => ctx.drawImage(image,0,0, this.props.width, (image.height * this.props.width) / image.width ) ;
-    } else
-    {
-      image.onload = () => ctx.drawImage(image,0,0, (image.width * this.props.height) / image.height, this.props.height ) ;
-    }
-    
-  }
-
-  componentDidMount()
-  {
-    this.componentWillReceiveProps( this.props );
-  }
-  
-  render()
-  {
-      return( <canvas className={ this.props.imageData || this.props.defaultImageData ? "" : 'hidden'} width={this.props.width} height={this.props.height} ref="canvas" /> );
-  }
-}
-
+export default CanvasImage;

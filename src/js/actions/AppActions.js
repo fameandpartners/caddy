@@ -1,3 +1,4 @@
+/* eslint-disable */
 import request from 'superagent';
 import uuidv4 from 'uuid/v4';
 
@@ -7,7 +8,7 @@ const LENGTH_ORDER = ['Cheeky', 'Short', 'Micro-Mini', 'Mini', 'Knee', 'Midi', '
 
 function ensureLengthsSortedCorrectly( product )
 {
-  
+
   if( !product || !product.details || !product.details.lengths )
   {
     return product;
@@ -15,7 +16,7 @@ function ensureLengthsSortedCorrectly( product )
   {
     let lengths = product.details.lengths;
     lengths = lengths.sort( (a,b) => LENGTH_ORDER.indexOf( a ) - LENGTH_ORDER.indexOf( b ) );
-    
+
     // Clean up a legaciy issue where lengths didn't have ids
     for( let i = 0; i < lengths.length; i++ )
     {
@@ -31,7 +32,7 @@ function ensureLengthsSortedCorrectly( product )
 export function updateProductDetails( product )
 {
   product = ensureLengthsSortedCorrectly( product );
-  
+
   return function( dispatch )
   {
     product.version += 1;
@@ -44,7 +45,7 @@ export function updateProductDetails( product )
       .end((error, response) =>
            {
              let productListURL = FIREBASE_URL + '/products/' + product.details.id + ".json";
-             
+
              request.put( productListURL )
                .type( 'application/json' )
                .send( {version: product.version, name: product.details.name} )
@@ -61,7 +62,7 @@ export function updateProductDetails( product )
                            version: product.version,
                            heirarchy: product.heirarchy
                          } );
-                       
+
                      } );
            } );
   };
@@ -80,12 +81,12 @@ export function loadLatestProduct( styleNumber )
   return function( dispatch )
   {
     let url = FIREBASE_URL + '/products/' + styleNumber + '/version.json';
-    
+
     request.get( url ).end((error, response) => {
       let version = parseInt( response.text );
       loadProduct( styleNumber, version )(dispatch);
     } );
-    
+
   };
 }
 
@@ -112,4 +113,3 @@ export function loadProduct( styleNumber, versionNumber )
     } );
   };
 }
-

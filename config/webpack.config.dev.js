@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
+const path = require('path');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
@@ -76,6 +77,16 @@ module.exports = {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
+      css: path.resolve(paths.appSrc, 'css'),
+      actions: path.resolve(paths.appSrc, 'js/actions'),
+      components: path.resolve(paths.appSrc, 'js/components'),
+      constants: path.resolve(paths.appSrc, 'js/constants'),
+      container: path.resolve(paths.appSrc, 'js/container'),
+      decorators: path.resolve(paths.appSrc, 'js/decorators'),
+      libs: path.resolve(paths.appSrc, 'js/libs'),
+      polyfills: path.resolve(paths.appSrc, 'js/polyfills'),
+      reducers: path.resolve(paths.appSrc, 'js/reducers'),
+      stores: path.resolve(paths.appSrc, 'js/stores'),
     },
   },
   module: {

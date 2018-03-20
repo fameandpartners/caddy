@@ -1,3 +1,4 @@
+/* eslint-disable */
 import request from 'superagent';
 import React from 'react';
 import autoBind from 'react-autobind';
@@ -31,9 +32,9 @@ class HeirarchyAddModal extends React.Component
         image: image
       } );
     });
-    
+
   }
-  
+
   renderItemImage()
   {
     if( this.state.image )
@@ -44,7 +45,7 @@ class HeirarchyAddModal extends React.Component
     {
       return( <span>Upload Image: <input className="inline-upload" type="file" id="itemImage" name='itemImage' onChange={this.uploadImage} /></span> );
     }
-    
+
   }
 
   save()
@@ -72,8 +73,8 @@ class HeirarchyAddModal extends React.Component
       this.usdPrice.value = props.data.usdPrice || "";
       this.audPrice.value = props.data.audPrice || "";
 
-      
-      
+
+
     }
   }
 
@@ -82,20 +83,20 @@ class HeirarchyAddModal extends React.Component
 
     this.updateWithLatestState( this.props );
   }
-  
+
   componentWillReceiveProps( nextProps )
   {
 
     this.updateWithLatestState( nextProps );
   }
-  
+
   render()
   {
     return (
       <div className="heirarchy-add-modal">
         <div className="heirarchy-add-modal-close" onClick={this.props.closeModal}>
           close
-        </div>            
+        </div>
         <div className="container">
           <div className="row top-margin">
             <div className="col-md-4 col-md-push-4 text-center">
@@ -152,7 +153,7 @@ function stateToProps(state)
       state.product.details.lengths = [];
     }
   }
-  return { 
+  return {
     showProductDetails: state.product && state.product.version != null,
     showCustomizations: state.product && state.product.version != null && state.product.version > 0,
     product: state.product

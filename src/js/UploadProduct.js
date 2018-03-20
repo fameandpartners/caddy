@@ -1,3 +1,4 @@
+/* eslint-disable */
 import request from 'superagent';
 import React from 'react';
 import autoBind from 'react-autobind';
@@ -32,7 +33,7 @@ class UploadProduct extends React.Component
       code: customization.code
     };
   }
-  
+
   buildCustomizationList()
   {
     if( this.state.product.customizations )
@@ -42,7 +43,7 @@ class UploadProduct extends React.Component
     {
       return [];
     }
-    
+
   }
 
   addLengthsToCustomiations( customizations, lengths )
@@ -115,10 +116,10 @@ class UploadProduct extends React.Component
 
     }
 
-    
+
     return new RenderedCustomizationCombinationList( toReturn, this.state.product.details.colors ).toArray();
   }
-  
+
   buildDetails()
   {
     return {
@@ -135,7 +136,7 @@ class UploadProduct extends React.Component
       primary_image: this.state.product.details.primaryImage ? "https://d1msb7dh8kb0o9.cloudfront.net/spree/products/38022/original/fp2615-navy-1.jpg?1509656449" : "",
       secondary_images: this.state.product.details.secondaryImages ? this.state.product.details.secondaryImages.map( () => "https://d1msb7dh8kb0o9.cloudfront.net/spree/products/38021/original/fp2615-navy-2.jpg?1509656448" ) : "",
       taxons: this.state.product.details.taxons ? this.state.product.details.taxons : []
-      
+
     };
   }
 
@@ -164,7 +165,7 @@ class UploadProduct extends React.Component
 
     return toReturn;
   }
-  
+
   buildStyleNumber()
   {
     return this.state.product.details.id;
@@ -190,9 +191,9 @@ class UploadProduct extends React.Component
     console.log( 'Posting to ' + this.url.value );
     let toPost = this.jsonToSave();
     console.log( "ToPost = " );
-    console.log(  toPost );    
+    console.log(  toPost );
     request.put( this.url.value )
-      .withCredentials()    
+      .withCredentials()
       .type( 'application/json' )
       .send( toPost )
       .end((error, response) =>
@@ -219,9 +220,9 @@ class UploadProduct extends React.Component
     link.setAttribute("href",  window.URL.createObjectURL(blobdata));
     link.setAttribute("download", filename);
     link.click();
-    
+
   }
-  
+
   updateWithLatestState( props )
   {
     this.setState( {
@@ -234,7 +235,7 @@ class UploadProduct extends React.Component
 
     this.updateWithLatestState( this.props );
   }
-  
+
   componentWillReceiveProps( nextProps )
   {
 
@@ -251,7 +252,7 @@ class UploadProduct extends React.Component
       return <span></span>;
     }
   }
-  
+
   render()
   {
     return (
@@ -271,14 +272,14 @@ class UploadProduct extends React.Component
           <div className="col-md-2">
             <button onClick={this.exportJson}>Save JSON</button>
           </div>
-          
+
         </div>
         <div className="row">
           <div className="col-md-2">
             { this.renderWorkingOn() }
           </div>
         </div>
-        
+
       </div>
     );
   }
@@ -294,7 +295,7 @@ function stateToProps(state)
       state.product.details.lengths = [];
     }
   }
-  return { 
+  return {
     showProductDetails: state.product && state.product.version != null,
     showCustomizations: state.product && state.product.version != null && state.product.version > 0,
     product: state.product

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import autoBind from 'react-autobind';
 import * as AppActions from './actions/AppActions';
@@ -27,7 +28,7 @@ class ProductImages extends React.Component
       }
     );
   }
-  
+
   renderPrimaryImage()
   {
     if( this.state.product.details.primaryImage )
@@ -41,7 +42,7 @@ class ProductImages extends React.Component
             <button onClick={this.deletePrimaryImage}>Delete</button>
           </div>
         </div>
-        
+
          );
 
     } else
@@ -78,11 +79,11 @@ class ProductImages extends React.Component
           <div className="col-md-1">
             <button onClick={() => this.deleteSecondaryImage( number )}>Delete</button>
           </div>
-          
+
         </div>
        );
   }
-  
+
   uploadSecondaryImage( e )
   {
     let context = this;
@@ -95,7 +96,7 @@ class ProductImages extends React.Component
       } );
     });
   }
-  
+
   uploadProductImage( e )
   {
     let context = this;
@@ -115,7 +116,7 @@ class ProductImages extends React.Component
     this.setState( {
       product: props.product
     } );
-    
+
   }
 
   componentDidMount()
@@ -123,13 +124,13 @@ class ProductImages extends React.Component
 
     this.updateWithLatestState( this.props );
   }
-  
+
   componentWillReceiveProps( nextProps )
   {
 
     this.updateWithLatestState( nextProps );
   }
-  
+
   render()
   {
     return(
@@ -139,13 +140,13 @@ class ProductImages extends React.Component
             Primary Image
           </div>
         </div>
-        {this.renderPrimaryImage()}        
+        {this.renderPrimaryImage()}
         <div className="row top-margin">
           <div className="col-md-6">
             Secondary Images
           </div>
         </div>
-        {this.state.product.details.secondaryImages.map( this.renderSecondaryItem ) }        
+        {this.state.product.details.secondaryImages.map( this.renderSecondaryItem ) }
         <div className="row">
           <div className="col-md-12">
             <span>
@@ -158,12 +159,12 @@ class ProductImages extends React.Component
             <button onClick={()=>this.props.save( this.state.product)}>Save</button>
           </div>
         </div>
-        
+
       </div>
     );
   }
-  
-  
+
+
 }
 
 function stateToProps(state)
